@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 
 interface INavigationRouter {
     fun navigateBack()
-    fun navigateToAddEditTaskScreen()
+    fun navigateToAddEditTaskScreen(id: Long?)
     fun navigateToMap()
     fun getNavController(): NavController
 }

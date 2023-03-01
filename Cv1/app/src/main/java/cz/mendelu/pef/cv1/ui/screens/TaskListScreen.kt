@@ -1,11 +1,19 @@
 package cz.mendelu.pef.cv1.ui.screens
 
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import cz.mendelu.pef.cv1.model.Task
+import cz.mendelu.pef.cv1.navigation.INavigationRouter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskListScreen(){
+fun TaskListScreen(navigation: INavigationRouter){
+    var tasks: MutableList<Task> = mutableListOf()
+    tasks.add(Task("polozka 1"))
+    tasks.add(Task("polozka 2"))
+    tasks.add(Task("polozka 3"))
+
     // obrazovka reprezentuje cely kontejner bar + content, kde content bude ZVLAST
     Scaffold(
         topBar = {
@@ -16,17 +24,32 @@ fun TaskListScreen(){
             )},
         floatingActionButton = {
             FloatingActionButton(onClick = {
-
+                navigation.navigateToAddEditTaskScreen(-1L)
             }) {
             }
         }
     ) {
-        TaskListScreenContent()
+        TaskListScreenContent(tasks)
     }
 }
 
 @Composable
-fun TaskListScreenContent(){
+fun TaskListScreenContent(tasks: MutableList<Task>){ // todo unmutable
     // content obrazovky
-    Text(text = "Text")
+    LazyColumn(){
+        tasks.forEach{
+            item { Text(text = it.text) }
+        }
+
+
+//        seznam
+//        item {
+//            Text(text = "Polozka seznamu")
+//        }
+//
+//
+//        item {
+//            Text(text = "Polozka seznamu 2")
+//        }
+    }
 }

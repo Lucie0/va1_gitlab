@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import cz.mendelu.pef.cv1.navigation.Destination
+import cz.mendelu.pef.cv1.navigation.NavGraph
 import cz.mendelu.pef.cv1.ui.screens.AddEditTaskScreen
 import cz.mendelu.pef.cv1.ui.screens.MapScreen
 import cz.mendelu.pef.cv1.ui.screens.TaskListScreen
@@ -26,7 +28,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), 
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TaskListScreen()
+                    // hlavni stranka
+                    NavGraph(startDestination = Destination.TaskListScreen.route)
 
 ////                    Greeting("Android")
 //                    Column(/*parametry, jestli ma byt roztazeny po cele delce apod.*/) {
