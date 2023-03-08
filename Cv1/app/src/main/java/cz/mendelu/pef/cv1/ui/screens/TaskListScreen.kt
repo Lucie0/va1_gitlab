@@ -5,10 +5,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import cz.mendelu.pef.cv1.model.Task
 import cz.mendelu.pef.cv1.navigation.INavigationRouter
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TaskListScreen(navigation: INavigationRouter){
+fun TaskListScreen(navigation: INavigationRouter,
+                   viewModel: TaskListViewModel = getViewModel()) {
     var tasks: MutableList<Task> = mutableListOf()
     tasks.add(Task("polozka 1"))
     tasks.add(Task("polozka 2"))
@@ -24,7 +26,8 @@ fun TaskListScreen(navigation: INavigationRouter){
             )},
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navigation.navigateToAddEditTaskScreen(-1L)
+//                navigation.navigateToAddEditTaskScreen(-1L)
+                viewModel.insert()
             }) {
             }
         }
