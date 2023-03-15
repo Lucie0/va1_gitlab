@@ -1,10 +1,13 @@
 package cz.mendelu.pef.cv1.ui.elements
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import cz.mendelu.pef.cv1.ui.screens.AddEditTaskScreenContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,10 +19,9 @@ fun BackArrowScreen(
 ){
     Scaffold(
         topBar = {
-            SmallTopAppBar(
-                title = {
-                    Text(text = appBarTitle)
-                },
+            TopAppBar(title = {
+                Text(text = appBarTitle)
+            },
                 navigationIcon = {
                     IconButton(onClick = {
                         onBackClick()
@@ -31,7 +33,11 @@ fun BackArrowScreen(
                 }
             )
         }) { // slozene zavorky, kdy jsou cervene podtrzene, nejsou potreba
-        content(it) // poslan parametr paddingValues
+        LazyColumn(modifier = Modifier.padding(it)) {
+            item { // content bez item hazel err, ze volame composable v necomposable fci, reseni: item
+                content(it) // poslan parametr paddingValues
+            }
+        }
     }
 
 }
