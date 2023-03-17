@@ -1,6 +1,5 @@
-package cz.mendelu.pef.cv1.ui.screens
+package cz.mendelu.pef.cv1.ui.screens.taskList
 
-import android.accessibilityservice.AccessibilityService.TakeScreenshotCallback
 import cz.mendelu.pef.cv1.model.Task
 
 sealed class TaskListUIState { // trida reprezentujici stavy, kterych muze obrazovka nabyvat

@@ -2,15 +2,14 @@ package cz.mendelu.pef.cv1.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import cz.mendelu.pef.cv1.ui.screens.AddEditTaskScreen
-import cz.mendelu.pef.cv1.ui.screens.TaskListScreen
+import cz.mendelu.pef.cv1.ui.screens.addEditTask.AddEditTaskScreen
+import cz.mendelu.pef.cv1.ui.screens.taskList.TaskListScreen
 
 @Composable
 fun NavGraph(

@@ -9,9 +9,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import cz.mendelu.pef.cv1.navigation.Destination
 import cz.mendelu.pef.cv1.navigation.NavGraph
-import cz.mendelu.pef.cv1.ui.screens.AddEditTaskScreen
-import cz.mendelu.pef.cv1.ui.screens.MapScreen
-import cz.mendelu.pef.cv1.ui.screens.TaskListScreen
 import cz.mendelu.pef.cv1.ui.theme.Cv1Theme
 
 class MainActivity : ComponentActivity() {

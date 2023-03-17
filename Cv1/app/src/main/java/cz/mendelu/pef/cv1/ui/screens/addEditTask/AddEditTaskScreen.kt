@@ -1,4 +1,4 @@
-package cz.mendelu.pef.cv1.ui.screens
+package cz.mendelu.pef.cv1.ui.screens.addEditTask
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
@@ -9,9 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import cz.mendelu.pef.cv1.navigation.INavigationRouter
 import cz.mendelu.pef.cv1.ui.elements.BackArrowScreen
-import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
-import org.koin.androidx.compose.viewModel
 import androidx.compose.material3.OutlinedTextField as OutlinedTextField1
 
 @Composable
@@ -20,7 +18,6 @@ fun AddEditTaskScreen(
     id: Long?,
     viewModel: AddEditTaskViewModel = getViewModel()
 ){
-
     viewModel.addEditTaskUIState.value.let {
         when(it){
             AddEditTaskUIState.Default -> {

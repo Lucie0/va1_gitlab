@@ -1,11 +1,9 @@
-package cz.mendelu.pef.cv1.ui.screens
+package cz.mendelu.pef.cv1.ui.screens.taskList
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cz.mendelu.pef.cv1.architecture.BaseViewModel
 import cz.mendelu.pef.cv1.database.ITasksRepository
-import cz.mendelu.pef.cv1.model.Task
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class TaskListViewModel(private val repository: ITasksRepository)

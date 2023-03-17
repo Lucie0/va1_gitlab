@@ -1,4 +1,4 @@
-package cz.mendelu.pef.cv1.ui.screens
+package cz.mendelu.pef.cv1.ui.screens.addEditTask
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

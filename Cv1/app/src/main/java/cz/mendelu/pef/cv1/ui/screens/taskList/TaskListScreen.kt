@@ -1,13 +1,11 @@
-package cz.mendelu.pef.cv1.ui.screens
+package cz.mendelu.pef.cv1.ui.screens.taskList
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import cz.mendelu.pef.cv1.model.Task
@@ -19,7 +17,7 @@ import org.koin.androidx.compose.getViewModel
 fun TaskListScreen(navigation: INavigationRouter,
                    viewModel: TaskListViewModel = getViewModel()) {
 //    var tasks: MutableList<Task> = mutableListOf() // nepamatuje si stavajici list
-    var tasks = remember { // aby si pamatoval, pri znovuvykresleni screeny
+    var tasks = remember { // aby si pamatoval i po znovuvykresleni screeny
         mutableStateListOf<Task>()
     }
 //    tasks.add(Task("polozka 1"))
