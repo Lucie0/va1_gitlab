@@ -5,6 +5,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import cz.mendelu.pef.homework1.navigation.INavigationRouter
 import cz.mendelu.pef.homework1.ui.elements.BackArrowScreen
 import cz.mendelu.pef.homework1.ui.elements.Operators
@@ -34,28 +35,31 @@ fun OperationScreen(
 fun OperationScreenContent(paddingValues: PaddingValues,
                            navigation: INavigationRouter,
                            num: Int?){
-    Row(modifier = Modifier.fillMaxWidth().padding(paddingValues), // todo okraje vnejsi
+    Row(modifier = Modifier.fillMaxWidth().padding(Dp(10F)), // todo okraje vnejsi
         horizontalArrangement = Arrangement.SpaceBetween){
         Button(onClick = {
 //            navigation.navigateToResultScreen(Operators.ADDITION, num) // (druhy operand je 3)
-            navigation.navigateToResultScreen("ADD", num) // (druhy operand je 3)
+            navigation.navigateToResultScreen("ADDITION", num) // (druhy operand je 3)
         }) {
-            Text(text = "+")
+            Text(text = "+ 3")
         }
         Button(onClick = {
 //            navigation.navigateToResultScreen(Operators.SUBTRACTION, num)
+            navigation.navigateToResultScreen("SUBTRACTION", num)
         }) {
-            Text(text = "-")
+            Text(text = "- 3")
         }
         Button(onClick = {
 //            navigation.navigateToResultScreen(Operators.MULTIPLICATION, num)
+            navigation.navigateToResultScreen("MULTIPLICATION", num)
         }) {
-            Text(text = "*")
+            Text(text = "* 3")
         }
         Button(onClick = {
 //            navigation.navigateToResultScreen(Operators.DIVISION, num)
+            navigation.navigateToResultScreen("DIVISION", num)
         }) {
-            Text(text = "/")
+            Text(text = "/ 3")
         }
     }
 

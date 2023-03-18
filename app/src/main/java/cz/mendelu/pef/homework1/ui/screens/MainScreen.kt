@@ -1,6 +1,7 @@
 package cz.mendelu.pef.homework1.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -8,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+import androidx.core.text.isDigitsOnly
 import cz.mendelu.pef.homework1.navigation.INavigationRouter
 
 
@@ -66,15 +69,20 @@ fun MainScreenContent(navigation: INavigationRouter) {
         mutableStateOf("")
     }
 
-    OutlinedTextField(value = text.value, onValueChange = {// potreba nastavit i jako promennou, aby se zobrazovala
-        text.value = it // jakmile se zmeni hodnota, tak se to zapise do promenne
-    })
+    Column(Modifier.padding(Dp(10F))) {
+        OutlinedTextField(value = text.value, onValueChange = {// potreba nastavit i jako promennou, aby se zobrazovala
+            text.value = it // jakmile se zmeni hodnota, tak se to zapise do promenne
+        })
 
-    OutlinedButton(onClick = {
-        navigation.navigateToOperationScreen(Integer.parseInt(text.value))
-    }) {
-        Text(text = "Pocitej")
+        OutlinedButton(onClick = {
+            if (text.value != "" && text.value.isDigitsOnly()) {
+                navigation.navigateToOperationScreen(Integer.parseInt(text.value))
+            }
+        }) {
+            Text(text = "Pocitej")
 
+        }
     }
+
 
 }

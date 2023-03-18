@@ -15,7 +15,7 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.OperationScreen.route + "/" + num)
     }
 
-//    override fun navigateToResultScreen(operator: Operators, num: Int?) { // todo param enum
+//    override fun navigateToResultScreen(operator: Operators, num: Int?) {
 //        // (druhy operand je 3)
 //        navController.navigate(Destination.ResultScreen.route + "/" + operator + "/" + num)
 //        println(operator)
@@ -24,9 +24,9 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
 
     override fun navigateToResultScreen(operator: String, num: Int?) {
         // (druhy operand je 3)
-        navController.navigate(Destination.ResultScreen.route + "/" + operator + "/" + num) // todo spatny string ADD, predelat na enum.ADD
-        println(operator)
-        println(num)
+        navController.navigate(Destination.ResultScreen.route + "/" + operator + "/" + num)
+//        println(operator)
+//        println(num)
     }
 
     // getter

@@ -71,7 +71,7 @@ fun NavGraph(
             val operator = it.arguments?.getString("operator") // todo potrebuju enum
             ResultScreen(
                 navigation = navigation,
-                operator = Operators.ADDITION,
+                operator = operator,
                 num = num) // todo zmenit, operaace napevno
         }
     }
