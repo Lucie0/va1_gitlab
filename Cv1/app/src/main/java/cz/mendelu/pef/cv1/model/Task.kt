@@ -14,4 +14,7 @@ data class Task(
     @ColumnInfo(name = "id")
     var id: Long? = null // muze byt null kvuli tomu, aby se poznalo, ze je to budto novy zaznam, nebo upravovani stavajiciho
 
+    @ColumnInfo(name = "task_state")
+    var taskState: Boolean = false
+
 }

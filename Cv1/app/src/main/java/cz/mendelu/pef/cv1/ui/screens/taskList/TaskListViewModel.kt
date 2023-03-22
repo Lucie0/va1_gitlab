@@ -7,7 +7,7 @@ import cz.mendelu.pef.cv1.database.ITasksRepository
 import kotlinx.coroutines.launch
 
 class TaskListViewModel(private val repository: ITasksRepository)
-    : BaseViewModel() {
+    : BaseViewModel(), TaskListActions {
 
 //    fun insert(){
 //        launch { repository.insert(Task("abc"))  } // launch -- neco volam na pozadi
@@ -18,13 +18,19 @@ class TaskListViewModel(private val repository: ITasksRepository)
         val taskListUIState: MutableState<TaskListUIState> = mutableStateOf(TaskListUIState.Default)
 
     fun loadTasks(){
-        // poslech and DB
+        // poslech nad DB
         launch { // poslani na pozadi
             repository.getAll()
                 .collect() { // poslouchej nad zmenami a sbirej, a kdyz se neco zmeni, vrat to -- v it
                     taskListUIState.value =
                         TaskListUIState.Success(it) // zmen stav na "uspesne stazeni z db" a dej do ui list
                 }
+        }
+    }
+
+    override fun changeTaskState(id: Long, state: Boolean) {
+        launch {
+            repository.changeTaskState(id, state)
         }
     }
 }

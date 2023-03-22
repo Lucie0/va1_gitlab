@@ -36,7 +36,7 @@ fun AddEditTaskScreen(
         onBackClick = {
             navigation.navigateBack()
         }) {
-        AddEditTaskScreenContent(viewModel)
+        AddEditTaskScreenContent(actions = viewModel)
     }
 }
 

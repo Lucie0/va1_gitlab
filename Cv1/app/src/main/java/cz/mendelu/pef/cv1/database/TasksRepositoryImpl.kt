@@ -13,4 +13,8 @@ class TasksRepositoryImpl(private val dao: TasksDao) // dao se ziska v momente, 
     override suspend fun insert(task: Task): Long {
         return dao.insert(task)
     }
+
+    override suspend fun changeTaskState(id: Long, taskState: Boolean) {
+        return dao.changeTaskState(id, taskState)
+    }
 }

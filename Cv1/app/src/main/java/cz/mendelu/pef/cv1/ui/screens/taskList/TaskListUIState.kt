@@ -6,6 +6,4 @@ sealed class TaskListUIState { // trida reprezentujici stavy, kterych muze obraz
     object Default : TaskListUIState() // odpocivej, inicializuj, zakladni stav
     class Success(val tasks: List<Task>) : TaskListUIState() // uspech; trida proto, ze ma params
     // tuto tridu viewmodel upravuje a ui nad nim posloucha, aby zobrazoval aktualni data
-
-
 }
