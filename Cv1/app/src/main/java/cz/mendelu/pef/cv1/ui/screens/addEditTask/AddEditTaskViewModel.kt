@@ -18,7 +18,7 @@ class AddEditTaskViewModel(private val repository: ITasksRepository)
                 if (id > 0){
                     addEditTaskUIState.value = AddEditTaskUIState.TaskSaved
                 } else {
-                    // todo error, neulozeno
+                    // todo error, napr. ze neulozeno
                 }
             }
     }
