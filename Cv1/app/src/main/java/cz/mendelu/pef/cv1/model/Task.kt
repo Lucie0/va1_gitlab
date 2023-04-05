@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tasks") // vytvoreni tabulky v db
 data class Task(
     @ColumnInfo(name = "text") // rikam, ze tento parametr je sloupec a jmenuje se text
-    val text: String
+    var text: String
     ){ // datova trida, vyzaduje jednu hodnotu
 
     @PrimaryKey(autoGenerate = true)

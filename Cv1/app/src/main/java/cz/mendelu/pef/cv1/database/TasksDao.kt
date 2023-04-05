@@ -22,4 +22,14 @@ interface TasksDao {
 
     @Query("UPDATE tasks SET task_state = :taskState WHERE id = :id") // :nazev promenne ve fci
     suspend fun changeTaskState(id: Long, taskState: Boolean)
+
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    suspend fun getTaskById(id: Long): Task
+
+//    @Query("UPDATE tasks SET text = :text WHERE id = :id")
+//    suspend fun updateTask(id: Long, text: String): Long
+
+    // anotace @update si sestavi dotaz sama a nahradi zaznam v DB
+    @Update
+    suspend fun update(task: Task): Int
 }
