@@ -51,6 +51,11 @@ class AddEditTaskViewModel(private val repository: ITasksRepository) : BaseViewM
         addEditTaskUIState.value = AddEditTaskUIState.TaskChanged
     }
 
+    override fun onDateChange(date: Long?) {
+        data.task.date = date
+        addEditTaskUIState.value = AddEditTaskUIState.TaskChanged
+    }
+
     fun initTask() {
         if (taskId != null) {
             launch {

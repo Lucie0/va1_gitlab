@@ -1,15 +1,22 @@
 package cz.mendelu.pef.cv1.ui.screens.addEditTask
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import cz.mendelu.pef.cv1.R
 import cz.mendelu.pef.cv1.navigation.INavigationRouter
 import cz.mendelu.pef.cv1.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import cz.mendelu.pef.cv1.ui.elements.InfoElement
 import cz.mendelu.pef.cv1.ui.elements.MyTextField
+import cz.mendelu.pef.cv1.utils.DateUtils
+import java.util.*
 
 @Composable
 fun AddEditTaskScreen(
@@ -92,6 +99,39 @@ fun AddEditTaskScreenContent(
             error = if (data.taskTextError != null)
                 stringResource(id = data.taskTextError!!) else "" // adresa stringu
          )
+
+        val calendar = Calendar.getInstance()
+        data.task.date?.let {
+            calendar.timeInMillis = it
+        }
+
+        val y = calendar.get(Calendar.YEAR)
+        val m = calendar.get(Calendar.MONTH)
+        val d = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            LocalContext.current,
+            { dialog: DatePicker, year: Int, month: Int, day: Int ->
+                actions.onDateChange(DateUtils.getUnixTime(year, month, day))
+            },
+            y,
+            m,
+            d
+        )
+
+        InfoElement(
+            value = if(data.task.date != null)
+                DateUtils.getDateString(data.task.date!!) else null,
+            label = stringResource(R.string.date),
+            leadingIcon = R.drawable.ic_event_24,
+            onClick = {
+                datePickerDialog.show()
+            },
+            onClearClick = {
+                actions.onDateChange(null)
+            }
+        )
+
 
         OutlinedButton(onClick = {
             actions.saveTask()

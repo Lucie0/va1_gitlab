@@ -17,4 +17,6 @@ data class Task(
     @ColumnInfo(name = "task_state")
     var taskState: Boolean = false
 
+    @ColumnInfo(name = "date")
+    var date: Long? = null
 }

@@ -2,4 +2,5 @@
     <string name="app_name">Cv1</string>
     <string name="add">Add</string>
     <string name="cannot_be_empty">Cannot be empty</string>
+    <string name="date">Date</string>
 </resources>

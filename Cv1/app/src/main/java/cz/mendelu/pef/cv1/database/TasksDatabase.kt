@@ -10,7 +10,7 @@ import cz.mendelu.pef.cv1.model.Task
 // verze -- aktualni schema, rict, jake jsou zmeny -- migrace ze vsech verzi, ktere muze mit uzivatel nainstalovane,
 // pred . build lze vlozit .fallbackToDestructiveMigration() -- zajisteni smazani db a nasazeni nove
 // exportSchema -- exportovani schematu db, kdyz to spadne -- zjistovani create table
-@Database(entities = [Task::class], version = 2, exportSchema = true)
+@Database(entities = [Task::class], version = 3, exportSchema = true)
 abstract class TasksDatabase : RoomDatabase() { // abychom pracovali se soubory, potrebujeme context
 
     abstract fun tasksDao(): TasksDao // propojeni mezi db a daem
