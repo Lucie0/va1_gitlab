@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 fun BackArrowScreen(
     appBarTitle: String,
     onBackClick: () -> Unit,
+    drawFullScreenContent: Boolean = false, // kvuli mape, aby mohla byt na full screen
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ){
     Scaffold(
@@ -32,11 +33,17 @@ fun BackArrowScreen(
                 }
             )
         }) { // slozene zavorky, kdy jsou cervene podtrzene, nejsou potreba
-        LazyColumn(modifier = Modifier.padding(it)) {
-            item { // content bez item hazel err, ze volame composable v necomposable fci, reseni: item
-                content(it) // poslan parametr paddingValues
+
+        if(!drawFullScreenContent) {
+            LazyColumn(modifier = Modifier.padding(it)) {
+                item { // content bez item hazel err, ze volame composable v necomposable fci, reseni: item
+                    content(it) // poslan parametr paddingValues
+                }
             }
+        } else {
+            content(it)
         }
+
     }
 
 }

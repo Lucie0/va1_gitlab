@@ -19,4 +19,11 @@ data class Task(
 
     @ColumnInfo(name = "date")
     var date: Long? = null
+
+    @ColumnInfo(name = "latitude")
+    var latitude: Double? = null
+
+    @ColumnInfo(name = "longitude")
+    var longitude: Double? = null
+
 }

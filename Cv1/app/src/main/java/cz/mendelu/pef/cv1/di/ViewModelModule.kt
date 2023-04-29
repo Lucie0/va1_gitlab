@@ -1,6 +1,7 @@
 package cz.mendelu.pef.cv1.di
 
 import cz.mendelu.pef.cv1.ui.screens.addEditTask.AddEditTaskViewModel
+import cz.mendelu.pef.cv1.ui.screens.map.MapViewModel
 import cz.mendelu.pef.cv1.ui.screens.taskList.TaskListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -12,5 +13,8 @@ val viewModelModule = module {
     }
     viewModel {
         AddEditTaskViewModel(get())
+    }
+    viewModel {
+        MapViewModel(get())
     }
 }

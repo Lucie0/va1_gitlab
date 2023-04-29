@@ -62,6 +62,7 @@ fun AddEditTaskScreen(
         }) {
         AddEditTaskScreenContent(
             actions = viewModel,
+            navigation = navigation,
             data = data
         )
     }
@@ -71,6 +72,7 @@ fun AddEditTaskScreen(
 @Composable
 fun AddEditTaskScreenContent(
     actions: AddEditTaskActions,
+    navigation: INavigationRouter,
     data: AddEditScreenData
 ) { // content nemusi znat VM, staci, kdyz obrazovka pomoci DI (v param)
 
@@ -129,6 +131,18 @@ fun AddEditTaskScreenContent(
             },
             onClearClick = {
                 actions.onDateChange(null)
+            }
+        )
+
+        InfoElement(
+            value = "Todo value",
+            label = "Location",
+            leadingIcon = R.drawable.ic_event_24,
+            onClick = {
+                navigation.navigateToMap(data.task.latitude, data.task.longitude)
+            },
+            onClearClick = {
+                // todo onclearclick
             }
         )
 

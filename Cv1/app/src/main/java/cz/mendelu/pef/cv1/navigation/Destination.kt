@@ -4,4 +4,5 @@ sealed class Destination (val route: String) { // trida, ktera v sobe obsahuje d
     // kdyz je to val, tak je to atribut tridy
     object TaskListScreen : Destination(route = "task_list")
     object AddEditTaskScreen : Destination(route = "add_edit_task")
+    object MapScreen : Destination(route = "map")
 }
