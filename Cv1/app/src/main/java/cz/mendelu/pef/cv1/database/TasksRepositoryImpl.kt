@@ -22,7 +22,7 @@ class TasksRepositoryImpl(private val dao: TasksDao) // dao se ziska v momente, 
         return dao.getTaskById(id)
     }
 
-    override suspend fun update(task: Task): Int {
+    override suspend fun update(task: Task) {
         return dao.update(task)
     }
 

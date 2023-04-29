@@ -10,5 +10,5 @@ interface ITasksRepository {
     suspend fun changeTaskState(id: Long, taskState: Boolean)
     suspend fun getTaskById(id: Long): Task
 //    suspend fun updateTask(id: Long, text: String): Long
-    suspend fun update(task: Task): Int
+    suspend fun update(task: Task)
 }

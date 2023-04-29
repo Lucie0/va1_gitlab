@@ -31,5 +31,5 @@ interface TasksDao {
 
     // anotace @update si sestavi dotaz sama a nahradi zaznam v DB
     @Update
-    suspend fun update(task: Task): Int
+    suspend fun update(task: Task)
 }

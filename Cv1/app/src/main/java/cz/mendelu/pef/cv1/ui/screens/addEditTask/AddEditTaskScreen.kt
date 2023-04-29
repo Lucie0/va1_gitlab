@@ -89,8 +89,9 @@ fun AddEditTaskScreenContent(
             value = data.task.text,
             hint = "Task text",
             onValueChange = { actions.onTextChange(it) },
-            error = stringResource(id = data.taskTextError!!) // adresa stringu
-        )
+            error = if (data.taskTextError != null)
+                stringResource(id = data.taskTextError!!) else "" // adresa stringu
+         )
 
         OutlinedButton(onClick = {
             actions.saveTask()

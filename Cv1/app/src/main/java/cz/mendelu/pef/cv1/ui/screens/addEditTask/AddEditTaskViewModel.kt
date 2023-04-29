@@ -36,11 +36,11 @@ class AddEditTaskViewModel(private val repository: ITasksRepository) : BaseViewM
                 } else {
                     // repository.updateTask(data.task.id, data.task.text) // NEFUGOVALO
                     val updated = repository.update(data.task)
-                    if (updated == 1) { // neni nyni nutne, hodi se u seznamu
+//                    if (updated == 1) { // neni nyni nutne, hodi se u seznamu
                         addEditTaskUIState.value = AddEditTaskUIState.TaskSaved
-                    } else {
+//                    } else {
                         // todo error, napr. ze se nepodarilo updatovat
-                    }
+//                    }
                 }
             }
         }
