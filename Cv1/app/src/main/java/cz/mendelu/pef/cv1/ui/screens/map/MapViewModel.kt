@@ -6,19 +6,15 @@ import cz.mendelu.pef.cv1.ui.screens.addEditTask.AddEditTaskActions
 
 
 class MapViewModel(private val repository: ITasksRepository)
-    : BaseViewModel(), AddEditTaskActions {
+    : BaseViewModel(), MapScreenActions{
+    var latitude: Double? = null
+    var longitude: Double? = null
+    var locationChanged = false
 
-    override fun saveTask() {
-        TODO("Not yet implemented")
+    override fun onLocationChanged(latitude: Double, longitude: Double) {
+        locationChanged = true
+        this.latitude = latitude
+        this.longitude = longitude
     }
-
-    override fun onTextChange(text: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onDateChange(date: Long?) {
-        TODO("Not yet implemented")
-    }
-
 
 }

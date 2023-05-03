@@ -56,6 +56,12 @@ class AddEditTaskViewModel(private val repository: ITasksRepository) : BaseViewM
         addEditTaskUIState.value = AddEditTaskUIState.TaskChanged
     }
 
+    override fun onLocationChanged(latitude: Double?, longitude: Double?) {
+        data.task.latitude = latitude
+        data.task.longitude = longitude
+        addEditTaskUIState.value = AddEditTaskUIState.TaskChanged
+    }
+
     fun initTask() {
         if (taskId != null) {
             launch {

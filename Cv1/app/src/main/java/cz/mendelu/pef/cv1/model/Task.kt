@@ -26,4 +26,8 @@ data class Task(
     @ColumnInfo(name = "longitude")
     var longitude: Double? = null
 
+    fun hasLocation(): Boolean {
+        return latitude != null && longitude != null
+    }
+
 }

@@ -5,6 +5,5 @@ interface AddEditTaskActions { // actions vyuzivame ke komunikaci mezi contentem
     fun saveTask()
     fun onTextChange(text: String)
     fun onDateChange(date: Long?)
-
-
+    fun onLocationChanged(latitude: Double?, longitude: Double?) // pro ukladani, otazniky pro mazani
 }

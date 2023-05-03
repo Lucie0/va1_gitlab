@@ -11,8 +11,13 @@ import cz.mendelu.pef.cv1.navigation.INavigationRouter
 import cz.mendelu.pef.cv1.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import cz.mendelu.pef.cv1.extensions.round
+import cz.mendelu.pef.cv1.model.Location
 import cz.mendelu.pef.cv1.ui.elements.InfoElement
 import cz.mendelu.pef.cv1.ui.elements.MyTextField
 import cz.mendelu.pef.cv1.utils.DateUtils
@@ -27,6 +32,32 @@ fun AddEditTaskScreen(
 
     viewModel.taskId = id // inicalizace id z VM
     // na zacatku bude obrazovka nacitat data
+
+    //ziskani objektu LiveData -- objekt, ktery posloucha nad zmenami
+    val mapDataResult = navigation
+        .getNavController()
+        .currentBackStackEntry
+        ?.savedStateHandle
+        ?.getLiveData<String>("location")
+        ?.observeAsState()
+
+
+    mapDataResult?.value?.let {
+        // ziskani hodnoty v resultu -- string -- kyzeny json
+        val moshi: Moshi = Moshi.Builder().build()
+        val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+
+        val location = jsonAdapter.fromJson(it)
+
+        if(location != null) {
+            viewModel.onLocationChanged(location.latitude, location.longitude)
+        }
+
+        navigation.getNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.remove<String>("location")
+    }
 
     var data: AddEditScreenData by remember {
         mutableStateOf(viewModel.data)
@@ -82,7 +113,7 @@ fun AddEditTaskScreenContent(
     // -> udrzuju si data ve VM, takze sem jen probublaji dolu vvv
 
 
-    // policka vytahovat do samostanyuch composable fci a vytvorit si nove elementy
+    // policka vytahovat do samostanych composable fci a vytvorit si nove elementy
 
     if (!data.loading) {
 //        OutlinedTextField(
@@ -135,14 +166,20 @@ fun AddEditTaskScreenContent(
         )
 
         InfoElement(
-            value = "Todo value",
+            //todo odkomentovat
+//            value = if (data.task.hasLocation())
+//                "${data.task.latitude!!.round()}, ${data.task.longitude!!}"
+//                else "",
+            value = "TODO value",
+
             label = "Location",
             leadingIcon = R.drawable.ic_event_24,
             onClick = {
                 navigation.navigateToMap(data.task.latitude, data.task.longitude)
             },
             onClearClick = {
-                // todo onclearclick
+                // smazani hodnoty
+                actions.onLocationChanged(null, null)
             }
         )
 
