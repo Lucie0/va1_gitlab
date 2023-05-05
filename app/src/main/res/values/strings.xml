@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ContactsApp</string>
+
+    <string-array name="ContactType">
+        <item>Personal</item>
+        <item>Work</item>
+
+    </string-array>
+</resources>
