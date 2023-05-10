@@ -2,15 +2,14 @@ package cz.mendelu.pef.cv1.ui.screens.addEditTask
 
 import android.app.DatePickerDialog
 import android.widget.DatePicker
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import cz.mendelu.pef.cv1.R
 import cz.mendelu.pef.cv1.navigation.INavigationRouter
 import cz.mendelu.pef.cv1.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -49,9 +48,10 @@ fun AddEditTaskScreen(
 
         val location = jsonAdapter.fromJson(it)
 
-        if(location != null) {
-            viewModel.onLocationChanged(location.latitude, location.longitude)
-        }
+        if (location != null)
+            LaunchedEffect(location) {
+                viewModel.onLocationChanged(location.latitude, location.longitude)
+            }
 
         navigation.getNavController()
             .currentBackStackEntry
@@ -88,6 +88,13 @@ fun AddEditTaskScreen(
     }
     BackArrowScreen(
         appBarTitle = "Add Edit Task Screen",
+        actions = {
+                  IconButton(onClick = { /*TODO vm(actions).delete */ }) {
+                      Icon(
+                          imageVector = Icons.Default.Delete,
+                          contentDescription = null)
+                  }
+        },
         onBackClick = {
             navigation.navigateBack()
         }) {
@@ -166,12 +173,9 @@ fun AddEditTaskScreenContent(
         )
 
         InfoElement(
-            //todo odkomentovat
             value = if (data.task.hasLocation())
                 "${data.task.latitude!!.round()}, ${data.task.longitude!!.round()}"
                 else "",
-//            value = "TODO value",
-
             label = "Location",
             leadingIcon = R.drawable.ic_event_24,
             onClick = {
@@ -186,6 +190,7 @@ fun AddEditTaskScreenContent(
 
         OutlinedButton(onClick = {
             actions.saveTask()
+//            navigation.navigateBack()
         }) {
             Text(text = "Save task")
         }

@@ -1,9 +1,6 @@
 package cz.mendelu.pef.cv1.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import cz.mendelu.pef.cv1.model.Task
 import kotlinx.coroutines.flow.Flow
 
@@ -32,4 +29,7 @@ interface TasksDao {
     // anotace @update si sestavi dotaz sama a nahradi zaznam v DB
     @Update
     suspend fun update(task: Task)
+
+    @Delete
+    suspend fun delete(task: Task)
 }

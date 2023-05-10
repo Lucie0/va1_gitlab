@@ -1,6 +1,7 @@
 package cz.mendelu.pef.cv1.ui.elements
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -15,11 +16,14 @@ fun BackArrowScreen(
     appBarTitle: String,
     onBackClick: () -> Unit,
     drawFullScreenContent: Boolean = false, // kvuli mape, aby mohla byt na full screen
+    actions: @Composable RowScope.() -> Unit = {}, // tlacitka vpravo nahore v toolbaru
     content: @Composable (paddingValues: PaddingValues) -> Unit
 ){
     Scaffold(
         topBar = {
-            TopAppBar(title = {
+            TopAppBar(
+                actions = actions,
+                title = {
                 Text(text = appBarTitle)
             },
                 navigationIcon = {
