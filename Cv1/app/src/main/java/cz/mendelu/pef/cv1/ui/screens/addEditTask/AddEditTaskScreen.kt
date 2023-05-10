@@ -167,10 +167,10 @@ fun AddEditTaskScreenContent(
 
         InfoElement(
             //todo odkomentovat
-//            value = if (data.task.hasLocation())
-//                "${data.task.latitude!!.round()}, ${data.task.longitude!!}"
-//                else "",
-            value = "TODO value",
+            value = if (data.task.hasLocation())
+                "${data.task.latitude!!.round()}, ${data.task.longitude!!.round()}"
+                else "",
+//            value = "TODO value",
 
             label = "Location",
             leadingIcon = R.drawable.ic_event_24,

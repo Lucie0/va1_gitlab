@@ -122,11 +122,11 @@ fun MapScreenContent(
             //    infoWindowAnchor: Offset = Offset(0.5f, 0.0f),
             //    tag: Any? = null, // ulozeni jakekoli informace k markeru
             // posun markeru -- podrzet ho, pak se chytne do mysi
-            //todo odkomentovat
-//            Marker(
-//                state = MarkerState(LatLng(latitude, longitude)),
-//                draggable = true
-//            )
+
+            Marker(
+                state = MarkerState(LatLng(latitude, longitude)),
+                draggable = true
+            )
         }
 
         OutlinedButton(
