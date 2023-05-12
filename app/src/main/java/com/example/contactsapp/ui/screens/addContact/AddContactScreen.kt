@@ -20,5 +20,10 @@ fun AddContactScreenContent(
     paddingValues: PaddingValues,
     navigation: INavigationRouter
 ){
-
+    // TODO pridat infoelement (z ui/elements -> vytvorit .kt za Cv1)
+    // Jméno - povinné pole
+    //● Příjmení - povinné pole
+    //● Telefon - povinné pole
+    //● Typ kontaktu (osobní/pracovní) -povinné pole - Spinner ^
+    //● E-mailová adresa - nepovinné pole
 }

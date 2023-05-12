@@ -18,7 +18,7 @@ class ContactsApplication : Application() {
             modules(listOf(
                 // seznam modulu
                 // todo moduly
-                viewModelModule,
+//                viewModelModule,
                 repositoryModule,
                 daoModule,
                 databaseModule

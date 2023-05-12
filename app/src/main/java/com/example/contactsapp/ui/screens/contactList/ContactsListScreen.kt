@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.example.contactsapp.model.Contact
 import com.example.contactsapp.navigation.INavigationRouter
 
@@ -59,6 +60,11 @@ fun ContactsListScreenContent(
     LazyColumn(modifier = Modifier.padding(paddingValues)) {
         contacts.forEach {
             item(key = it.id) { // aby se nerefreshovaly zaznamy, ktere jsou stale stejne, predani jedinecneho id
+                ContactRow(
+                    contact = it,
+                onRowClick = {
+                    navigation.navigateToAddContactScreen(it.id)
+                })
 //                TaskRow(
 //                    task = it,
 //                    onRowClick = {
@@ -76,6 +82,7 @@ fun ContactsListScreenContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ContactRow(
     contact: Contact,
@@ -83,36 +90,39 @@ fun ContactRow(
 ) {
     Column {
         ListItem(
+            headlineText = {
+                Text("text")
+            },
             leadingContent = {
                 Box(
                     modifier = Modifier
+                        .size(40.dp)
                         .clip(CircleShape)
                         .background(color = Color.Cyan)
                 ) // todo random color
-            }
-        ) {
-            Text(text = contact.fname[0].toString().uppercase())
-
-        }
+                {
+                Text(text = contact.fname[0].toString().uppercase())
+                }
+            })
 
     }
 }
 
 
-@Composable
-fun TwoLineListItem() {
-    Column {
-        ListItem(
-            headlineContent = { Text("Two line list item with trailing") },
-            supportingContent = { Text("Secondary text") },
-            trailingContent = { Text("meta") },
-            leadingContent = {
-                Icon(
-                    Icons.Filled.Favorite,
-                    contentDescription = "Localized description",
-                )
-            }
-        )
-        Divider()
-    }
-}
+//@Composable
+//fun TwoLineListItem() {
+//    Column {
+//        ListItem(
+//            headlineContent = { Text("Two line list item with trailing") },
+//            supportingContent = { Text("Secondary text") },
+//            trailingContent = { Text("meta") },
+//            leadingContent = {
+//                Icon(
+//                    Icons.Filled.Favorite,
+//                    contentDescription = "Localized description",
+//                )
+//            }
+//        )
+//        Divider()
+//    }
+//}

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ContactsDao {
-    @Query("SELECT * FROM tasks")
+    @Query("SELECT * FROM contacts")
     fun getAll(): Flow<List<Contact>>
 
     @Insert
