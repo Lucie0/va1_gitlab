@@ -16,22 +16,21 @@ import com.google.maps.android.compose.*
 import cz.mendelu.pef.mapappdistance.di.viewModelModule
 import cz.mendelu.pef.mapappdistance.navigation.INavigationRouter
 import cz.mendelu.pef.mapappdistance.ui.elements.BackArrowScreen
+import cz.mendelu.pef.mapappdistance.ui.elements.TwoLocations
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ShowDistanceMapScreen(
     navigation: INavigationRouter,
-    latitude1: Double,
-    longitude1: Double,
-    latitude2: Double,
-    longitude2: Double,
+    twoLocations: TwoLocations,
     viewModel: ShowDistanceMapViewModel = getViewModel()
 ) {
+    viewModel.addCoords(twoLocations.latitude1, twoLocations.longitude1)
+    viewModel.addCoords(twoLocations.latitude2, twoLocations.longitude2)
 
-    viewModel.addCoords(latitude1, longitude1)
-    viewModel.addCoords(latitude2, longitude2)
-
-    var distance: Float = viewModel.getDistance()
+    var distance: Float by remember {
+        mutableStateOf(viewModel.getDistance())
+    }
 
     BackArrowScreen(
         appBarTitle = "Show distance",
@@ -61,6 +60,9 @@ fun ShowDistanceMapScreenContent(
             )
         )
     }
+
+//    val zoom: Double = 10.0 * actions.getDistance() / 32500
+//    println("zoom:$zoom")
 
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(

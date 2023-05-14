@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import cz.mendelu.pef.mapappdistance.model.Location
+import cz.mendelu.pef.mapappdistance.ui.elements.TwoLocations
 import cz.mendelu.pef.mapappdistance.ui.screens.choosePoint.ChoosePointMapScreen
 import cz.mendelu.pef.mapappdistance.ui.screens.showDistance.ShowDistanceMapScreen
 
@@ -32,7 +33,7 @@ fun NavGraph(
 
         composable(route = Destination.ShowDistanceMapScreen.route + "/{location}",
             arguments = listOf(
-                navArgument("location"){
+                navArgument("location") {
                     type = NavType.StringType
                     defaultValue = ""
                 }
@@ -40,19 +41,24 @@ fun NavGraph(
         ) {
 
             val locationString = it.arguments?.getString("location")
-            if (!locationString.isNullOrEmpty()){
+
+            if (!locationString.isNullOrEmpty()) {
                 val moshi: Moshi = Moshi.Builder().build()
                 val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
 
                 val location = jsonAdapter.fromJson(locationString)
+                val twoLocations: TwoLocations = TwoLocations(
+                    latitude1 = location!!.latitude1,
+                    longitude1 = location.longitude1,
+                    latitude2 = location.latitude2,
+                    longitude2 = location.longitude2
+                )
+
 
                 if (location != null) {
                     ShowDistanceMapScreen(
                         navigation = navigation,
-                        latitude1 = location.latitude1,
-                        longitude1 = location.longitude1,
-                        latitude2 = location.latitude2,
-                        longitude2 = location.longitude2
+                        twoLocations = twoLocations
                     )
                 }
             }
