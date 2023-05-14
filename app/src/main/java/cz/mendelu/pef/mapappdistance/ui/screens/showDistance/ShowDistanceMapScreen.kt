@@ -13,8 +13,10 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
+import cz.mendelu.pef.mapappdistance.di.viewModelModule
 import cz.mendelu.pef.mapappdistance.navigation.INavigationRouter
 import cz.mendelu.pef.mapappdistance.ui.elements.BackArrowScreen
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ShowDistanceMapScreen(
@@ -22,31 +24,22 @@ fun ShowDistanceMapScreen(
     latitude1: Double,
     longitude1: Double,
     latitude2: Double,
-    longitude2: Double
+    longitude2: Double,
+    viewModel: ShowDistanceMapViewModel = getViewModel()
 ) {
 
-    val locationA: Loc = Loc("A")
-    locationA.latitude = latitude1
-    locationA.longitude = longitude1
+    viewModel.addCoords(latitude1, longitude1)
+    viewModel.addCoords(latitude2, longitude2)
 
-    println(locationA)
-
-    val locationB: Loc = Loc("B")
-    locationB.latitude = latitude2
-    locationB.longitude = longitude2
-
-    var distance: Float = locationA.distanceTo(locationB)
+    var distance: Float = viewModel.getDistance()
 
     BackArrowScreen(
         appBarTitle = "Show distance",
         drawFullScreenContent = true,
-        onBackClick = { navigation.navigateBack()}) {
+        onBackClick = { navigation.navigateBack() }) {
         ShowDistanceMapScreenContent(
             paddingValues = it,
-            latitudeStart = latitude1,
-            longitudeStart = longitude1,
-            latitudeEnd = latitude2,
-            longitudeEnd = longitude2,
+            actions = viewModel,
             distance = distance
         )
     }
@@ -56,10 +49,7 @@ fun ShowDistanceMapScreen(
 @Composable
 fun ShowDistanceMapScreenContent(
     paddingValues: PaddingValues,
-    latitudeStart: Double,
-    longitudeStart: Double,
-    latitudeEnd: Double,
-    longitudeEnd: Double,
+    actions: ShowDistanceMapActions,
     distance: Float
 ) {
 
@@ -75,8 +65,8 @@ fun ShowDistanceMapScreenContent(
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(
             LatLng(
-                (latitudeStart + latitudeEnd) /2,
-                (longitudeStart + longitudeEnd)/2
+                (actions.getStartLocation().latitude + actions.getEndLocation().latitude) / 2,
+                (actions.getStartLocation().longitude + actions.getEndLocation().longitude) / 2
             ), 10f
         ) // souradnice z googlemaps -- prave mysitko
         // 49.21024872558183, 16.615863724525095
@@ -84,10 +74,6 @@ fun ShowDistanceMapScreenContent(
         //D2:20:65:3E:C0:18:D0:C9:62:F0:25:6F:B6:8B:0A:85:42:14:A1:4F pro evo09
 
     }
-
-    val points = mutableListOf<LatLng>()
-    points.add(LatLng(latitudeStart, longitudeStart))
-    points.add(LatLng(latitudeEnd, longitudeEnd))
 
     val text: String = "Distance \n$distance meters"
 
@@ -101,10 +87,31 @@ fun ShowDistanceMapScreenContent(
             uiSettings = mapUiSettings, // aby si kamera udrzela stavy
             cameraPositionState = cameraPositionState
         ) {
-            Polyline(points = points)
+            Circle(
+                center = actions.getStartLocation(),
+                radius = 250.0,
+                fillColor = Color.Blue,
+                strokeColor = Color.Blue
+            )
+            Circle(
+                center = actions.getEndLocation(),
+                radius = 250.0,
+                fillColor = Color.Blue,
+                strokeColor = Color.Blue
+            )
+            Polyline(
+                points = actions.getPoints(),
+                color = Color.Blue
+            )
         }
 
-        Column(Modifier.width(180.dp).height(80.dp).padding(16.dp).align(Alignment.TopStart)) {
+        Column(
+            Modifier
+                .width(180.dp)
+                .height(80.dp)
+                .padding(16.dp)
+                .align(Alignment.TopStart)
+        ) {
             AndroidView(
                 modifier = Modifier.fillMaxSize(),
                 factory = { context ->
