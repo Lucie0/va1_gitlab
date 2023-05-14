@@ -54,14 +54,6 @@ class ChoosePointMapViewModel()
             // oba plny, tudiz nic nedelam
         }
 
-//        val queue: Queue<LatLng> = LinkedList(data.)
-//
-////        queue.poll() // vyber prvni a zahozeni
-////        queue.add(newlocation)
-////        queue.add(newlocation)
-////        queue.add(newlocation)
-//
-//        locations = queue.toMutableList()
     }
 
     override fun startLocationNotNull(): Boolean {
