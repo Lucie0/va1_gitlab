@@ -3,9 +3,7 @@ package cz.mendelu.pef.mapappdistance.ui.screens.showDistance
 import android.widget.TextView
 import androidx.compose.foundation.layout.*
 import android.location.Location as Loc
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,9 +13,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import cz.mendelu.pef.mapappdistance.model.Location
 import cz.mendelu.pef.mapappdistance.navigation.INavigationRouter
 import cz.mendelu.pef.mapappdistance.ui.elements.BackArrowScreen
 
@@ -40,40 +35,7 @@ fun ShowDistanceMapScreen(
     locationB.latitude = latitude2
     locationB.longitude = longitude2
 
-    // pro parsovani url
-//    val mapDataResult = navigation
-//        .getNavController()
-//        .currentBackStackEntry
-//        ?.savedStateHandle
-//        ?.getLiveData<String>("location")
-//        ?.observeAsState()
-//
-//    if (mapDataResult != null) {
-//        println("mapdataResult:${mapDataResult.value}")
-//    }
-
-//    mapDataResult?.value?.let {
-//        // ziskani hodnoty v resultu -- string -- kyzeny json
-//        val moshi: Moshi = Moshi.Builder().build()
-//        val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
-//
-//        val location = jsonAdapter.fromJson(it)
-//
-//        if (location != null)
-//            LaunchedEffect(location) {
-////                viewModel.onLocationChanged(location.latitude, location.longitude)
-//            }
-//
-//        navigation.getNavController()
-//            .currentBackStackEntry
-//            ?.savedStateHandle
-//            ?.remove<String>("location")
-//    }
-
-
-    // on below line calculating distance.
     var distance: Float = locationA.distanceTo(locationB)
-
 
     BackArrowScreen(
         appBarTitle = "Show distance",
@@ -90,7 +52,7 @@ fun ShowDistanceMapScreen(
     }
 }
 
-@OptIn(MapsComposeExperimentalApi::class)
+
 @Composable
 fun ShowDistanceMapScreenContent(
     paddingValues: PaddingValues,
