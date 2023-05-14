@@ -8,12 +8,7 @@ import cz.mendelu.pef.mapappdistance.architecture.BaseViewModel
 
 class ChoosePointMapViewModel()
     : BaseViewModel(), ChoosePointMapActions {
-//    var latitudeStart: Double? = null
-//    var longitudeStart: Double? = null
-//    var latitudeEnd: Double? = null
-//    var longitudeEnd: Double? = null
     var locationChanged = false
-
 
     var data: ChoosePointMapData = ChoosePointMapData()
 
