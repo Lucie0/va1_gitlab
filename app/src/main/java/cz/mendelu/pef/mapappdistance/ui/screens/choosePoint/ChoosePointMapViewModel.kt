@@ -40,16 +40,16 @@ class ChoosePointMapViewModel()
 
     override fun addLocation(newlocation: LatLng) {
         if (data.locationStart == null) {
-            println("add location: 1")
+//            println("add location: 1")
             data.locationStart = newlocation
             choosePointMapUiState.value = ChoosePointMapUIState.LocationChanged
         } else if (data.locationEnd == null) {
-            println("add location: 2")
+//            println("add location: 2")
 
             data.locationEnd = newlocation
             choosePointMapUiState.value = ChoosePointMapUIState.LocationChanged
         } else {
-            println("add location: 3")
+//            println("add location: 3")
 
             // oba plny, tudiz nic nedelam
         }

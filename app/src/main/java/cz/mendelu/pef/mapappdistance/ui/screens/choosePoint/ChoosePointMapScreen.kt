@@ -49,7 +49,7 @@ fun ChoosePointMapScreen(
             longitude = 16.615863724525095,
             actions = viewModel,
             onClick = {
-                println("data.locationStart: " + data.locationStart)
+//                println("data.locationStart: " + data.locationStart)
                 navigation.navigateToShowDistanceScreen(
                     data.locationStart!!.latitude,
                     data.locationStart!!.longitude,
@@ -113,7 +113,7 @@ fun ChoosePointMapScreenContent(
 
                     override fun onMarkerDragEnd(p0: Marker) {
                         // updateLocation()
-                        println(p0.id + ":" + p0.position.latitude + "\n" + p0.position.longitude)
+//                        println(p0.id + ":" + p0.position.latitude + "\n" + p0.position.longitude)
 
                         if (p0.id == "m0") {
                             actions.onStartLocationChanged(
@@ -129,7 +129,7 @@ fun ChoosePointMapScreenContent(
                     }
 
                     override fun onMarkerDragStart(p0: Marker) {
-                        println(p0.id)
+//                        println(p0.id)
                     }
                 })
             }
