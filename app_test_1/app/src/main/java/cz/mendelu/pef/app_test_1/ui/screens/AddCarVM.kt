@@ -14,7 +14,8 @@ class AddCarVM(private val repository: IRepository) : BaseViewModel() {
     var addCarUIState: MutableState<AddCarUIState> =
         mutableStateOf(AddCarUIState.Loading)
 
-
+    // ----------------------------
+    // UKLADANI
     fun save() {
         if (dataCar.spz.isEmpty()) {
             // todo error IsEmpty
@@ -28,13 +29,20 @@ class AddCarVM(private val repository: IRepository) : BaseViewModel() {
             }
         }
     }
+    // ----------------------------
 
+    // ----------------------------
+    // zmena hodnoty
     fun onValueChange(spz: String){
         dataCar.spz = spz
         addCarUIState.value = AddCarUIState.Changed
         println("$spz == ${dataCar.spz}")
     }
+    // ----------------------------
 
+
+    // ----------------------------
+    // pro editovani itemu
     fun initItems(){
         if(dataCar.id != null){
             launch {
@@ -48,8 +56,8 @@ class AddCarVM(private val repository: IRepository) : BaseViewModel() {
             addCarUIState.value = AddCarUIState.Changed
         }
         // nedavat neco mimo vlakno lauch, jinak se bude hlasit driv, ze je vse OK, a ono to pritom bude porbihat ve vlakne na pozadi
-
     }
+    // ----------------------------
 
 }
 

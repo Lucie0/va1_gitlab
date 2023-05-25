@@ -10,16 +10,17 @@ class CarListVM(private val repository: IRepository) : BaseViewModel() {
 
     var carListUIState: MutableState<CarListUIState> = mutableStateOf(CarListUIState.Default)
 
-    fun load(){
+    // ----------------------------
+    // prvotni poslech nad DB
+    fun load() {
         // poslech nad DB
         launch { // poslani na pozadi
             repository.getAll()
                 .collect() { // poslouchej nad zmenami a sbirej, a kdyz se neco zmeni, vrat to -- v it
-                    carListUIState.value =
-                        CarListUIState.Success(it) // zmen stav na "uspesne stazeni z db" a dej do ui list
+                    carListUIState.value = CarListUIState.Success(it) // zmen stav na "uspesne stazeni z db" a dej do ui list
                 }
         }
     }
-
+    // ----------------------------
 
 }

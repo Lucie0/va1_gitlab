@@ -21,15 +21,20 @@ fun CarListScreen(
     viewModel: CarListVM = getViewModel()
 ) {
 
+    //--------------------------------
+    // aktualni list, ktery se bude zobrazovat
     var cars = remember { // aby si pamatoval i po znovuvykresleni screeny
         mutableStateListOf<Car>()
     }
+    // ----------------------------
 
 //    cars.add(Car("ABC0001"))
 //    cars.add(Car("ABC0001"))
 //    cars.add(Car("ABC0001"))
 //    cars.add(Car("ABC0001"))
 
+    // ----------------------------
+    // ui state -- kvuli rekompozici ui
     viewModel.carListUIState.value.let {  // nad promennou ve VM neco provedu
         when(it) {
             CarListUIState.Default -> {
@@ -41,7 +46,11 @@ fun CarListScreen(
             }
         }
     }
+    // ----------------------------
 
+
+    // ----------------------------
+    // samotena obrazovka
     Scaffold(
         topBar = {
             TopAppBar(title = {
@@ -64,6 +73,7 @@ fun CarListScreen(
             cars = cars
         )
     }
+    // ----------------------------
 }
 
 @Composable
@@ -71,6 +81,8 @@ fun CarListScreenContent(
     paddingValues: PaddingValues,
     cars: MutableList<Car>
 ) {
+    // ----------------------------
+    // seznam, vypisovani listu, neklikaci
     LazyColumn(modifier = Modifier.padding(paddingValues)) {
         cars.forEach {
             item() {
@@ -78,5 +90,6 @@ fun CarListScreenContent(
             }
         }
     }
+    // ----------------------------
 
 }

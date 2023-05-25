@@ -16,10 +16,15 @@ fun AddCarScreen(
     viewModel: AddCarVM = getViewModel()
 ) {
 
+    // ----------------------------
+    // ukladani dat z VM a pamatovani i po rekompozici
     var data: Car by remember {
         mutableStateOf(viewModel.dataCar)
     }
+    // ----------------------------
 
+    // ----------------------------
+    // rekompozice ui pri zmene
     viewModel.addCarUIState.value.let {
         when(it){
             AddCarUIState.Default -> {
@@ -42,7 +47,10 @@ fun AddCarScreen(
             }
         }
     }
+    // ----------------------------
 
+    // ----------------------------
+    //samotna obrazovka
     BackArrowScreen(
         appBarTitle = "Add Car",
         onBackClick = {
@@ -54,6 +62,7 @@ fun AddCarScreen(
             viewModel = viewModel
         )
     }
+    // ----------------------------
 }
 
 @Composable
@@ -61,6 +70,9 @@ fun AddCarScreenContent(
     paddingValues: PaddingValues,
     viewModel: AddCarVM
 ) {
+
+    // ----------------------------
+    // policko s SPZ
     MyTextField(
         value = viewModel.dataCar.spz,
         hint = "SPZ",
@@ -70,11 +82,15 @@ fun AddCarScreenContent(
         error = "",
         paddingValues = paddingValues
     )
+    // ----------------------------
 
+    // ----------------------------
+    // tlacitko SAVE
     OutlinedButton(onClick = {
         viewModel.save()
     }) {
         Text("Save")
     }
+    // ----------------------------
 
 }
