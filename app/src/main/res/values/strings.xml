@@ -1,9 +1,4 @@
 <resources>
-    <string name="app_name">ContactsApp</string>
-
-    <string-array name="ContactType">
-        <item>Personal</item>
-        <item>Work</item>
-
-    </string-array>
+    <string name="app_name">hw2</string>
+    <string name="mandatory_field">Povinne pole</string>
 </resources>

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.contactsapp'
+    namespace 'cz.mendelu.pef.hw2'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.contactsapp"
+        applicationId "cz.mendelu.pef.hw2"
         minSdk 21
         targetSdk 33
         versionCode 1
