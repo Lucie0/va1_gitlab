@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import cz.mendelu.pef.dostihyasazky.navigation.Destination
 import cz.mendelu.pef.dostihyasazky.navigation.NavGraph
 import cz.mendelu.pef.dostihyasazky.ui.screens.RulesScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreenContent
 import cz.mendelu.pef.dostihyasazky.ui.theme.DostihyASazkyTheme
 
 // todo jak vlozit obrazek,
