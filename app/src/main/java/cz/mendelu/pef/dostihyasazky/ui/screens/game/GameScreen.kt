@@ -1,9 +1,7 @@
 package cz.mendelu.pef.dostihyasazky.ui.screens.game
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -50,16 +48,24 @@ fun GameScreenContent(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
 
-        // todo image of gameplan
-        // Image()
+        Image(
+            painter = painterResource(id = R.drawable.plan_svetly_1b),
+            contentDescription = "planek"
+        )
 
-        Row() {
+        // todo stav hry
+
+        Row(
+          horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Button(onClick = { /*TODO */ }) {
                 Text("Hráč 1")// todo extract string
             }
+
             Button(onClick = { /*TODO*/ }) {
                 Text("Hráč 2")// todo extract string
             }
+
             Button(onClick = { /*TODO*/ }) {
                 Text("Hráč 3")// todo extract string
             }

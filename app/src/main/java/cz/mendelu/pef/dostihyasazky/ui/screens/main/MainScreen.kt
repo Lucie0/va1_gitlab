@@ -1,12 +1,18 @@
 package cz.mendelu.pef.dostihyasazky.ui.screens.main
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +23,8 @@ fun MainScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Dostihy a sazky") }// todo extract string
+                title = { Text("DOSTIHY A SÁZKY") },// todo extract string
+
             )
         }) {
         MainScreenContent(
@@ -33,25 +40,30 @@ fun MainScreenContent(
     navigation: INavigationRouter
 ) {
 
-    // todo image of game plan
-//    Image(
-//        painter = painterResource(id = R.drawable.game_plan_background),
-//        contentDescription = null)
-
-
     Column(
         modifier = Modifier
             .padding(paddingValues)
             .padding(horizontal = 16.dp)
     ) {
-        Button(onClick = { navigation.navigateToGameScreen() }) {
-            Text("Nová hra")// todo extract string
-        }
+        Image(
+            painter = painterResource(id = R.drawable.plan_svetly_1b_vyrez),
+            contentDescription = "planek",
+        )
 
-        Button(onClick = { navigation.navigateToSavedGamesScreen() }) {
-            Text("Načíst rozehranou")// todo extract string
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(onClick = { navigation.navigateToGameScreen() }) {
+                Text("Nová hra")// todo extract string
+            }
+
+            Button(onClick = { navigation.navigateToSavedGamesScreen() }) {
+                Text("Načíst rozehranou")// todo extract string
+            }
         }
     }
-
-
 }

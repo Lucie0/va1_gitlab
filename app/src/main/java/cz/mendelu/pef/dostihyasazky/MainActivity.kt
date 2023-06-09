@@ -18,7 +18,6 @@ import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreenContent
 import cz.mendelu.pef.dostihyasazky.ui.theme.DostihyASazkyTheme
 
 // todo jak vlozit obrazek,
-// proc nefunguji lazyverticalgrid
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
