@@ -1,27 +1,34 @@
 package cz.mendelu.pef.hw2.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import cz.mendelu.pef.hw2.model.Contact
 import cz.mendelu.pef.hw2.navigation.INavigationRouter
 import cz.mendelu.pef.hw2.ui.elements.BackArrowScreen
 import cz.mendelu.pef.hw2.ui.elements.MyTextField
 import cz.mendelu.pef.hw2.ui.elements.Spinner
 import org.koin.androidx.compose.getViewModel
+import cz.mendelu.pef.hw2.R
 
 // spinner pro typ kontaktu
 //https://www.geeksforgeeks.org/spinner-in-kotlin/
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddContactScreen(
     navigation: INavigationRouter,
     viewModel: AddContactVM = getViewModel()
 ) {
+
     var data: Contact by remember {
         mutableStateOf(viewModel.data)
     }
@@ -36,7 +43,7 @@ fun AddContactScreen(
             }
 
             AddContactUIState.Loading -> {
-                //viewModel.initItems()
+                //viewModel.initItem() -- kvuli edit screene jednoho kontaktu -- cekani na nacteni z db a/nebo/do VM
             }
             AddContactUIState.Saved -> {
                 LaunchedEffect(it) {
@@ -50,7 +57,9 @@ fun AddContactScreen(
         appBarTitle = "Add Contact",
         onBackClick = { navigation.navigateBack() }
     ) {
-        AddContactScreenContent(navigation = navigation, viewModel)
+        AddContactScreenContent(
+            navigation = navigation,
+            viewModel = viewModel)
     }
 
 }
@@ -63,8 +72,6 @@ fun AddContactScreenContent(
     viewModel: AddContactVM
 ) {
 
-    // todo var data = viewModel.data
-
     // Jméno - povinné pole
     //● Příjmení - povinné pole
     //● Telefon - povinné pole
@@ -72,8 +79,6 @@ fun AddContactScreenContent(
     //● E-mailová adresa - nepovinné pole
 
     var text by remember { mutableStateOf("") }
-
-    // todo vm -- data
 
     val options = listOf("Work", "Personal")
     var selectedOptionText by remember { mutableStateOf("") }
@@ -84,17 +89,20 @@ fun AddContactScreenContent(
         MyTextField(
             label = "First name",
             value = viewModel.data.fname,
-            onValueChange = { viewModel.onFNameChanged(it) }
+            onValueChange = { viewModel.onFNameChanged(it) },
+            error = viewModel.error_fname
         )
         MyTextField(
             label = "Last name",
             value = viewModel.data.lname,
             onValueChange = { viewModel.onLNameChanged(it) },
+            error = viewModel.error_lname
         )
         MyTextField(
             label = "Phone number",
             value = viewModel.data.phone_number,
-            onValueChange = { viewModel.onPhoneChanged(it) }
+            onValueChange = { viewModel.onPhoneChanged(it) },
+            error = viewModel.error_phone
         )
 
         Spinner(
@@ -103,14 +111,15 @@ fun AddContactScreenContent(
             onSelectedItemChanged = {
 //                selectedOptionText = it
                 viewModel.onTypeChanged(it)
-            }
+            },
+            error = viewModel.error_type
         )
 
         MyTextField(
-                label = "E-mail",
-                value = viewModel.data.email.toString(),
-                onValueChange = { viewModel.onEmailChanged(it) },
-            )
+            label = "E-mail",
+            value = viewModel.data.email ?: "",
+            onValueChange = { viewModel.onEmailChanged(it) }
+        )
 
 //        if (viewModel.data.email != null) {
 //            MyTextField(
@@ -133,12 +142,15 @@ fun AddContactScreenContent(
             Text(text = "Save")
         }
 
-//        Icon(
-//            painter = painterResource(id = R.drawable.ic_android_black_24dp),
-//            contentDescription = null
-//        )
-//
-//        Icon(imageVector = Icons.Default.Add, contentDescription = null)
+        Icon(
+            painter = painterResource(id = R.drawable.ic_android_black_24dp),
+            contentDescription = null,
+            modifier = Modifier.clickable { navigation.navigateBack() }
+        )
+
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = null)
 
 
     }
