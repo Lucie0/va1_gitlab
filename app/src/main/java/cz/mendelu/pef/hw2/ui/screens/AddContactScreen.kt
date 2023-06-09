@@ -1,5 +1,6 @@
 package cz.mendelu.pef.hw2.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -10,7 +11,9 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import cz.mendelu.pef.hw2.model.Contact
 import cz.mendelu.pef.hw2.navigation.INavigationRouter
 import cz.mendelu.pef.hw2.ui.elements.BackArrowScreen
@@ -46,6 +49,12 @@ fun AddContactScreen(
                 //viewModel.initItem() -- kvuli edit screene jednoho kontaktu -- cekani na nacteni z db a/nebo/do VM
             }
             AddContactUIState.Saved -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    stringResource(R.string.contact_added),
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 LaunchedEffect(it) {
                     navigation.navigateBack()
                 }
