@@ -24,7 +24,6 @@ fun MainScreen(
         topBar = {
             TopAppBar(
                 title = { Text("DOSTIHY A SÁZKY") },// todo extract string
-
             )
         }) {
         MainScreenContent(
