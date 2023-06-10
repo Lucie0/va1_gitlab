@@ -27,8 +27,10 @@ fun MyCardsScreen(
 ) {
     var cards = remember { mutableStateListOf<Card>() }
 
-    cards.add(Card("horse1"))
-    cards.add(Card("horse2"))
+    cards.add(Card("horse1", 5600,0, "vlastnictvi",
+        "Kun"))
+    cards.add(Card("horse2", 5600,0, "vlastnictvi",
+        "Kun"))
 
     BackArrowScreen(
         appBarTitle = "Moje karty",// todo extract string

@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.screens.BackArrowScreen
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun GameScreen(
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    viewModel: GameScreenVM = getViewModel()
 ) {
     BackArrowScreen(
         appBarTitle = "Hra", // todo extract string
