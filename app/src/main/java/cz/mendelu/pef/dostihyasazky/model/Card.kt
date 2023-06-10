@@ -1,5 +1,6 @@
 package cz.mendelu.pef.dostihyasazky.model
 
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,6 +10,10 @@ import androidx.room.PrimaryKey
 data class Card(
     @ColumnInfo(name = "name")
     var name: String,
+
+    // image resource
+    @ColumnInfo(name = "image")
+    var image: Int,
 
     // porizovaci cena
     @ColumnInfo(name = "historical_cost")
