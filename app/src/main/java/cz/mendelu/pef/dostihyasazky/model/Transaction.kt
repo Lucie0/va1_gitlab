@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "transactions")
 data class Transaction(
     @ColumnInfo(name = "event")
     var event: String,

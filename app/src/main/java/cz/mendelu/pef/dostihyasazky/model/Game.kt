@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // ulozena hra
-@Entity
+@Entity(tableName = "games")
 data class Game(
     @ColumnInfo(name = "date")
     var date: String,

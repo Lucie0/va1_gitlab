@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // karticka kone, specialni karta, servis karta, trener
-@Entity
+@Entity(tableName = "cards")
 data class Card(
     @ColumnInfo(name = "name")
     var name: String,
