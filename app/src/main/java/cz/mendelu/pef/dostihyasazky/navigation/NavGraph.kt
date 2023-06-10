@@ -14,7 +14,7 @@ import cz.mendelu.pef.dostihyasazky.ui.screens.RulesScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.SavedGamesListScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.TransactionsHistoryScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreen
-import cz.mendelu.pef.dostihyasazky.ui.screens.main.MainScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreen
 
 @Composable

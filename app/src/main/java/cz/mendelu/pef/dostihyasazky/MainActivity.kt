@@ -34,7 +34,8 @@ class MainActivity : ComponentActivity() {
 //                    CardDetailScreen()
 //                    SavedGamesListScreen()
 //                    TransactionsHistoryScreen()
-                    NavGraph(startDestination = Destination.MainScreen.route)
+//                    TODO NavGraph(startDestination = Destination.MainScreen.route)
+                    NavGraph(startDestination = Destination.GameScreen.route)
 
                 }
             }
