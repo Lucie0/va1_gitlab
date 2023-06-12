@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Exam template</string>
+    <string name="err_mandatory_field">Povinne pole</string>
+    <string name="err_points_2__7">Body musi byt v rozsahu 2--7</string>
+    <string name="err_must_not_have_letters">Nesmi obsahovat pismena, mezery, carky</string>
+    <string name="err_too_big_number">Prilis velke cislo</string>
+    <string name="saved">Ulozeno</string>
+    <string name="date">Datum</string>
+</resources>
