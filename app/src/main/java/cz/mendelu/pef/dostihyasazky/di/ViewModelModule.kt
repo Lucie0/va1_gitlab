@@ -3,6 +3,7 @@ package cz.mendelu.pef.dostihyasazky.di
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreenVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreenVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsVM
+import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -20,5 +21,8 @@ val viewModelModule = module {
     }
     viewModel {
         SavedGamesListVM(get())
+    }
+    viewModel {
+        SavedGameDetailVM(get())
     }
 }

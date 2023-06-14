@@ -21,4 +21,7 @@ data class SavedGame(
     @ColumnInfo(name = "name")
     var name: String? = null
 
+    @ColumnInfo(name = "notes")
+    var notes: String? = null
+
 }

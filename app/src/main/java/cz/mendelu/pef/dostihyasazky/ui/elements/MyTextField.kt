@@ -1,9 +1,11 @@
 package cz.mendelu.pef.dostihyasazky.ui.elements
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +23,7 @@ fun MyTextField(
         value = value,
         enabled = enabled,
         onValueChange = onValueChange,
+        modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         isError = error != null,
         supportingText = {

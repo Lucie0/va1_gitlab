@@ -1,4 +1,4 @@
-package cz.mendelu.pef.dostihyasazky.ui.screens
+package cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -15,8 +15,6 @@ import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
-import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListUIState
-import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListVM
 import org.koin.androidx.compose.getViewModel
 
 @Composable

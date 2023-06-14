@@ -1,27 +1,55 @@
-package cz.mendelu.pef.dostihyasazky.ui.screens
+package cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyTextField
+import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SavedGameDetailScreen(
     navigation: INavigationRouter,
-    id: Long?
+    id: Long?,
+    viewModel: SavedGameDetailVM = getViewModel()
 ) {
 
-    // tod vm get game by id
+    viewModel.savedGameId = id
+    var data by remember { mutableStateOf(viewModel.data) }
 
+    viewModel.uiState.value.let {
+        when(it){
+            SavedGameDetailUIState.Default -> {}
+            SavedGameDetailUIState.Changed -> {
+                data = viewModel.data
+                viewModel.uiState.value = SavedGameDetailUIState.Default
+            }
+            SavedGameDetailUIState.Loading -> {
+                viewModel.initSavedGame()
+            }
+            SavedGameDetailUIState.Saved -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    "Uloženo", // todo extract string
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                LaunchedEffect(it) {
+                    navigation.navigateBack()
+                }
+            }
+        }
+    }
     BackArrowScreen(
         appBarTitle = "Detail uložené hry",
         onBackClick = { navigation.navigateBack() },
@@ -40,13 +68,19 @@ fun SavedGameDetailScreen(
             }
         }
     ) {
-        SavedGameDetailScreenContent()
+        SavedGameDetailScreenContent(
+            savedGame = data,
+            viewModel = viewModel
+        )
     }
 
 }
 
 @Composable
-fun SavedGameDetailScreenContent() {
+fun SavedGameDetailScreenContent(
+    savedGame: SavedGame,
+    viewModel: SavedGameDetailVM
+) {
 
     Column(modifier = Modifier
         .padding(horizontal = 16.dp)
@@ -54,36 +88,33 @@ fun SavedGameDetailScreenContent() {
 
         MyTextField(
             label = "Název",
-            value = "",
+            value = savedGame.name ?: "",
             enabled = true,
             onValueChange = {
-                // vm.on value change(it)
+                viewModel.onNameChange(it)
             })
         MyTextField(
             label = "Poznámky",
-            value = "",
+            value = savedGame.notes ?: "",
             enabled = true,
             onValueChange = {
-                // vm.on value change(it)
+                viewModel.onNotesChanges(it)
             })
 
         MyTextField(
             label = "Datum",
-            value = "10. 10. 2022",
+            value = savedGame.date,
             enabled = false,
-            onValueChange = {
-                // vm.on value change(it)
-            })
+            onValueChange = {})
         MyTextField(
             label = "Hráč na řadě",
-            value = "1",
+            value = savedGame.playerOnTurnId.toString(),
             enabled = false,
-            onValueChange = {
-                // vm.on value change(it)
-            })
+            onValueChange = {}
+        )
 
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
-            OutlinedButton(onClick = { /*TODO vm. save */ }) {
+            OutlinedButton(onClick = { viewModel.updateGame() }) {
                 Text(text = "Uložit změny")
             }
             Spacer(Modifier.requiredWidth(32.dp))
