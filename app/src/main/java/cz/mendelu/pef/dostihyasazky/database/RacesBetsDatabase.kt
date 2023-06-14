@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import cz.mendelu.pef.dostihyasazky.model.*
 
 @Database(
-    entities = [Card::class, SavedGame::class, Transaction::class, CardType::class, PaymentType::class, HorseCard::class],
+    entities = [Card::class, SavedGame::class, Transaction::class, CardType::class, PaymentType::class, MoreDetails::class],
     version = 2,
     exportSchema = true
 )
