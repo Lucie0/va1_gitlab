@@ -7,6 +7,7 @@ import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
 
 class GameScreenVM(
     // todo repository
+    // todo add datastore repository
 ) : BaseViewModel() {
 
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Default)
@@ -66,12 +67,12 @@ class GameScreenVM(
     }
 
 
-    fun  alreadyFirstRun(){
+    fun alreadyFirstRun() {
         // todo datastore. firstRun nastavit na FALSE
         firstRun = false // todo delete
     }
 
-    fun saveGame(){
+    fun saveGame() {
         //todo db -> save game
         uiState.value = GameScreenUIState.Saved
     }

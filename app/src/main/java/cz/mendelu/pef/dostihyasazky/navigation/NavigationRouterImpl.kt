@@ -34,6 +34,10 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.TransactionsHistoryScreen.route)
     }
 
+    override fun navigateToSettingsScreen() {
+        navController.navigate(Destination.SettingsScreen.route)
+    }
+
 //    override fun navigateToAddAccountScreen(id: Long?) {
 //        navController.navigate(Destination.AddAccountScreen.route + "/" + id)
 //    }

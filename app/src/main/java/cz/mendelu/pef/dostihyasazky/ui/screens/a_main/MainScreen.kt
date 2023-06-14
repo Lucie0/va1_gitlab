@@ -79,6 +79,10 @@ fun MainScreenContent(
             Button(onClick = { navigation.navigateToSavedGamesScreen() }) {
                 Text("Načíst rozehranou")// todo extract string
             }
+
+            Button(onClick = { navigation.navigateToSettingsScreen() }) {
+                Text("Info")// todo extract string
+            }
         }
     }
 }

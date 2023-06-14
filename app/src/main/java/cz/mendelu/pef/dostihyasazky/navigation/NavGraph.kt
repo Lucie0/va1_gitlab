@@ -9,10 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import cz.mendelu.pef.dostihyasazky.ui.screens.CardDetailScreen
-import cz.mendelu.pef.dostihyasazky.ui.screens.RulesScreen
-import cz.mendelu.pef.dostihyasazky.ui.screens.SavedGamesListScreen
-import cz.mendelu.pef.dostihyasazky.ui.screens.TransactionsHistoryScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.*
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreen
@@ -44,6 +41,10 @@ fun NavGraph(
         }
         composable(route = Destination.TransactionsHistoryScreen.route) {
             TransactionsHistoryScreen(navigation) // zavolani jine composable fce a jen se zavola
+        }
+
+        composable(route = Destination.SettingsScreen.route) {
+            SettingsScreen(navigation) // zavolani jine composable fce a jen se zavola
         }
 
         composable(
