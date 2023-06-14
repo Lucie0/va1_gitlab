@@ -17,7 +17,6 @@ import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreenContent
 import cz.mendelu.pef.dostihyasazky.ui.theme.DostihyASazkyTheme
 
-// todo jak vlozit obrazek,
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,6 @@ class MainActivity : ComponentActivity() {
 //                    CardDetailScreen()
 //                    SavedGamesListScreen()
 //                    TransactionsHistoryScreen()
-//                    TODO NavGraph(startDestination = Destination.MainScreen.route)
                     NavGraph(startDestination = Destination.MainScreen.route)
 
                 }

@@ -15,14 +15,32 @@ import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListUIState
+import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListVM
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SavedGamesListScreen(navigation: INavigationRouter) {
+fun SavedGamesListScreen(
+    navigation: INavigationRouter,
+    viewModel: SavedGamesListVM = getViewModel()
+) {
 
     var savedGames = remember { mutableStateListOf<SavedGame>() }
 
     savedGames.add(SavedGame("10/10/2010", 1))
     savedGames.add(SavedGame("06/12/2018", 2))
+
+    viewModel.uiState.value.let {
+        when(it){
+            SavedGamesListUIState.Default -> {
+                viewModel.loadSavedGames()
+            }
+            is SavedGamesListUIState.Success -> {
+                savedGames.clear()
+                it.items?.let { success -> savedGames.addAll(success) }
+            }
+        }
+    }
 
     BackArrowScreen(
         appBarTitle = "Seznam uložených her", // todo extract string
@@ -49,17 +67,16 @@ fun SavedGameListScreenContent(
         savedGames.forEach {
             Column(
                 modifier = Modifier.clickable {
-                    navigation.navigateToSavedGameDetailScreen(1)
+                    navigation.navigateToSavedGameDetailScreen(it.id)
                     /* todo load this game */
                 }
             ) {
                 ListItem(
-                    headlineText = {Text(it.date)},
+                    headlineText = { Text(it.date) },
                     supportingText = {
                         Text("Hráč na řadě: " + it.playerOnTurnId.toString())
                     }
                 )
-
                 Divider()
             }
         }

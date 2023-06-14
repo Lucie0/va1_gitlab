@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // obecna karta
+// todo DB add coordinates pro odkaz do mapy
 @Entity(tableName = "cards")
 data class Card(
     @ColumnInfo(name = "name")
