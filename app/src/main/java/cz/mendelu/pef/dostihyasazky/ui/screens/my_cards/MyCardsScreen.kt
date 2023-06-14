@@ -25,6 +25,7 @@ import androidx.compose.material3.Card as Card1
 
 import androidx.compose.runtime.rememberCoroutineScope
 import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
 import cz.mendelu.pef.dostihyasazky.ui.theme.PinkStable
 import cz.mendelu.pef.dostihyasazky.ui.theme.RedStable
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ fun MyCardsScreen(
     navigation: INavigationRouter,
     viewModel: MyCardsVM = getViewModel()
 ) {
-    var cards = remember { mutableStateListOf<Card>() }
+    var cards = remember { mutableStateListOf<CardWithMoreDetails>() }
 
 //    cards.add(
 //        Card(
@@ -73,6 +74,7 @@ fun MyCardsScreen(
                 cards.clear()
                 it.items?.let { it1 -> cards.addAll(it1) }
             }
+            else -> {}
         }
     }
 
@@ -91,11 +93,10 @@ fun MyCardsScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCardsScreenContent(
     paddingValues: PaddingValues,
-    cards: List<Card>,
+    cards: List<CardWithMoreDetails>,
     navigation: INavigationRouter
 ) {
     LazyVerticalGrid(
@@ -122,13 +123,13 @@ fun MyCardsScreenContent(
                             .background(PinkStable) // todo color from horse' stable
                     ) {
 
-                        Text(it.name, color = Color.Black)
+                        Text(it.card.name, color = Color.Black)
                         Image(
                             alignment = Alignment.Center,
                             painter = painterResource(
                                 R.drawable.appaloosa_hneda8),
                                     //todo id = it.image)
-                            contentDescription = it.name,
+                            contentDescription = it.card.name,
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
                                 .padding(16.dp)
