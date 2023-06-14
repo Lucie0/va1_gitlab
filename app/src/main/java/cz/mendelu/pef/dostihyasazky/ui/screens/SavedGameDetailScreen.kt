@@ -3,10 +3,7 @@ package cz.mendelu.pef.dostihyasazky.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,6 +13,7 @@ import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyTextField
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SavedGameDetailScreen(
     navigation: INavigationRouter,
@@ -28,13 +26,17 @@ fun SavedGameDetailScreen(
         appBarTitle = "Detail uložené hry",
         onBackClick = { navigation.navigateBack() },
         actions = {
-            IconButton(onClick = {
+            PlainTooltipBox(
+                tooltip = { Text("Smazat hru") }, // todo extract string,
+            ) {
+                IconButton(onClick = {
 //                viewModel.delete Game()
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = null
-                )
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null
+                    )
+                }
             }
         }
     ) {

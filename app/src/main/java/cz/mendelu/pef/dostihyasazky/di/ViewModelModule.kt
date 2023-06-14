@@ -12,7 +12,7 @@ val viewModelModule = module {
         MainScreenVM(get())
     }
     viewModel {
-        GameScreenVM() // todo get()) // getter na repository
+        GameScreenVM(get()) // todo get()) // getter na repository
     }
     viewModel {
         MyCardsVM(get())
