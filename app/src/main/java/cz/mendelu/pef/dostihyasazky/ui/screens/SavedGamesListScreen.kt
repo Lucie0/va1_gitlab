@@ -2,26 +2,27 @@ package cz.mendelu.pef.dostihyasazky.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cz.mendelu.pef.dostihyasazky.model.Game
+import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 
 @Composable
 fun SavedGamesListScreen(navigation: INavigationRouter) {
 
-    var savedGames = remember { mutableStateListOf<Game>() }
+    var savedGames = remember { mutableStateListOf<SavedGame>() }
 
-    savedGames.add(Game("10/10/2010", "hrac1"))
-    savedGames.add(Game("06/12/2018", "hrac2"))
+    savedGames.add(SavedGame("10/10/2010", 1))
+    savedGames.add(SavedGame("06/12/2018", 2))
 
     BackArrowScreen(
         appBarTitle = "Seznam uložených her", // todo extract string
@@ -36,11 +37,11 @@ fun SavedGamesListScreen(navigation: INavigationRouter) {
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SavedGameListScreenContent(
-    savedGames: List<Game>,
+    savedGames: List<SavedGame>,
     navigation: INavigationRouter
-
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
@@ -48,12 +49,17 @@ fun SavedGameListScreenContent(
         savedGames.forEach {
             Column(
                 modifier = Modifier.clickable {
-                    navigation.navigateToGameScreen()
-                    /* todo navigate to load this game */
+                    navigation.navigateToSavedGameDetailScreen(1)
+                    /* todo load this game */
                 }
             ) {
-                Text(it.date)
-                Text(it.player)
+                ListItem(
+                    headlineText = {Text(it.date)},
+                    supportingText = {
+                        Text("Hráč na řadě: " + it.playerOnTurnId.toString())
+                    }
+                )
+
                 Divider()
             }
         }

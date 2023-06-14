@@ -2,6 +2,7 @@ package cz.mendelu.pef.dostihyasazky.ui.screens.a_main
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
 import cz.mendelu.pef.dostihyasazky.database.IRacesBetsRepository
 import cz.mendelu.pef.dostihyasazky.model.Card
@@ -43,11 +44,10 @@ class MainScreenVM(private val repository: IRacesBetsRepository) : BaseViewModel
 //                fixFee = -4000,
 //                paymentType = "ownership",
 //                cardType = "horse",
-//                // todo stable type in constructor?
 //            )
 //        )
-
-            uiState.value = MainScreenUIState.Default
+//        println(":)" + R.drawable.appaloosa_hneda8)
+        uiState.value = MainScreenUIState.Default
 //        }
     }
 

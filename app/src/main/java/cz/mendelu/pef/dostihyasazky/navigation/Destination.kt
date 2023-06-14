@@ -7,6 +7,7 @@ sealed class Destination(val route: String) {
     object CardsDetailScreen: Destination(route = "card_detail")
     object RulesScreen: Destination(route = "rules")
     object SavedGamesListScreen: Destination(route = "saved_games")
+    object SavedGameDetailScreen: Destination(route = "saved_game_detail")
     object TransactionsHistoryScreen: Destination(route = "transactions")
     object SettingsScreen: Destination(route = "settings")
 }

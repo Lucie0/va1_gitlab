@@ -48,6 +48,22 @@ fun NavGraph(
         }
 
         composable(
+            route = Destination.SavedGameDetailScreen.route + "/{id}", // receni, ze to bude paramter v ceste
+            arguments = listOf(
+                navArgument("id"){
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) {
+            val id = it.arguments?.getLong("id")
+            SavedGameDetailScreen(
+                navigation = navigation,
+                id = if (id != -1L) id else null
+            )
+        }
+
+        composable(
             route = Destination.CardsDetailScreen.route + "/{id}", // receni, ze to bude paramter v ceste
             arguments = listOf(
                 navArgument("id"){

@@ -12,6 +12,7 @@ interface INavigationRouter {
     fun navigateToSavedGamesScreen()
     fun navigateToTransactionsHistoryScreen()
     fun navigateToSettingsScreen()
+    fun navigateToSavedGameDetailScreen(id: Long?)
 
     fun getNavController(): NavController
 

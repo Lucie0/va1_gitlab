@@ -98,6 +98,52 @@ fun MyCardsScreenContent(
     cards: List<Card>,
     navigation: INavigationRouter
 ) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(128.dp),
+        modifier = Modifier.padding(paddingValues),
+        contentPadding = PaddingValues(
+            start = 12.dp,
+            top = 16.dp,
+            end = 12.dp,
+            bottom = 16.dp
+        ), content = {
+            items(cards) {
+                Card1(
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .fillMaxWidth()
+                        .height(128.dp)
+                        .clickable { navigation.navigateToCardDetailScreen(1) }, // todo it.id, spravne id dle zvoleneho obrazku
+                    colors = CardDefaults.cardColors()
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .background(PinkStable) // todo color from horse' stable
+                    ) {
+
+                        Text(it.name, color = Color.Black)
+                        Image(
+                            alignment = Alignment.Center,
+                            painter = painterResource(
+                                R.drawable.appaloosa_hneda8),
+                                    //todo id = it.image)
+                            contentDescription = it.name,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .fillMaxSize()
+                        )
+                    }
+                }
+
+
+            }
+        }
+    )
+}
+
+
 //    val tooltipState = rememberPlainTooltipState()
 //    val scope = rememberCoroutineScope()
 //    Column(
@@ -146,48 +192,3 @@ fun MyCardsScreenContent(
 //            )
 //        }
 //    }
-
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(128.dp),
-        modifier = Modifier.padding(paddingValues),
-        contentPadding = PaddingValues(
-            start = 12.dp,
-            top = 16.dp,
-            end = 12.dp,
-            bottom = 16.dp
-        ), content = {
-            items(cards) {
-                Card1(
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .fillMaxWidth()
-                        .height(128.dp)
-                        .clickable { navigation.navigateToCardDetailScreen(1) }, // todo it.id, spravne id dle zvoleneho obrazku
-                    colors = CardDefaults.cardColors()
-                ) {
-
-                    Box(
-                        modifier = Modifier
-                            .background(PinkStable) // todo color from horse' stable
-                    ) {
-
-                        Text(it.name, color = Color.Black)
-                        Image(
-                            alignment = Alignment.Center,
-                            painter = painterResource(
-                                R.drawable.appaloosa_hneda8),
-                                    //id = it.image)
-                            contentDescription = it.name,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxSize()
-                        )
-                    }
-                }
-
-
-            }
-        }
-    )
-}
