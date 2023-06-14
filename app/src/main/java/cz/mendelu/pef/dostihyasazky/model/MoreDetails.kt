@@ -3,16 +3,17 @@ package cz.mendelu.pef.dostihyasazky.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.compose.ui.graphics.Color
 
-@Entity(tableName = "horse_card")
-data class HorseCard(
+@Entity(tableName = "more_details")
+data class MoreDetails(
+    // k jake karte se vaze
+    @ColumnInfo(name = "card_id")
+    var cardId: Long,
+
     //    staj
     @ColumnInfo(name = "stable_type")
     var stableType: String, // todo enum of colors?
-
-    //    pocet dostihu
-    @ColumnInfo(name = "race_count")
-    var raceCount: Int,
 
     //    prohlidka staje
     @ColumnInfo(name = "stable_visit_cost")
@@ -30,5 +31,9 @@ data class HorseCard(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
+
+    //    pocet dostihu
+    @ColumnInfo(name = "race_count")
+    var raceCount: Int = 0
 
 }

@@ -3,18 +3,22 @@ package cz.mendelu.pef.dostihyasazky.ui.screens.game
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
+import cz.mendelu.pef.dostihyasazky.database.IRacesBetsRepository
 import cz.mendelu.pef.dostihyasazky.datastore.DataStoreConstants
 import cz.mendelu.pef.dostihyasazky.datastore.IDataStoreRepository
+import cz.mendelu.pef.dostihyasazky.di.repositoryModule
+import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
+import cz.mendelu.pef.dostihyasazky.ui.utils.DateUtils
 import kotlinx.coroutines.launch
 
 class GameScreenVM(
-    // todo repository
-    // todo add datastore repository
+    private val repository: IRacesBetsRepository,
     private val dsRepository: IDataStoreRepository
 ) : BaseViewModel() {
 
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
+    var data: SavedGame = SavedGame("", 0)
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
@@ -86,7 +90,14 @@ class GameScreenVM(
 
     fun saveGame() {
         //todo db -> save game
-        uiState.value = GameScreenUIState.Saved
+        data.date = DateUtils.getToday(true)
+//        println(":)" + data.date)
+        data.playerOnTurnId = 0
+
+        launch {
+            repository.insertSavedGame(data)
+            uiState.value = GameScreenUIState.Saved
+        }
     }
 
 }

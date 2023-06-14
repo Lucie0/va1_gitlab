@@ -21,8 +21,7 @@ import org.koin.androidx.compose.getViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameScreen(
-    navigation: INavigationRouter,
-    viewModel: GameScreenVM = getViewModel()
+    navigation: INavigationRouter, viewModel: GameScreenVM = getViewModel()
 ) {
 
 //    val ttState = TooltipState()
@@ -43,8 +42,7 @@ fun GameScreen(
             }
             GameScreenUIState.Saved -> {
                 Toast.makeText(
-                    LocalContext.current,
-                    "Ulozeno", // todo extract string
+                    LocalContext.current, "Ulozeno", // todo extract string
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -55,20 +53,16 @@ fun GameScreen(
         }
     }
 
-    BackArrowScreen(
-        appBarTitle = "Hra", // todo extract string
+    BackArrowScreen(appBarTitle = "Hra", // todo extract string
         onBackClick = {
             navigation.navigateBack()
 //            ttState.show()
-        },
-        actions = {
+        }, actions = {
             if (viewModel.firstRun) {
-                OutlinedButton(
-                    onClick = {
-                        viewModel.alreadyFirstRun()
-                        viewModel.uiState.value = GameScreenUIState.Changed
-                    }
-                ) {
+                OutlinedButton(onClick = {
+                    viewModel.alreadyFirstRun()
+                    viewModel.uiState.value = GameScreenUIState.Changed
+                }) {
                     Text(text = "Moje karty ->")
                 }
             } else {
@@ -97,21 +91,16 @@ fun GameScreen(
                 }
             }
 
-        }
-    ) {
+        }) {
         GameScreenContent(
-            paddingValues = it,
-            navigation = navigation,
-            viewModel = viewModel
+            paddingValues = it, navigation = navigation, viewModel = viewModel
         )
     }
 }
 
 @Composable
 fun GameScreenContent(
-    paddingValues: PaddingValues,
-    navigation: INavigationRouter,
-    viewModel: GameScreenVM
+    paddingValues: PaddingValues, navigation: INavigationRouter, viewModel: GameScreenVM
 ) {
 
     Column(
@@ -120,14 +109,12 @@ fun GameScreenContent(
         Button(
             onClick = { /*TODO call vm hod kostkou*/
                 viewModel.rollTheDice()
-            },
-            enabled = true
+            }, enabled = true
         ) {
             Text("Hod kostkou: ${viewModel.diceNumber}") //todo diceNumber
         }
         Image(
-            painter = painterResource(id = R.drawable.plan_svetly_1b),
-            contentDescription = "planek"
+            painter = painterResource(id = R.drawable.plan_svetly_1b), contentDescription = "planek"
         )
 
         // todo stav hry
