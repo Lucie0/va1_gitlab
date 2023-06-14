@@ -1,5 +1,7 @@
 package cz.mendelu.pef.dostihyasazky.ui.screens.game
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
 
@@ -7,13 +9,16 @@ class GameScreenVM(
     // todo repository
 ) : BaseViewModel() {
 
-//    var uiState: MutableState<GameScreenUIState> = mutableStateof(GameScreenUIState.Default)
+    var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Default)
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
 
+    var firstRun = true //Datastore get("firstrun")
+
     fun rollTheDice() {
         diceNumber = (Math.random() * 6).toInt() + 1
+        uiState.value = GameScreenUIState.Changed
 //        println(diceNumber)
     }
 
@@ -58,6 +63,17 @@ class GameScreenVM(
         boxesArray.add(MyBox(35, 10, 10, "Narcius"))
         boxesArray.add(MyBox(36, 10, 10, "Klinika 2"))
         boxesArray.add(MyBox(37, 10, 10, "Napoli"))
+    }
+
+
+    fun  alreadyFirstRun(){
+        // todo datastore. firstRun nastavit na FALSE
+        firstRun = false // todo delete
+    }
+
+    fun saveGame(){
+        //todo db -> save game
+        uiState.value = GameScreenUIState.Saved
     }
 
 }

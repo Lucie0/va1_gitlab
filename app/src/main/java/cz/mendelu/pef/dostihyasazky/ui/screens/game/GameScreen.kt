@@ -1,5 +1,6 @@
 package cz.mendelu.pef.dostihyasazky.ui.screens.game
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
@@ -7,7 +8,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
@@ -28,6 +31,31 @@ fun GameScreen(
 //    }
 //    ttState.show()
 
+    viewModel.uiState.value.let {
+        when (it) {
+            GameScreenUIState.Default -> {}
+            GameScreenUIState.Loading -> {
+                // todo inicializace rozehrane hry
+            }
+            GameScreenUIState.Changed -> {
+                viewModel.uiState.value = GameScreenUIState.Default
+            }
+            GameScreenUIState.Saved -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    "Ulozeno", // todo extract string
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                LaunchedEffect(it) {
+                    navigation.navigateBack()
+                }
+
+
+            }
+        }
+    }
+
     BackArrowScreen(
         appBarTitle = "Hra", // todo extract string
         onBackClick = {
@@ -35,20 +63,28 @@ fun GameScreen(
 //            ttState.show()
         },
         actions = {
-
-//         todo   if(vm.firstRun){
-            OutlinedButton(
-                onClick = {
-//                TODO vm.hide tooltip and set to datastore firstRun na false
+            if (viewModel.firstRun) {
+                OutlinedButton(
+                    onClick = {
+                        viewModel.alreadyFirstRun()
+                        viewModel.uiState.value = GameScreenUIState.Changed
+                    }
+                ) {
+                    Text(text = "Moje karty ->")
                 }
-            ) {
-                Text(text = "Moje karty ->")
+            } else {
+                IconButton(onClick = {
+                    viewModel.saveGame()
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_save),
+                        contentDescription = "Ulozit hru", // todo extract string
+                    )
+                }
             }
-//         todo   }
 
             PlainTooltipBox(
                 tooltip = { Text("Moje karty") }, // todo extract string,
-//                tooltipState = ttState
             ) {
                 IconButton(onClick = { navigation.navigateToMyCardsScreen() }) {
                     Icon(
@@ -62,7 +98,8 @@ fun GameScreen(
     ) {
         GameScreenContent(
             paddingValues = it,
-            navigation = navigation
+            navigation = navigation,
+            viewModel = viewModel
         )
     }
 }
@@ -70,25 +107,20 @@ fun GameScreen(
 @Composable
 fun GameScreenContent(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    viewModel: GameScreenVM
 ) {
 
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-
         Button(
             onClick = { /*TODO call vm hod kostkou*/
-
-//                Toast.makeText(
-//                    LocalContext.current,
-//                    stringResource(androidx.compose.runtime.R.string.contact_added),
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                viewModel.rollTheDice()
             },
             enabled = true
         ) {
-            Text("Hod kostkou:") //todo diceNumber
+            Text("Hod kostkou: ${viewModel.diceNumber}") //todo diceNumber
         }
         Image(
             painter = painterResource(id = R.drawable.plan_svetly_1b),
