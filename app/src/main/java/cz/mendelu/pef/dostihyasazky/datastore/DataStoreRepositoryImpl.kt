@@ -6,7 +6,6 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.first
 
-
 class DataStoreRepositoryImpl(private val context: Context) : IDataStoreRepository {
 
     override suspend fun setFirstRun() {

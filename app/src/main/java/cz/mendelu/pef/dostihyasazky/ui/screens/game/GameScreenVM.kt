@@ -3,19 +3,23 @@ package cz.mendelu.pef.dostihyasazky.ui.screens.game
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
+import cz.mendelu.pef.dostihyasazky.datastore.DataStoreConstants
+import cz.mendelu.pef.dostihyasazky.datastore.IDataStoreRepository
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
+import kotlinx.coroutines.launch
 
 class GameScreenVM(
     // todo repository
     // todo add datastore repository
+    private val dsRepository: IDataStoreRepository
 ) : BaseViewModel() {
 
-    var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Default)
+    var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
 
-    var firstRun = true //Datastore get("firstrun")
+    var firstRun: Boolean = false
 
     fun rollTheDice() {
         diceNumber = (Math.random() * 6).toInt() + 1
@@ -66,10 +70,18 @@ class GameScreenVM(
         boxesArray.add(MyBox(37, 10, 10, "Napoli"))
     }
 
+    fun initFirstRun(){
+        launch {
+            firstRun = dsRepository.getFirstRun()
+        }
+    }
 
     fun alreadyFirstRun() {
-        // todo datastore. firstRun nastavit na FALSE
-        firstRun = false // todo delete
+        launch {
+            dsRepository.setFirstRun()
+            firstRun = dsRepository.getFirstRun()
+            uiState.value = GameScreenUIState.Changed
+        }
     }
 
     fun saveGame() {

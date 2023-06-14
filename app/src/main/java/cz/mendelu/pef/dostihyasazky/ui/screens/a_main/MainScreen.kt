@@ -63,8 +63,6 @@ fun MainScreenContent(
             contentDescription = "planek",
         )
 
-
-
         Column(
             modifier = Modifier
                 .padding(paddingValues)

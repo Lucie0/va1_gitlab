@@ -36,6 +36,7 @@ fun GameScreen(
             GameScreenUIState.Default -> {}
             GameScreenUIState.Loading -> {
                 // todo inicializace rozehrane hry
+                viewModel.initFirstRun()
             }
             GameScreenUIState.Changed -> {
                 viewModel.uiState.value = GameScreenUIState.Default
@@ -50,8 +51,6 @@ fun GameScreen(
                 LaunchedEffect(it) {
                     navigation.navigateBack()
                 }
-
-
             }
         }
     }
@@ -73,13 +72,17 @@ fun GameScreen(
                     Text(text = "Moje karty ->")
                 }
             } else {
-                IconButton(onClick = {
-                    viewModel.saveGame()
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.icon_save),
-                        contentDescription = "Ulozit hru", // todo extract string
-                    )
+                PlainTooltipBox(
+                    tooltip = { Text("Uložit hru") }, // todo extract string,
+                ) {
+                    IconButton(onClick = {
+                        viewModel.saveGame()
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.icon_save),
+                            contentDescription = "Uložit hru", // todo extract string
+                        )
+                    }
                 }
             }
 
@@ -139,9 +142,13 @@ fun GameScreenContent(
                 Text("Hráč 1")// todo extract string
             }
 
+            Spacer(modifier = Modifier.requiredWidth(16.dp))
+
             Button(onClick = { /*TODO*/ }) {
                 Text("Hráč 2")// todo extract string
             }
+
+            Spacer(modifier = Modifier.requiredWidth(16.dp))
 
             Button(onClick = { /*TODO*/ }) {
                 Text("Hráč 3")// todo extract string
