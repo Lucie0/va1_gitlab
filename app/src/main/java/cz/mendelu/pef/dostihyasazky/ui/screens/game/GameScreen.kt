@@ -22,7 +22,7 @@ fun GameScreen(
     viewModel: GameScreenVM = getViewModel()
 ) {
 
-    val ttState = TooltipState()
+//    val ttState = TooltipState()
 //    if (!ttState.isVisible){
 //        ttState.show()
 //    }
