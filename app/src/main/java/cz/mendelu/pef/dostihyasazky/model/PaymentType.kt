@@ -4,15 +4,15 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "transactions")
-data class Transaction(
-    @ColumnInfo(name = "event")
-    var event: String,
+// typy: dle vlastnictvi, dle balicku, zadna
+@Entity(tableName = "payments_type")
+data class PaymentType(
+    @ColumnInfo(name = "description")
+    var text: String
+) {
 
-    @ColumnInfo(name = "value")
-    var value: Int
-){
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
+
 }

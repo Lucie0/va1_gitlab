@@ -1,15 +1,18 @@
-package cz.mendelu.pef.dostihyasazky.database.cards
+package cz.mendelu.pef.dostihyasazky.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import cz.mendelu.pef.dostihyasazky.model.Card
-import cz.mendelu.pef.dostihyasazky.model.Game
-import cz.mendelu.pef.dostihyasazky.model.Transaction
+import cz.mendelu.pef.dostihyasazky.model.*
 
-@Database(entities = [Card::class, Game::class, Transaction::class], version = 1, exportSchema = true)
-abstract class RacesBetsDatabase : RoomDatabase() { // abychom pracovali se soubory, potrebujeme context
+@Database(
+    entities = [Card::class, Game::class, Transaction::class, CardType::class, PaymentType::class, HorseCard::class],
+    version = 2,
+    exportSchema = true
+)
+abstract class RacesBetsDatabase :
+    RoomDatabase() { // abychom pracovali se soubory, potrebujeme context
 
     abstract fun rbDao(): RacesBetsDao // propojeni mezi db a daem
 
@@ -22,9 +25,11 @@ abstract class RacesBetsDatabase : RoomDatabase() { // abychom pracovali se soub
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            RacesBetsDatabase::class.java, "races_bets_database"
+                            RacesBetsDatabase::class.java,
+                            "races_bets_database"
                         )//.addMigrations(MIGRATION_3_4)
-                            .fallbackToDestructiveMigration()
+//                            .fallbackToDestructiveMigration()
+                            .createFromAsset("database/initDB.db")
                             .build()
                     }
                 }

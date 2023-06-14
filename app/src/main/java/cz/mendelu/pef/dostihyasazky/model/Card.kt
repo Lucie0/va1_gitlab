@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// karticka kone, specialni karta, servis karta, trener
+// obecna karta
 @Entity(tableName = "cards")
 data class Card(
     @ColumnInfo(name = "name")
@@ -24,47 +24,30 @@ data class Card(
     var fixFee: Int,
 
 //    typ platby
-    @ColumnInfo(name = "payment_type")
-    var paymentType: String, // todo misto Stringu enum?
+    @ColumnInfo(name = "payment_type_id")
+    var paymentTypeID: Int,
 
-    @ColumnInfo(name = "card_type")
-    var cardType: String, // todo enum
+    @ColumnInfo(name = "card_type_id")
+    var cardTypeID: Int,
+
+    @ColumnInfo(name = "more_details_id")
+    var moreDetailsID: Int,
 
 ) {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     var id: Long? = null
 
     //    vlastnik
     @ColumnInfo(name = "owner")
     var ownerNumber: Int? = null
 
-    // ---- kun begin
-    //    staj
-    @ColumnInfo(name = "stable_type")
-    var stableType: String? = null // todo enum of colors?
 
-    //    pocet dostihu
-    @ColumnInfo(name = "race_count")
-    var raceCount: Int? = null
-
-    //    prohlidka staje
-    @ColumnInfo(name = "stable_visit_cost")
-    var stableVisitCost: Int? = null
-
-    //    dostih zisk
-    @ColumnInfo(name = "race_profit")
-    var raceProfit: Int? = null
-
-    //    dostih naklad
-    @ColumnInfo(name = "race_cost")
-    var raceCost: Int? = null
-    // ---- kun end
-
-    // ---- trener begin
-    // licence
-    @ColumnInfo(name = "licence")
-    var licenceCost: Int? = null
-    // ---- trener end
+//    // ---- trener begin
+//    // licence
+//    @ColumnInfo(name = "licence")
+//    var licenceCost: Int? = null
+//    // ---- trener end
 
     override fun toString(): String {
         return super.toString()

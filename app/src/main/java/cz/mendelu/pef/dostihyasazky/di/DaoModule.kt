@@ -1,7 +1,7 @@
 package cz.mendelu.pef.dostihyasazky.di
 
-import cz.mendelu.pef.dostihyasazky.database.cards.RacesBetsDao
-import cz.mendelu.pef.dostihyasazky.database.cards.RacesBetsDatabase
+import cz.mendelu.pef.dostihyasazky.database.RacesBetsDao
+import cz.mendelu.pef.dostihyasazky.database.RacesBetsDatabase
 import org.koin.dsl.module
 
 val daoModule = module {

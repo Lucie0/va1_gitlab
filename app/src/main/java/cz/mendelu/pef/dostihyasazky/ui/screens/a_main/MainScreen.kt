@@ -1,24 +1,39 @@
 package cz.mendelu.pef.dostihyasazky.ui.screens.a_main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
+import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    viewModel: MainScreenVM = getViewModel()
 ) {
+
+    viewModel.uiState.value.let {
+        when (it) {
+            MainScreenUIState.Default -> {}
+
+            MainScreenUIState.Loading -> {
+                viewModel.initCardsToDB()
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -47,6 +62,8 @@ fun MainScreenContent(
             painter = painterResource(id = R.drawable.plan_svetly_1b_vyrez),
             contentDescription = "planek",
         )
+
+
 
         Column(
             modifier = Modifier

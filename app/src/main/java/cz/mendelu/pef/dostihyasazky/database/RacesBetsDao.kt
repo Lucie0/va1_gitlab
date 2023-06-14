@@ -1,4 +1,4 @@
-package cz.mendelu.pef.dostihyasazky.database.cards
+package cz.mendelu.pef.dostihyasazky.database
 
 import androidx.room.*
 import cz.mendelu.pef.dostihyasazky.model.Card
@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RacesBetsDao {
-
     @Query("SELECT * FROM cards")
     fun getAllCards(): Flow<List<Card>>
 

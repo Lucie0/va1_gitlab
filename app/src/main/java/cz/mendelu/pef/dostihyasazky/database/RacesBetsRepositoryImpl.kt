@@ -1,4 +1,4 @@
-package cz.mendelu.pef.dostihyasazky.database.cards
+package cz.mendelu.pef.dostihyasazky.database
 
 import cz.mendelu.pef.dostihyasazky.model.Card
 import kotlinx.coroutines.flow.Flow
@@ -27,4 +27,5 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
     override suspend fun getCardByPlayerId(playerId: Long): Card {
         return dao.getCardByPlayerId(playerId)
     }
+
 }

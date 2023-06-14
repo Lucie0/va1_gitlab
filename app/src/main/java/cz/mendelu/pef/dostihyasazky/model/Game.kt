@@ -14,5 +14,6 @@ data class Game(
     var player: String
 ){
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     var id: Long? = null
 }

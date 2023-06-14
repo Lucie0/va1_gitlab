@@ -2,11 +2,14 @@ package cz.mendelu.pef.dostihyasazky.ui.screens.my_cards
 
 import android.graphics.Paint.Align
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -38,8 +41,11 @@ fun MyCardsScreen(
             image = R.drawable.nokota8,
             historicalCost = 5600,
             fixFee = 0,
-            paymentType = "vlastnictvi",
-            cardType = "Kun"
+            paymentTypeID = 1,
+            cardTypeID = 1,
+            moreDetailsID = 1
+//            paymentType = "vlastnictvi",
+//            cardType = "Kun"
         )
     )
     cards.add(
@@ -48,8 +54,11 @@ fun MyCardsScreen(
             image = R.drawable.appaloosa_hneda8,
             historicalCost = 5600,
             fixFee = 0,
-            paymentType = "vlastnictvi",
-            cardType = "Kun"
+            paymentTypeID = 1,
+            cardTypeID = 1,
+            moreDetailsID = 1
+//            paymentType = "vlastnictvi",
+//            cardType = "Kun"
         )
     )
 
@@ -88,23 +97,25 @@ fun MyCardsScreenContent(
                     modifier = Modifier
                         .padding(4.dp)
                         .fillMaxWidth()
+                        .height(128.dp)
                         .clickable { navigation.navigateToCardDetailScreen(1) }, // todo it.id, spravne id dle zvoleneho obrazku
+                colors = CardDefaults.cardColors()
                 ) {
-//                    Text(
-//                        text = it.name,
-//                        fontWeight = FontWeight.Bold,
-//                        fontSize = 30.sp,
-//                        color = Color(0xFFFFFFFF),
-//                        textAlign = TextAlign.Center,
-//                        modifier = Modifier.padding(16.dp)
-//                    )
-                    Image(
-                        alignment = Alignment.Center,
-                        painter = painterResource(id = it.image),
-                        contentDescription = it.name,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.padding(16.dp).fillMaxSize()
-                    )
+
+                    Box(
+                        modifier = Modifier.background(Color(255, 148, 148, 255)) // todo color from horse' stable
+                    ){
+                        Image(
+                            alignment = Alignment.Center,
+                            painter = painterResource(id = it.image),
+                            contentDescription = it.name,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .fillMaxSize()
+                        )
+                    }
+
                 }
 
             }
