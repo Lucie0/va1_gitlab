@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         compose true
+        // todo buildConfig true calling BuildConfig.VERSION_NAME
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.2.0'
@@ -47,7 +48,7 @@ android {
     }
 }
 
-dependencies{
+dependencies {
 
 // Android a Kotlin
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -80,5 +81,9 @@ dependencies{
     kapt "androidx.room:room-compiler:2.5.0"
     implementation 'androidx.room:room-runtime:2.5.0'
 // End room
+
+    // datastore
+    implementation "androidx.datastore:datastore-preferences-core:1.0.0"
+
 
 }

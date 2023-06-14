@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -17,15 +20,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.Card
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
-import cz.mendelu.pef.dostihyasazky.ui.screens.BackArrowScreen
+import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.material3.Card as Card1
 
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCardsScreen(
     navigation: INavigationRouter,
@@ -87,12 +92,62 @@ fun MyCardsScreen(
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCardsScreenContent(
     paddingValues: PaddingValues,
     cards: List<Card>,
     navigation: INavigationRouter
 ) {
+//    val tooltipState = rememberPlainTooltipState()
+//    val scope = rememberCoroutineScope()
+//    Column(
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        PlainTooltipBox(
+//            tooltip = { Text("Add to list") },
+//            tooltipState = tooltipState
+//        ) {
+//            Icon(
+//                imageVector = Icons.Filled.AddCircle,
+//                contentDescription = "Localized Description"
+//            )
+//        }
+//
+//
+//        Spacer(Modifier.requiredHeight(30.dp))
+//        OutlinedButton(
+//            onClick = { scope.launch { tooltipState.show() } }
+//        ) {
+//            Text("Display tooltip")
+//        }
+//    }
+
+
+
+//    val tooltipState = remember { RichTooltipState() }
+//    val scope = rememberCoroutineScope()
+//    RichTooltipBox(
+//        title = { Text("Add others") },
+//        action = {
+//            TextButton(
+//                onClick = { scope.launch { tooltipState.dismiss() } }
+//            ) { Text("Learn More") }
+//        },
+//        text = { Text("Share this collection with friends...") },
+//        tooltipState = tooltipState
+//    ) {
+//        IconButton(
+//            onClick = { /* Icon button's click event */ },
+//            modifier = Modifier.tooltipTrigger()
+//        ) {
+//            Icon(
+//                imageVector = Icons.Filled.People,
+//                contentDescription = "Add others"
+//            )
+//        }
+//    }
+
     LazyVerticalGrid(
         columns = GridCells.Adaptive(128.dp),
         modifier = Modifier.padding(paddingValues),

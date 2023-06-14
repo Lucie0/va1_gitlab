@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.model.Game
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
+import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 
 @Composable
 fun SavedGamesListScreen(navigation: INavigationRouter) {

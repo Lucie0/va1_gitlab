@@ -1,4 +1,4 @@
-package cz.mendelu.pef.dostihyasazky.ui.screens
+package cz.mendelu.pef.dostihyasazky.ui.elements
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
