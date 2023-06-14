@@ -4,8 +4,8 @@ import androidx.navigation.NavController
 
 interface INavigationRouter {
     fun navigateBack()
-//    fun navigateToAddAccountScreen()
-    fun navigateToGameScreen()
+
+    fun navigateToGameScreen(id: Long?)
     fun navigateToMyCardsScreen()
     fun navigateToCardDetailScreen(id: Long?)
     fun navigateToRulesScreen()

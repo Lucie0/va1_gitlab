@@ -10,8 +10,8 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.popBackStack()
     }
 
-    override fun navigateToGameScreen() {
-        navController.navigate(Destination.GameScreen.route)
+    override fun navigateToGameScreen(id: Long?) {
+        navController.navigate(Destination.GameScreen.route + "/"+ id)
     }
 
     override fun navigateToMyCardsScreen() {

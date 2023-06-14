@@ -7,13 +7,13 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 import org.koin.androidx.compose.getViewModel
@@ -21,7 +21,9 @@ import org.koin.androidx.compose.getViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameScreen(
-    navigation: INavigationRouter, viewModel: GameScreenVM = getViewModel()
+    navigation: INavigationRouter,
+    id: Long?,
+    viewModel: GameScreenVM = getViewModel()
 ) {
 
 //    val ttState = TooltipState()
@@ -29,20 +31,25 @@ fun GameScreen(
 //        ttState.show()
 //    }
 //    ttState.show()
+    viewModel.loadGameId = id
+
+    var data by remember { mutableStateOf(viewModel.data) }
 
     viewModel.uiState.value.let {
         when (it) {
             GameScreenUIState.Default -> {}
             GameScreenUIState.Loading -> {
-                // todo inicializace rozehrane hry
+                viewModel.initGame()
                 viewModel.initFirstRun()
             }
             GameScreenUIState.Changed -> {
+                data = viewModel.data
                 viewModel.uiState.value = GameScreenUIState.Default
             }
             GameScreenUIState.Saved -> {
                 Toast.makeText(
-                    LocalContext.current, "Ulozeno", // todo extract string
+                    LocalContext.current,
+                    "Uloženo", // todo extract string
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -93,14 +100,20 @@ fun GameScreen(
 
         }) {
         GameScreenContent(
-            paddingValues = it, navigation = navigation, viewModel = viewModel
+            paddingValues = it,
+            navigation = navigation,
+            savedGame = data,
+            viewModel = viewModel
         )
     }
 }
 
 @Composable
 fun GameScreenContent(
-    paddingValues: PaddingValues, navigation: INavigationRouter, viewModel: GameScreenVM
+    paddingValues: PaddingValues,
+    navigation: INavigationRouter,
+    savedGame: SavedGame,
+    viewModel: GameScreenVM
 ) {
 
     Column(
@@ -118,8 +131,8 @@ fun GameScreenContent(
         )
 
         // todo stav hry
-        Text("Aktuální políčko:")
-        Text("Popis karty:")
+        Text("Aktuální políčko:${savedGame.name ?: ""}")
+        Text("Popis karty:${savedGame.id ?: ""}")
 
 
         Row(

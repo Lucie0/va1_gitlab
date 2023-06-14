@@ -43,4 +43,11 @@ class SavedGameDetailVM(private val repository: IRacesBetsRepository) : BaseView
             uiState.value = SavedGameDetailUIState.Saved
         }
     }
+
+    fun deleteGame(){
+        launch {
+            repository.deleteSavedGame(data)
+            uiState.value = SavedGameDetailUIState.Deleted
+        }
+    }
 }

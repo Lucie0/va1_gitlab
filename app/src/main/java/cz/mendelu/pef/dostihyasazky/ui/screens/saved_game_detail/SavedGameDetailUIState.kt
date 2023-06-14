@@ -5,4 +5,5 @@ sealed class SavedGameDetailUIState {
     object Loading: SavedGameDetailUIState()
     object Changed: SavedGameDetailUIState()
     object Saved: SavedGameDetailUIState()
+    object Deleted: SavedGameDetailUIState()
 }

@@ -70,7 +70,7 @@ fun MainScreenContent(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = { navigation.navigateToGameScreen() }) {
+            Button(onClick = { navigation.navigateToGameScreen(-1L) }) {
                 Text("Nová hra")// todo extract string
             }
 

@@ -28,7 +28,7 @@ fun SavedGameDetailScreen(
     var data by remember { mutableStateOf(viewModel.data) }
 
     viewModel.uiState.value.let {
-        when(it){
+        when (it) {
             SavedGameDetailUIState.Default -> {}
             SavedGameDetailUIState.Changed -> {
                 data = viewModel.data
@@ -48,6 +48,17 @@ fun SavedGameDetailScreen(
                     navigation.navigateBack()
                 }
             }
+            SavedGameDetailUIState.Deleted -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    "Smazáno", // todo extract string
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                LaunchedEffect(it) {
+                    navigation.navigateBack()
+                }
+            }
         }
     }
     BackArrowScreen(
@@ -58,7 +69,7 @@ fun SavedGameDetailScreen(
                 tooltip = { Text("Smazat hru") }, // todo extract string,
             ) {
                 IconButton(onClick = {
-//                viewModel.delete Game()
+                    viewModel.deleteGame()
                 }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
@@ -70,6 +81,7 @@ fun SavedGameDetailScreen(
     ) {
         SavedGameDetailScreenContent(
             savedGame = data,
+            navigation = navigation,
             viewModel = viewModel
         )
     }
@@ -79,12 +91,15 @@ fun SavedGameDetailScreen(
 @Composable
 fun SavedGameDetailScreenContent(
     savedGame: SavedGame,
+    navigation: INavigationRouter,
     viewModel: SavedGameDetailVM
 ) {
 
-    Column(modifier = Modifier
-        .padding(horizontal = 16.dp)
-        .fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
+    ) {
 
         MyTextField(
             label = "Název",
@@ -118,7 +133,10 @@ fun SavedGameDetailScreenContent(
                 Text(text = "Uložit změny")
             }
             Spacer(Modifier.requiredWidth(32.dp))
-            OutlinedButton(onClick = { /*TODO vm. load game */ }) {
+            OutlinedButton(onClick = {
+//                println(":)" + savedGame.id)
+                navigation.navigateToGameScreen(savedGame.id)
+            }) {
                 Text(text = "Načíst hru")
             }
         }

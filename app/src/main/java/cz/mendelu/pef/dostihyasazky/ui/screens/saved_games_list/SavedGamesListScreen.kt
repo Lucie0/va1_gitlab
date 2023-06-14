@@ -25,8 +25,8 @@ fun SavedGamesListScreen(
 
     var savedGames = remember { mutableStateListOf<SavedGame>() }
 
-    savedGames.add(SavedGame("10/10/2010", 1))
-    savedGames.add(SavedGame("06/12/2018", 2))
+//    savedGames.add(SavedGame("10/10/2010", 1))
+//    savedGames.add(SavedGame("06/12/2018", 2))
 
     viewModel.uiState.value.let {
         when(it){
@@ -70,6 +70,7 @@ fun SavedGameListScreenContent(
                 }
             ) {
                 ListItem(
+                    overlineText = { it.name?.let { it1 -> Text(it1) } },
                     headlineText = { Text(it.date) },
                     supportingText = {
                         Text("Hráč na řadě: " + it.playerOnTurnId.toString())

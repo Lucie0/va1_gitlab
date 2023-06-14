@@ -9,6 +9,7 @@ import cz.mendelu.pef.dostihyasazky.datastore.IDataStoreRepository
 import cz.mendelu.pef.dostihyasazky.di.repositoryModule
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
+import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailUIState
 import cz.mendelu.pef.dostihyasazky.ui.utils.DateUtils
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,8 @@ class GameScreenVM(
 
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
     var data: SavedGame = SavedGame("", 0)
+
+    var loadGameId: Long? = null
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
@@ -72,6 +75,23 @@ class GameScreenVM(
         boxesArray.add(MyBox(35, 10, 10, "Narcius"))
         boxesArray.add(MyBox(36, 10, 10, "Klinika 2"))
         boxesArray.add(MyBox(37, 10, 10, "Napoli"))
+    }
+
+    fun initGame(){
+        println(":) "+loadGameId)
+
+        if (loadGameId != null) {
+            launch {
+                // ziskani tasku
+                data = repository.getSavedGameById(loadGameId!!)
+                // hlaska o zmene stavu
+                uiState.value = GameScreenUIState.Changed
+            }
+        } else {
+            // nacitani
+            // hlaska o zmene stavu
+            uiState.value = GameScreenUIState.Changed
+        }
     }
 
     fun initFirstRun(){

@@ -29,9 +29,6 @@ fun NavGraph(
         composable(route = Destination.MainScreen.route) {
             MainScreen(navigation) // zavolani jine composable fce a jen se zavola
         }
-        composable(route = Destination.GameScreen.route) {
-            GameScreen(navigation) // zavolani jine composable fce a jen se zavola
-        }
         composable(route = Destination.MyCardsScreen.route) {
             MyCardsScreen(navigation) // zavolani jine composable fce a jen se zavola
         }
@@ -49,10 +46,27 @@ fun NavGraph(
             SettingsScreen(navigation) // zavolani jine composable fce a jen se zavola
         }
 
+
+        composable(
+            route = Destination.GameScreen.route + "/{id}", // receni, ze to bude paramter v ceste
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) {
+            val id = it.arguments?.getLong("id")
+            GameScreen(
+                navigation = navigation,
+                id = if (id != -1L) id else null
+            )
+        }
+
         composable(
             route = Destination.SavedGameDetailScreen.route + "/{id}", // receni, ze to bude paramter v ceste
             arguments = listOf(
-                navArgument("id"){
+                navArgument("id") {
                     type = NavType.LongType
                     defaultValue = -1L
                 }
@@ -68,7 +82,7 @@ fun NavGraph(
         composable(
             route = Destination.CardsDetailScreen.route + "/{id}", // receni, ze to bude paramter v ceste
             arguments = listOf(
-                navArgument("id"){
+                navArgument("id") {
                     type = NavType.LongType
                     defaultValue = -1L
                 }

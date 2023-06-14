@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// todo id hracu, kteri obsahuji seznam svych karet, konto a na kterem policku se nachazi
 // ulozena hra
 @Entity(tableName = "games")
 data class SavedGame(
