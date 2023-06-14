@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -28,6 +24,9 @@ import org.koin.androidx.compose.getViewModel
 import androidx.compose.material3.Card as Card1
 
 import androidx.compose.runtime.rememberCoroutineScope
+import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.ui.theme.PinkStable
+import cz.mendelu.pef.dostihyasazky.ui.theme.RedStable
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -169,13 +168,15 @@ fun MyCardsScreenContent(
 
                     Box(
                         modifier = Modifier
-                            .background(Color(255, 148, 148, 255)) // todo color from horse' stable
+                            .background(PinkStable) // todo color from horse' stable
                     ) {
 
                         Text(it.name, color = Color.Black)
                         Image(
                             alignment = Alignment.Center,
-                            painter = painterResource(id = it.image),
+                            painter = painterResource(
+                                R.drawable.appaloosa_hneda8),
+                                    //id = it.image)
                             contentDescription = it.name,
                             contentScale = ContentScale.Fit,
                             modifier = Modifier

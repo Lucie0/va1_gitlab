@@ -28,7 +28,6 @@ fun SavedGamesListScreen(navigation: INavigationRouter) {
         onBackClick = { navigation.navigateBack() }
     ) {
         SavedGameListScreenContent(
-            paddingValues = it,
             savedGames = savedGames,
             navigation = navigation
         )
@@ -39,7 +38,6 @@ fun SavedGamesListScreen(navigation: INavigationRouter) {
 
 @Composable
 fun SavedGameListScreenContent(
-    paddingValues: PaddingValues,
     savedGames: List<Game>,
     navigation: INavigationRouter
 
