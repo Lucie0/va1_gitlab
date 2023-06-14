@@ -24,17 +24,17 @@ class MainScreenVM(private val repository: IRacesBetsRepository) : BaseViewModel
 //
 //            }
 
-        insertCard(
-            Card(
-                name = "Start",
-                image = 0,
-                historicalCost = 0,
-                fixFee = -4000,
-                paymentTypeID = 1,
-                cardTypeID = 3,
-                moreDetailsID = 1
-            )
-        )
+//        insertCard(
+//            Card(
+//                name = "Start",
+//                image = 0,
+//                historicalCost = 0,
+//                fixFee = -4000,
+//                paymentTypeID = 1,
+//                cardTypeID = 3,
+//                moreDetailsID = 1
+//            )
+//        )
 //        insertCard(
 //            Card(
 //                name = "Fantome",

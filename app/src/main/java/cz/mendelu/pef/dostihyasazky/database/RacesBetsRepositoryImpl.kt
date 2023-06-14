@@ -24,7 +24,7 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.getCardById(id)
     }
 
-    override suspend fun getCardByPlayerId(playerId: Long): Card {
+    override suspend fun getCardsByPlayerId(playerId: Long): Flow<List<Card?>> {
         return dao.getCardByPlayerId(playerId)
     }
 

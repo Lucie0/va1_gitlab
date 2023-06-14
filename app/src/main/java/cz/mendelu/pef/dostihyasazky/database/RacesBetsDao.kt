@@ -24,7 +24,7 @@ interface RacesBetsDao {
     suspend fun getCardById(id: Long): Card
 
     @Query("SELECT * FROM cards WHERE owner = :playerId")
-    suspend fun getCardByPlayerId(playerId: Long): Card
+    suspend fun getCardByPlayerId(playerId: Long): Flow<List<Card?>>
 
 
 }
