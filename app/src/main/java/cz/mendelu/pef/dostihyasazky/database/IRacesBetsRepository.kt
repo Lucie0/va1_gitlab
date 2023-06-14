@@ -11,5 +11,5 @@ interface IRacesBetsRepository {
     suspend fun deleteCard(item: Card)
 
     suspend fun getCardById(id: Long): Card
-    suspend fun getCardsByPlayerId(playerId: Long): Flow<List<Card?>>
+    fun getCardsByPlayerId(playerId: Long): Flow<List<Card>?>
 }
