@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DostihyASazky"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCkhg0CeQnZXkX9VO39nWHfQ_XiscesKoI" />
         <activity
             android:name="cz.mendelu.pef.dostihyasazky.MainActivity"
             android:exported="true"

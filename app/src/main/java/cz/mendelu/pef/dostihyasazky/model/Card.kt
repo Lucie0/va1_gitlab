@@ -42,12 +42,6 @@ data class Card(
     @ColumnInfo(name = "image")
     var image: Int? = null
 
-    @ColumnInfo(name = "latitude")
-    var latitude: Double? = null
-
-    @ColumnInfo(name = "longitude")
-    var longitude: Double? = null
-
 
 //    // ---- trener begin
 //    // licence

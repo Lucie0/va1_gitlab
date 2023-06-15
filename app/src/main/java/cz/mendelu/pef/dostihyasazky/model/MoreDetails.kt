@@ -36,4 +36,10 @@ data class MoreDetails(
     @ColumnInfo(name = "race_count")
     var raceCount: Int = 0
 
+    @ColumnInfo(name = "latitude")
+    var latitude: Double? = null
+
+    @ColumnInfo(name = "longitude")
+    var longitude: Double? = null
+
 }

@@ -60,6 +60,7 @@ fun CardDetailScreen(
         CardDetailScreenContent(
             paddingValues = it,
             cardWithMoreDetails = data,
+            navigation = navigation,
             viewModel = viewModel
 //            CardWithMoreDetails(
 //                cz.mendelu.pef.dostihyasazky.model.Card(
@@ -86,6 +87,7 @@ fun CardDetailScreen(
 fun CardDetailScreenContent(
     paddingValues: PaddingValues,
     cardWithMoreDetails: CardWithMoreDetails,
+    navigation: INavigationRouter,
     viewModel: CardDetailVM
 ) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -98,6 +100,7 @@ fun CardDetailScreenContent(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
+                Divider()
                 ListItem(
                     headlineText = { Text("Pořizovací cena") },// todo extract string
                     supportingText = { Text(cardWithMoreDetails.card.historicalCost.toString()) }
@@ -144,7 +147,12 @@ fun CardDetailScreenContent(
             Button(onClick = { /*TODO sell card */ }) {
                 Text("Prodat kartu") // todo extract string
             }
-            Button(onClick = { /*TODO show in map*/ }) {
+            Button(onClick = {
+                navigation.navigateToMapScreen(
+                    cardWithMoreDetails.moreDetails.latitude!!,
+                    cardWithMoreDetails.moreDetails.longitude!!
+                )
+            }) {
                 Text("Zobrazit v mapě") // todo extract string
             }
         }

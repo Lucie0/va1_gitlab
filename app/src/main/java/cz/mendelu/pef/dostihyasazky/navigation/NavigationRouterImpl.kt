@@ -1,6 +1,9 @@
 package cz.mendelu.pef.dostihyasazky.navigation
 
 import androidx.navigation.NavController
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import cz.mendelu.pef.dostihyasazky.model.Location
 
 class NavigationRouterImpl(private val navController: NavController) : INavigationRouter {
 
@@ -40,6 +43,20 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
 
     override fun navigateToSavedGameDetailScreen(id: Long?) {
         navController.navigate(Destination.SavedGameDetailScreen.route + "/" + id)
+    }
+
+    override fun navigateToMapScreen(latitude: Double, longitude: Double) {
+            // serializace na json
+            val moshi: Moshi = Moshi.Builder().build()
+            // jaka trida se bude prevadet
+            val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+
+            val jsonString = jsonAdapter.toJson(
+                Location(
+                    latitude = latitude,
+                    longitude = longitude))
+
+            navController.navigate(Destination.MapScreen.route + "/" + jsonString)
     }
 
 //    override fun navigateToAddAccountScreen(id: Long?) {

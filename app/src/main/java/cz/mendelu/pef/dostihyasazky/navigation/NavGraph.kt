@@ -9,6 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import cz.mendelu.pef.dostihyasazky.model.Location
 import cz.mendelu.pef.dostihyasazky.ui.screens.*
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreen
@@ -94,6 +97,32 @@ fun NavGraph(
                 navigation = navigation,
                 id = if (id != -1L) id else null
             )
+        }
+
+        composable(Destination.MapScreen.route + "/{location}",
+            arguments = listOf(
+                navArgument("location"){
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+
+            val locationString = it.arguments?.getString("location")
+            if (!locationString.isNullOrEmpty()){
+                val moshi: Moshi = Moshi.Builder().build()
+                val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+
+                val location = jsonAdapter.fromJson(locationString)
+
+                MapScreen(
+                    navigation = navigation,
+                    latitude = location!!.latitude,
+                    longitude = location.longitude
+                )
+            } else {
+                println(":) ERROR PRAZDNY JSON !!!!!!")
+            }
         }
 
 //            arguments = listOf(

@@ -10,4 +10,5 @@ sealed class Destination(val route: String) {
     object SavedGameDetailScreen: Destination(route = "saved_game_detail")
     object TransactionsHistoryScreen: Destination(route = "transactions")
     object SettingsScreen: Destination(route = "settings")
+    object MapScreen: Destination(route = "map_screen")
 }
