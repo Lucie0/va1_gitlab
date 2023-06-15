@@ -57,6 +57,12 @@ fun GameScreen(
                     navigation.navigateBack()
                 }
             }
+            GameScreenUIState.Updated -> {
+                LaunchedEffect(it) {
+                    navigation.navigateBack()
+                }
+                viewModel.uiState.value = GameScreenUIState.Saved
+            }
         }
     }
 

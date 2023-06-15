@@ -26,8 +26,7 @@ fun RulesScreenContent() {
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         Text(
-            "Cílem hry je získat nejvíce kompletních stájí a umístit své koně na co nejvíce dostihů. \n" +
-                    "Včetně hlavního dostihu sezóny.\n" +
+            "Cílem hry je získat nejvíce kompletních stájí a umístit své koně na co nejvíce dostihů včetně hlavního dostihu sezóny.\n" +
                     "Na začátku hry má každý z hráčů počáteční vklad 30 000 dostihových korun (DK). " +
                     "Hráč, který je na řadě, provede hod kostkou a postoupí svou figurkou o daný počet " +
                     "políček vpřed. Pokud padne na kostce číslo 6, hráč háže ještě jednou. Hody se sčítají " +

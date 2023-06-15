@@ -5,4 +5,5 @@ sealed class GameScreenUIState {
     object Loading : GameScreenUIState()
     object Changed : GameScreenUIState()
     object Saved : GameScreenUIState()
+    object Updated: GameScreenUIState()
 }

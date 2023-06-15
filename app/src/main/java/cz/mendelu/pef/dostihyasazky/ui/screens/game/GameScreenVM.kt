@@ -77,8 +77,8 @@ class GameScreenVM(
         boxesArray.add(MyBox(37, 10, 10, "Napoli"))
     }
 
-    fun initGame(){
-        println(":) "+loadGameId)
+    fun initGame() {
+        println(":) " + loadGameId)
 
         if (loadGameId != null) {
             launch {
@@ -94,7 +94,7 @@ class GameScreenVM(
         }
     }
 
-    fun initFirstRun(){
+    fun initFirstRun() {
         launch {
             firstRun = dsRepository.getFirstRun()
         }
@@ -109,15 +109,23 @@ class GameScreenVM(
     }
 
     fun saveGame() {
-        //todo db -> save game
+
         data.date = DateUtils.getToday(true)
 //        println(":)" + data.date)
         data.playerOnTurnId = 0
 
-        launch {
-            repository.insertSavedGame(data)
-            uiState.value = GameScreenUIState.Saved
+        if (loadGameId == null) {
+            launch {
+                repository.insertSavedGame(data)
+                uiState.value = GameScreenUIState.Saved
+            }
+        } else {
+            launch{
+                repository.updateSavedGame(data)
+                uiState.value = GameScreenUIState.Updated
+            }
         }
+
     }
 
 }
