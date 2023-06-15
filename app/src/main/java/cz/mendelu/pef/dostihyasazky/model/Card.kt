@@ -12,10 +12,6 @@ data class Card(
     @ColumnInfo(name = "name")
     var name: String,
 
-    // image resource
-    @ColumnInfo(name = "image")
-    var image: Int,
-
     // porizovaci cena
     @ColumnInfo(name = "historical_cost")
     var historicalCost: Int,
@@ -42,6 +38,16 @@ data class Card(
     //    vlastnik
     @ColumnInfo(name = "owner")
     var ownerNumber: Int? = null
+
+    // image resource
+    @ColumnInfo(name = "image")
+    var image: Int? = null
+
+    @ColumnInfo(name = "latitude")
+    var latitude: Double? = null
+
+    @ColumnInfo(name = "longitude")
+    var longitude: Double? = null
 
 
 //    // ---- trener begin

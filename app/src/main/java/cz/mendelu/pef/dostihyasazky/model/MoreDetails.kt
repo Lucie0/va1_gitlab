@@ -7,9 +7,9 @@ import androidx.compose.ui.graphics.Color
 
 @Entity(tableName = "more_details")
 data class MoreDetails(
-    // k jake karte se vaze
-    @ColumnInfo(name = "card_id")
-    var cardId: Long,
+//    // k jake karte se vaze
+//    @ColumnInfo(name = "card_id")
+//    var cardId: Long,
 
     //    staj
     @ColumnInfo(name = "stable_type")

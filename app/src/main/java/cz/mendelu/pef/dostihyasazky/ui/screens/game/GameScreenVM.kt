@@ -78,8 +78,6 @@ class GameScreenVM(
     }
 
     fun initGame() {
-        println(":) " + loadGameId)
-
         if (loadGameId != null) {
             launch {
                 // ziskani tasku
@@ -109,7 +107,6 @@ class GameScreenVM(
     }
 
     fun saveGame() {
-
         data.date = DateUtils.getToday(true)
 //        println(":)" + data.date)
         data.playerOnTurnId = 0

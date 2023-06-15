@@ -34,11 +34,9 @@ fun CardDetailScreen(
                     0,
                     0,
                     0,
-                    0,
                     1
                 ),
                 MoreDetails(
-                    1,
                     "PinkStable",
                     0,
                     0,
