@@ -26,11 +26,6 @@ fun GameScreen(
     viewModel: GameScreenVM = getViewModel()
 ) {
 
-//    val ttState = TooltipState()
-//    if (!ttState.isVisible){
-//        ttState.show()
-//    }
-//    ttState.show()
     viewModel.loadGameId = id
 
     var data by remember { mutableStateOf(viewModel.data) }

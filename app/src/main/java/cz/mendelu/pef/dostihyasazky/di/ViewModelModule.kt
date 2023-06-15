@@ -1,6 +1,7 @@
 package cz.mendelu.pef.dostihyasazky.di
 
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreenVM
+import cz.mendelu.pef.dostihyasazky.ui.screens.card_detail.CardDetailVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreenVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsVM
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailVM
@@ -14,7 +15,7 @@ val viewModelModule = module {
         MainScreenVM(get())
     }
     viewModel {
-        GameScreenVM(get(), get()) // todo get()) // getter na repository
+        GameScreenVM(get(), get())
     }
     viewModel {
         MyCardsVM(get())
@@ -24,5 +25,8 @@ val viewModelModule = module {
     }
     viewModel {
         SavedGameDetailVM(get())
+    }
+    viewModel{
+        CardDetailVM(get())
     }
 }

@@ -15,14 +15,10 @@ class SavedGameDetailVM(private val repository: IRacesBetsRepository) : BaseView
     fun initSavedGame() {
         if (savedGameId != null) {
             launch {
-                // ziskani tasku
                 data = repository.getSavedGameById(savedGameId!!)
-                // hlaska o zmene stavu
                 uiState.value = SavedGameDetailUIState.Changed
             }
         } else {
-            // nacitani
-            // hlaska o zmene stavu
             uiState.value = SavedGameDetailUIState.Changed
         }
     }

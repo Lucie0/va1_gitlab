@@ -1,6 +1,5 @@
 package cz.mendelu.pef.dostihyasazky.model
 
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

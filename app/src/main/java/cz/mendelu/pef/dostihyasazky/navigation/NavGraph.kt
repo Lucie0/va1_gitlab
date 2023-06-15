@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import cz.mendelu.pef.dostihyasazky.ui.screens.*
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreen
+import cz.mendelu.pef.dostihyasazky.ui.screens.card_detail.CardDetailScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.my_cards.MyCardsScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_games_list.SavedGamesListScreen

@@ -2,6 +2,7 @@ package cz.mendelu.pef.dostihyasazky.database
 
 import cz.mendelu.pef.dostihyasazky.model.Card
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
+import cz.mendelu.pef.dostihyasazky.model.MoreDetails
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +16,11 @@ interface IRacesBetsRepository {
     suspend fun getCardById(id: Long): Card
     fun getCardsByPlayerId(playerId: Long): Flow<List<Card>?>
 
-    fun getCardWithMoreDetails(ownerId: Long): Flow<List<CardWithMoreDetails>?>
+    fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?>
+    suspend fun getCardWithMoreDetailsByCardId(cardId: Long): CardWithMoreDetails?
+
+    suspend fun updateMoreDetails(item: MoreDetails)
+
 
     // -----------------------
     fun getAllSavedGames(): Flow<List<SavedGame>?>

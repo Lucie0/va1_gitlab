@@ -114,7 +114,7 @@ fun MyCardsScreenContent(
                         .padding(4.dp)
                         .fillMaxWidth()
                         .height(128.dp)
-                        .clickable { navigation.navigateToCardDetailScreen(1) }, // todo it.id, spravne id dle zvoleneho obrazku
+                        .clickable { navigation.navigateToCardDetailScreen(it.card.id) }, // todo it.id, spravne id dle zvoleneho obrazku
                     colors = CardDefaults.cardColors()
                 ) {
 
@@ -123,12 +123,17 @@ fun MyCardsScreenContent(
                             .background(PinkStable) // todo color from horse' stable
                     ) {
 
-                        Text(it.card.name, color = Color.Black)
+                        Text(
+                            it.card.name,
+                            color = Color.Black,
+                            modifier = Modifier.padding(16.dp)
+                        )
                         Image(
                             alignment = Alignment.Center,
                             painter = painterResource(
-                                R.drawable.appaloosa_hneda8),
-                                    //todo id = it.image)
+                                R.drawable.appaloosa_hneda8
+                            ),
+                            //todo id = it.image)
                             contentDescription = it.card.name,
                             contentScale = ContentScale.Fit,
                             modifier = Modifier
@@ -137,8 +142,6 @@ fun MyCardsScreenContent(
                         )
                     }
                 }
-
-
             }
         }
     )
@@ -168,7 +171,6 @@ fun MyCardsScreenContent(
 //            Text("Display tooltip")
 //        }
 //    }
-
 
 
 //    val tooltipState = remember { RichTooltipState() }

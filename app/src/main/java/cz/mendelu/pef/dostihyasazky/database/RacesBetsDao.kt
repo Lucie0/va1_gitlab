@@ -3,6 +3,7 @@ package cz.mendelu.pef.dostihyasazky.database
 import androidx.room.*
 import cz.mendelu.pef.dostihyasazky.model.Card
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
+import cz.mendelu.pef.dostihyasazky.model.MoreDetails
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import kotlinx.coroutines.flow.Flow
 
@@ -30,7 +31,14 @@ interface RacesBetsDao {
 
     @Transaction
     @Query("SELECT * FROM cards WHERE owner = :ownerId")
-    fun getCardWithMoreDetails(ownerId: Long): Flow<List<CardWithMoreDetails>?>
+    fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?>
+
+    @Transaction
+    @Query("SELECT * FROM cards WHERE id = :cardId")
+    suspend fun getCardWithMoreDetailsByCardId(cardId: Long): CardWithMoreDetails?
+
+    @Update
+    suspend fun updateMoreDetails(item: MoreDetails)
 
     @Query("SELECT * FROM games")
     fun getAllSavedGames() : Flow<List<SavedGame>?>

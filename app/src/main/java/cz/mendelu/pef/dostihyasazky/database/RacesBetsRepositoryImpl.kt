@@ -2,6 +2,7 @@ package cz.mendelu.pef.dostihyasazky.database
 
 import cz.mendelu.pef.dostihyasazky.model.Card
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
+import cz.mendelu.pef.dostihyasazky.model.MoreDetails
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import kotlinx.coroutines.flow.Flow
 
@@ -30,10 +31,19 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.getCardByPlayerId(playerId)
     }
 
-    override fun getCardWithMoreDetails(ownerId: Long): Flow<List<CardWithMoreDetails>?> {
-        return dao.getCardWithMoreDetails(ownerId)
+    override fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?> {
+        return dao.getCardWithMoreDetailsByOwner(ownerId)
     }
-// ---------------------
+
+    override suspend fun getCardWithMoreDetailsByCardId(cardId: Long): CardWithMoreDetails? {
+        return dao.getCardWithMoreDetailsByCardId(cardId)
+    }
+
+    override suspend fun updateMoreDetails(item: MoreDetails) {
+        return dao.updateMoreDetails(item)
+    }
+
+    // ---------------------
     override fun getAllSavedGames(): Flow<List<SavedGame>?> {
         return dao.getAllSavedGames()
     }

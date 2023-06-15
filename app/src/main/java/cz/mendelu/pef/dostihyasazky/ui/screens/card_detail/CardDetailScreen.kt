@@ -1,11 +1,13 @@
-package cz.mendelu.pef.dostihyasazky.ui.screens
+package cz.mendelu.pef.dostihyasazky.ui.screens.card_detail
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
@@ -13,36 +15,68 @@ import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
 import cz.mendelu.pef.dostihyasazky.model.MoreDetails
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
-import cz.mendelu.pef.dostihyasazky.ui.theme.PinkStable
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CardDetailScreen(
-    navigation: INavigationRouter, id: Long?
+    navigation: INavigationRouter,
+    id: Long?,
+    viewModel: CardDetailVM = getViewModel()
 ) {
-    // todo fetchnout si z db do VM dany item dle predaneho id
+
+    viewModel.loadCardId = id
+
+    var data by remember { mutableStateOf(viewModel.data) }
+
+    viewModel.uiState.value.let {
+        when (it) {
+            CardDetailUIState.Default -> {}
+            CardDetailUIState.Changed -> {
+                data = viewModel.data
+                viewModel.uiState.value = CardDetailUIState.Default
+            }
+            CardDetailUIState.Loading -> {
+                viewModel.initCard()
+            }
+            CardDetailUIState.CannotBuyRace -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    "Nelze koupit další dostih, dosaženo maximum 5", // todo extract string
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.uiState.value = CardDetailUIState.Default
+            }
+            CardDetailUIState.Updated -> {
+                viewModel.uiState.value = CardDetailUIState.Changed
+            }
+        }
+    }
 
     BackArrowScreen(
-        appBarTitle = "Jmeno kone", // todo jmeno,
+        appBarTitle = data.card.name, // todo jmeno -- PETR -- proc se mi neprokresluje hned, ale musim pockat na nejaky referesh?
         onBackClick = { navigation.navigateBack() }
     ) {
         CardDetailScreenContent(
             paddingValues = it,
-            cardWithMoreDetails = CardWithMoreDetails(
-                cz.mendelu.pef.dostihyasazky.model.Card(
-                    "",
-                    0,
-                    0,
-                    0,
-                    0,
-                    1
-                ),
-                MoreDetails(
-                    "PinkStable",
-                    0,
-                    0,
-                    0
-                )
-            )
+            cardWithMoreDetails = data,
+            viewModel = viewModel
+//            CardWithMoreDetails(
+//                cz.mendelu.pef.dostihyasazky.model.Card(
+//                    "",
+//                    0,
+//                    0,
+//                    0,
+//                    0,
+//                    1
+//                ),
+//                MoreDetails(
+//                    "PinkStable",
+//                    0,
+//                    0,
+//                    0
+//                )
+//            )
         )
     }
 }
@@ -51,7 +85,8 @@ fun CardDetailScreen(
 @Composable
 fun CardDetailScreenContent(
     paddingValues: PaddingValues,
-    cardWithMoreDetails: CardWithMoreDetails
+    cardWithMoreDetails: CardWithMoreDetails,
+    viewModel: CardDetailVM
 ) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Image(
@@ -60,7 +95,6 @@ fun CardDetailScreenContent(
         )
 
         Row(
-//            modifier = Modifier.padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
@@ -104,13 +138,13 @@ fun CardDetailScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { viewModel.buyRace() }) {
                 Text("Koupit dostih") // todo extract string
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { /*TODO sell card */ }) {
                 Text("Prodat kartu") // todo extract string
             }
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { /*TODO show in map*/ }) {
                 Text("Zobrazit v mapě") // todo extract string
             }
         }

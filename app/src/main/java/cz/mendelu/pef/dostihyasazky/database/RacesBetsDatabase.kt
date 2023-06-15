@@ -8,7 +8,7 @@ import cz.mendelu.pef.dostihyasazky.model.*
 
 @Database(
     entities = [Card::class, SavedGame::class, Transaction::class, CardType::class, PaymentType::class, MoreDetails::class],
-    version = 3,
+    version = 4,
     exportSchema = true
 )
 abstract class RacesBetsDatabase :

@@ -12,7 +12,7 @@ class MyCardsVM(private val repository: IRacesBetsRepository) : BaseViewModel() 
 
     fun loadMyCards(id: Long) {
         launch {
-            repository.getCardWithMoreDetails(id)
+            repository.getCardWithMoreDetailsByOwner(id)
                 .collect() { // poslouchej nad zmenami a sbirej, a kdyz se neco zmeni, vrat to -- v it
                     uiState.value = MyCardsUIState.Success(it)
                 }

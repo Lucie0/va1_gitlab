@@ -80,14 +80,10 @@ class GameScreenVM(
     fun initGame() {
         if (loadGameId != null) {
             launch {
-                // ziskani tasku
                 data = repository.getSavedGameById(loadGameId!!)
-                // hlaska o zmene stavu
                 uiState.value = GameScreenUIState.Changed
             }
         } else {
-            // nacitani
-            // hlaska o zmene stavu
             uiState.value = GameScreenUIState.Changed
         }
     }
