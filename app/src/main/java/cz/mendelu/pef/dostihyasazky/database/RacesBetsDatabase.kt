@@ -17,7 +17,7 @@ import cz.mendelu.pef.dostihyasazky.model.*
         SavedGameToCard::class,
         Player::class
     ],
-    version = 2,
+    version = 1,
     exportSchema = true
 )
 abstract class RacesBetsDatabase :

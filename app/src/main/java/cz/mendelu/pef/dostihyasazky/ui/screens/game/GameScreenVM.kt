@@ -58,15 +58,15 @@ class GameScreenVM(
 
         if (loadGameId == null) {
             launch {
-//                println(":) gameid " + dataSavedGame.id)
-//                println(":) gameid " + loadGameId)
-//                println(":) field " + actualField)
-//                println(":) dataplayers0 " + dataPlayers[0])
+                println(":) gameid " + dataSavedGame.id)
+                println(":) gameid " + loadGameId)
+                println(":) field " + actualField)
+                println(":) dataplayers0 " + dataPlayers[0])
 
-                dataPlayers[0] = repository.getPlayerByIdAndNullGameId(1)
-//                println(":) dataplayers0 " + dataPlayers[0])
-                dataPlayers[1] = repository.getPlayerByIdAndNullGameId(2)
-                dataPlayers[2] = repository.getPlayerByIdAndNullGameId(3)
+//                dataPlayers[0] = repository.getPlayerByIdAndNullGameId(1,)
+                println(":) dataplayers0 " + dataPlayers[0])
+//                dataPlayers[1] = repository.getPlayerByIdAndNullGameId(2)
+//                dataPlayers[2] = repository.getPlayerByIdAndNullGameId(3)
 
                 actualField = dataPlayers[0].field!!
 
@@ -137,9 +137,9 @@ class GameScreenVM(
                 dataPlayers[1].gameId = idSavedGame
                 dataPlayers[2].gameId = idSavedGame
 
-                repository.updatePlayer(dataPlayers[0])
-                repository.updatePlayer(dataPlayers[1])
-                repository.updatePlayer(dataPlayers[2])
+                repository.insertPlayer(dataPlayers[0])
+                repository.insertPlayer(dataPlayers[1])
+                repository.insertPlayer(dataPlayers[2])
 
                 uiState.value = GameScreenUIState.Saved
             }

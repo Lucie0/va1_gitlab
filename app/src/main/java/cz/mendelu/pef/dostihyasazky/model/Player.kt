@@ -16,7 +16,7 @@ data class Player(
     var account: Long? = null
 
     @ColumnInfo(name = "field")
-    var field: Long? = null
+    var field: Long = 1
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_row")

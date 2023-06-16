@@ -88,4 +88,7 @@ interface RacesBetsDao {
     @Update
     suspend fun updatePlayer(item: Player)
 
+    @Insert
+    suspend fun insertPlayer(item: Player)
+
 }

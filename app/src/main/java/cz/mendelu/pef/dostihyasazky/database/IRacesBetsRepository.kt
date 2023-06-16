@@ -37,6 +37,7 @@ interface IRacesBetsRepository {
     suspend fun getPlayerByIdAndGameId(playerId: Long, gameId: Long): Player
     suspend fun getPlayerByIdAndNullGameId(playerId: Long): Player
     suspend fun updatePlayer(item: Player)
+    suspend fun insertPlayer(item: Player)
 
     suspend fun endMove()
 }

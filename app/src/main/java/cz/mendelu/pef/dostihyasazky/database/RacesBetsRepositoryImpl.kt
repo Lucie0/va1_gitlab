@@ -105,6 +105,10 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.updatePlayer(item)
     }
 
+    override suspend fun insertPlayer(item: Player) {
+        return dao.insertPlayer(item)
+    }
+
     override suspend fun endMove() {
         TODO("Not yet implemented")
     }
