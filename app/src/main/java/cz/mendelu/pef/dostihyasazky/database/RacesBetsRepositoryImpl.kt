@@ -93,4 +93,12 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(ownerId)
     }
 
+    override suspend fun getPlayerById(playerId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updatePlayer(item: Player) {
+        TODO("Not yet implemented")
+    }
+
 }
