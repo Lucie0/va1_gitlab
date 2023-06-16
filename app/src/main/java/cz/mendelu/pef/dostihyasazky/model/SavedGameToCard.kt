@@ -7,16 +7,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "saved_game_to_card")
 data class SavedGameToCard(
     @ColumnInfo(name = "saved_game_id")
-    var savedGameId: Int? = null,
+    var savedGameId: Long? = null,
 
     @ColumnInfo(name = "card_id")
-    var card_id: Int,
+    var cardId: Long,
 
     @ColumnInfo(name = "player_id")
-    var playerId: Int? = null,
+    var playerId: Long? = null,
 
     @ColumnInfo(name = "more_details_id")
-    var moreDetailsId: Int
+    var moreDetailsId: Long
 ){
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

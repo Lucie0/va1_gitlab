@@ -3,7 +3,8 @@ package cz.mendelu.pef.dostihyasazky.navigation
 import androidx.navigation.NavController
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import cz.mendelu.pef.dostihyasazky.model.Location
+import cz.mendelu.pef.dostihyasazky.model.json.Location
+import cz.mendelu.pef.dostihyasazky.model.json.ParametersForMyCards
 
 class NavigationRouterImpl(private val navController: NavController) : INavigationRouter {
 
@@ -14,11 +15,26 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
     }
 
     override fun navigateToGameScreen(id: Long?) {
-        navController.navigate(Destination.GameScreen.route + "/"+ id)
+        navController.navigate(Destination.GameScreen.route + "/" + id)
     }
 
-    override fun navigateToMyCardsScreen(gameId:Long?) {
-        navController.navigate(Destination.MyCardsScreen.route + "/" + gameId)
+    override fun navigateToMyCardsScreen(playerId: Long, gameId: Long?) {
+        if (gameId != null) {
+            val moshi: Moshi = Moshi.Builder().build()
+            // jaka trida se bude prevadet
+            val jsonAdapter: JsonAdapter<ParametersForMyCards> =
+                moshi.adapter(ParametersForMyCards::class.java)
+
+            val jsonString = jsonAdapter.toJson(
+                ParametersForMyCards(
+                    gameId = gameId,
+                    playerId = playerId
+                )
+            )
+            navController.navigate(Destination.MyCardsScreen.route + "/" + jsonString)
+        } else {
+            navController.navigate(Destination.MyCardsScreen.route + "/" + playerId)
+        }
     }
 
     override fun navigateToCardDetailScreen(id: Long?) {
@@ -46,17 +62,19 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
     }
 
     override fun navigateToMapScreen(latitude: Double, longitude: Double) {
-            // serializace na json
-            val moshi: Moshi = Moshi.Builder().build()
-            // jaka trida se bude prevadet
-            val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+        // serializace na json
+        val moshi: Moshi = Moshi.Builder().build()
+        // jaka trida se bude prevadet
+        val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
 
-            val jsonString = jsonAdapter.toJson(
-                Location(
-                    latitude = latitude,
-                    longitude = longitude))
+        val jsonString = jsonAdapter.toJson(
+            Location(
+                latitude = latitude,
+                longitude = longitude
+            )
+        )
 
-            navController.navigate(Destination.MapScreen.route + "/" + jsonString)
+        navController.navigate(Destination.MapScreen.route + "/" + jsonString)
     }
 
 //    override fun navigateToAddAccountScreen(id: Long?) {

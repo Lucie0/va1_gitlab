@@ -56,6 +56,9 @@ interface RacesBetsDao {
     @Insert
     suspend fun insertSavedGameToCard(item: SavedGameToCard): Long
 
+    @Update
+    suspend fun updateSavedGameToCard(item: SavedGameToCard)
+
     @Transaction
     @Query("SELECT * FROM saved_game_to_card WHERE saved_game_id = :gameId")
     fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(

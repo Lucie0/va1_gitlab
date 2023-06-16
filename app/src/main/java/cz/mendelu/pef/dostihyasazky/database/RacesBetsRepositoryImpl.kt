@@ -65,6 +65,10 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.insertSavedGameToCard(item)
     }
 
+    override suspend fun updateSavedGameToCard(item: SavedGameToCard) {
+        return dao.updateSavedGameToCard(item)
+    }
+
     override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {
         return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId)
     }

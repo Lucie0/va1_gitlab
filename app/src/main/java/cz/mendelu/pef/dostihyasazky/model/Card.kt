@@ -26,7 +26,7 @@ data class Card(
     var cardTypeID: Int,
 
     @ColumnInfo(name = "more_details_id")
-    var moreDetailsID: Int,
+    var moreDetailsID: Int? = null,
 
 ) {
     @PrimaryKey(autoGenerate = true)

@@ -11,7 +11,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import cz.mendelu.pef.dostihyasazky.model.Location
+import cz.mendelu.pef.dostihyasazky.model.json.Location
+import cz.mendelu.pef.dostihyasazky.model.json.ParametersForMyCards
 import cz.mendelu.pef.dostihyasazky.ui.screens.*
 import cz.mendelu.pef.dostihyasazky.ui.screens.game.GameScreen
 import cz.mendelu.pef.dostihyasazky.ui.screens.a_main.MainScreen
@@ -32,20 +33,6 @@ fun NavGraph(
     ) {
         composable(route = Destination.MainScreen.route) {
             MainScreen(navigation) // zavolani jine composable fce a jen se zavola
-        }
-        composable(route = Destination.MyCardsScreen.route + "/{id}",
-            arguments = listOf(
-                navArgument("id") {
-                    type = NavType.LongType
-                    defaultValue = -1L
-                }
-            )
-        ){
-            val id = it.arguments?.getLong("id")
-            MyCardsScreen(
-                navigation = navigation,
-                gameId = if (id != -1L) id else null
-            )
         }
 
         composable(route = Destination.RulesScreen.route) {
@@ -75,7 +62,7 @@ fun NavGraph(
             val id = it.arguments?.getLong("id")
             GameScreen(
                 navigation = navigation,
-                id = if (id != -1L) id else null
+                savedGameId = if (id != -1L) id else null
             )
         }
 
@@ -111,31 +98,59 @@ fun NavGraph(
             )
         }
 
-        composable(Destination.MapScreen.route + "/{location}",
+        composable(route = Destination.MyCardsScreen.route + "/{parameters}",
             arguments = listOf(
-                navArgument("location"){
+                navArgument("parameters") {
                     type = NavType.StringType
                     defaultValue = ""
                 }
             )
         ) {
-
-            val locationString = it.arguments?.getString("location")
-            if (!locationString.isNullOrEmpty()){
+            val parametersString = it.arguments?.getString("parameters")
+            if (!parametersString.isNullOrEmpty()) {
                 val moshi: Moshi = Moshi.Builder().build()
-                val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+                val jsonAdapter: JsonAdapter<ParametersForMyCards> =
+                    moshi.adapter(ParametersForMyCards::class.java)
+                val parameters = jsonAdapter.fromJson(parametersString)
 
-                val location = jsonAdapter.fromJson(locationString)
-
-                MapScreen(
+                MyCardsScreen(
                     navigation = navigation,
-                    latitude = location!!.latitude,
-                    longitude = location.longitude
+                    gameId = parameters!!.gameId,
+                    playerId = parameters.playerId,
                 )
             } else {
-                println(":) ERROR PRAZDNY JSON !!!!!!")
+                println(":) ERROR MYCARDS PARAMETERS EMPTY !!!!!")
             }
         }
+
+//        composable(Destination.MapScreen.route + "/{location}",
+//            arguments = listOf(
+//                navArgument("location") {
+//                    type = NavType.StringType
+//                    defaultValue = ""
+//                }
+//            )
+//        ) {
+//
+//            val locationString = it.arguments?.getString("location")
+//            if (!locationString.isNullOrEmpty()) {
+//                val moshi: Moshi = Moshi.Builder().build()
+//                val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+//
+//                val location = jsonAdapter.fromJson(locationString)
+//
+//                MapScreen(
+//                    navigation = navigation,
+//                    latitude = location!!.latitude,
+//                    longitude = location.longitude
+//                )
+//            } else {
+//                println(":) ERROR PRAZDNY JSON !!!!!!")
+//            }
+//        }
+    }
+}
+
 
 //            arguments = listOf(
 //                navArgument("id"){
@@ -149,7 +164,3 @@ fun NavGraph(
 //                navigation = navigation,
 //                id = if (id != -1L) id else null
 //            )
-    }
-
-}
-

@@ -11,17 +11,18 @@ class MyCardsVM(private val repository: IRacesBetsRepository) : BaseViewModel() 
     var uiState: MutableState<MyCardsUIState> = mutableStateOf(MyCardsUIState.Default)
 
     var loadedGameId: Long? = -1L
+    var playerId: Long = -1L
 
-    fun loadMyCards(ownerId: Long) {
+    fun loadMyCards() {
         launch {
             if (loadedGameId != -1L && loadedGameId != null) {
                 repository.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(
-                    ownerId,
+                    playerId,
                     loadedGameId!!
                 )
             } else {
                 repository.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(
-                    ownerId
+                    playerId
                 )
             }
                 .collect() {

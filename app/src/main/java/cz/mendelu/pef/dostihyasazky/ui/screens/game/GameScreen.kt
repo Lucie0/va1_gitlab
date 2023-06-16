@@ -22,13 +22,13 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun GameScreen(
     navigation: INavigationRouter,
-    id: Long?,
+    savedGameId: Long?,
     viewModel: GameScreenVM = getViewModel()
 ) {
 
-    viewModel.loadGameId = id ?: -1
+    viewModel.loadGameId = savedGameId ?: -1L
 
-    var data by remember { mutableStateOf(viewModel.data) }
+    var data by remember { mutableStateOf(viewModel.dataSavedGame) }
 
     viewModel.uiState.value.let {
         when (it) {
@@ -38,7 +38,7 @@ fun GameScreen(
                 viewModel.initFirstRun()
             }
             GameScreenUIState.Changed -> {
-                data = viewModel.data
+                data = viewModel.dataSavedGame
                 viewModel.uiState.value = GameScreenUIState.Default
             }
             GameScreenUIState.Saved -> {
@@ -91,7 +91,13 @@ fun GameScreen(
             PlainTooltipBox(
                 tooltip = { Text("Moje karty") }, // todo extract string,
             ) {
-                IconButton(onClick = { navigation.navigateToMyCardsScreen(viewModel.loadGameId) }) {
+                IconButton(onClick = {
+                    navigation.navigateToMyCardsScreen(
+                        gameId = viewModel.loadGameId,
+                        playerId = viewModel.dataSavedGame.playerOnTurnId
+                    )
+                }
+                ) {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_my_cards),
                         contentDescription = "Moje karty", // todo extract string
@@ -120,13 +126,26 @@ fun GameScreenContent(
     Column(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        Button(
-            onClick = {
-                viewModel.rollTheDice()
-            }, enabled = true
-        ) {
-            Text("Hod kostkou: ${viewModel.diceNumber}")
+        Row {
+            Button(
+                onClick = {
+                    viewModel.rollTheDice()
+                },
+                enabled = !viewModel.playing
+            ) {
+                Text("Hod kostkou: ${viewModel.diceNumber}")
+            }
+
+            Button(
+                onClick = {
+                    viewModel.endMove()
+                },
+                enabled = viewModel.playing
+            ) {
+                Text("Ukončit tah")
+            }
         }
+
         Image(
             painter = painterResource(id = R.drawable.plan_svetly_1b), contentDescription = "planek"
         )
@@ -139,19 +158,28 @@ fun GameScreenContent(
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = { /*TODO */ }) {
+            Button(
+                onClick = { /*TODO */ },
+                enabled = viewModel.dataSavedGame.playerOnTurnId == 1L
+            ) {
                 Text("Hráč 1")// todo extract string
             }
 
             Spacer(modifier = Modifier.requiredWidth(16.dp))
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(
+                onClick = { /*TODO*/ },
+                enabled = viewModel.dataSavedGame.playerOnTurnId  == 2L
+            ) {
                 Text("Hráč 2")// todo extract string
             }
 
             Spacer(modifier = Modifier.requiredWidth(16.dp))
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(
+                onClick = { /*TODO*/ },
+                enabled = viewModel.dataSavedGame.playerOnTurnId  == 3L
+            ) {
                 Text("Hráč 3")// todo extract string
             }
         }

@@ -36,11 +36,13 @@ import kotlinx.coroutines.launch
 fun MyCardsScreen(
     navigation: INavigationRouter,
     viewModel: MyCardsVM = getViewModel(),
+    playerId: Long,
     gameId: Long?
 ) {
-    var cards = remember { mutableStateListOf<SavedGameToCardWithSavedGameWithCardWMoreDetails>() }
+    val cards = remember { mutableStateListOf<SavedGameToCardWithSavedGameWithCardWMoreDetails>() }
 
     viewModel.loadedGameId = gameId
+    viewModel.playerId = playerId
 
 //    cards.add(
 //        Card(
@@ -72,13 +74,12 @@ fun MyCardsScreen(
     viewModel.uiState.value.let {
         when (it) {
             MyCardsUIState.Default -> {
-                viewModel.loadMyCards(1) // todo id aktualniho hrace z VM
+                viewModel.loadMyCards()
             }
             is MyCardsUIState.Success -> {
                 cards.clear()
                 it.items?.let { it1 -> cards.addAll(it1) }
             }
-            else -> {}
         }
     }
 

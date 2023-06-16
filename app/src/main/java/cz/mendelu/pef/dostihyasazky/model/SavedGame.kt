@@ -13,7 +13,7 @@ data class SavedGame(
     var date: String,
 
     @ColumnInfo(name = "player_on_turn_id")
-    var playerOnTurnId: Int
+    var playerOnTurnId: Long
 ){
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_saved_game")

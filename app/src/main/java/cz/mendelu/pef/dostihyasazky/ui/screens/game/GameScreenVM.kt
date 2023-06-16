@@ -8,6 +8,7 @@ import cz.mendelu.pef.dostihyasazky.datastore.DataStoreConstants
 import cz.mendelu.pef.dostihyasazky.datastore.IDataStoreRepository
 import cz.mendelu.pef.dostihyasazky.di.repositoryModule
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
+import cz.mendelu.pef.dostihyasazky.model.SavedGameToCard
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailUIState
 import cz.mendelu.pef.dostihyasazky.ui.utils.DateUtils
@@ -19,7 +20,10 @@ class GameScreenVM(
 ) : BaseViewModel() {
 
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
-    var data: SavedGame = SavedGame("", 0)
+    var dataSavedGame: SavedGame = SavedGame("", 1)
+    var dataSavedGameToCard: SavedGameToCard = SavedGameToCard(null, 0, null, 0)
+
+    var playing: Boolean = false
 
     var loadGameId: Long? = -1L
 
@@ -30,6 +34,7 @@ class GameScreenVM(
 
     fun rollTheDice() {
         diceNumber = (Math.random() * 6).toInt() + 1
+        playing = true
         uiState.value = GameScreenUIState.Changed
 //        println(diceNumber)
     }
@@ -80,7 +85,7 @@ class GameScreenVM(
     fun initGame() {
         if (loadGameId != -1L) {
             launch {
-                data = repository.getSavedGameById(loadGameId!!)
+                dataSavedGame = repository.getSavedGameById(loadGameId!!)
                 uiState.value = GameScreenUIState.Changed
             }
         } else {
@@ -103,22 +108,39 @@ class GameScreenVM(
     }
 
     fun saveGame() {
-        data.date = DateUtils.getToday(true)
+        dataSavedGame.date = DateUtils.getToday(true)
 //        println(":)" + data.date)
-        data.playerOnTurnId = 0
+        dataSavedGameToCard.cardId
 
         if (loadGameId == -1L) {
             launch {
-                repository.insertSavedGame(data)
+                val idSavedGame = repository.insertSavedGame(dataSavedGame)
+                dataSavedGameToCard.savedGameId = idSavedGame
+
+                repository.updateSavedGameToCard(dataSavedGameToCard)
                 uiState.value = GameScreenUIState.Saved
             }
         } else {
-            launch{
-                repository.updateSavedGame(data)
+            launch {
+                repository.updateSavedGame(dataSavedGame)
                 uiState.value = GameScreenUIState.Updated
             }
         }
+    }
 
+    fun endMove() {
+        playing = false
+        diceNumber = 0
+        nextPlayer()
+        uiState.value = GameScreenUIState.Changed
+    }
+
+    private fun nextPlayer() {
+        if (dataSavedGame.playerOnTurnId != 3L) {
+            dataSavedGame.playerOnTurnId += 1
+        } else {
+            dataSavedGame.playerOnTurnId = 1
+        }
     }
 
 }

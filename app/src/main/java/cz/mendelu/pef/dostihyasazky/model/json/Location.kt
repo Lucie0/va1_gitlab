@@ -1,4 +1,4 @@
-package cz.mendelu.pef.dostihyasazky.model
+package cz.mendelu.pef.dostihyasazky.model.json
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
