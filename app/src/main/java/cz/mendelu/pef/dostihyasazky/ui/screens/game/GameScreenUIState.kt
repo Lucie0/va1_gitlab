@@ -6,7 +6,7 @@ sealed class GameScreenUIState {
     object Changed : GameScreenUIState()
     object Saved : GameScreenUIState()
     object Updated: GameScreenUIState()
-    object PlayerSaved: GameScreenUIState()
-    object PlayerInitialized: GameScreenUIState()
+//    object PlayerSaved: GameScreenUIState()
+    object Initialized: GameScreenUIState()
     object CardLoaded: GameScreenUIState()
 }

@@ -27,7 +27,7 @@ fun GameScreen(
     viewModel: GameScreenVM = getViewModel()
 ) {
 
-    viewModel.loadGameId = savedGameId ?: -1L
+    viewModel.loadGameId = savedGameId
 
     var dataSavedGame by remember { mutableStateOf(viewModel.dataSavedGame) }
     var dataCardWithDetails by remember { mutableStateOf(viewModel.actualCardWithDetails) }
@@ -61,22 +61,31 @@ fun GameScreen(
                 }
                 viewModel.uiState.value = GameScreenUIState.Saved
             }
-//            GameScreenUIState.Downloaded -> {
+
+//            GameScreenUIState.CardLoaded -> {
 //                dataCardWithDetails = viewModel.actualCardWithDetails
 //                viewModel.uiState.value = GameScreenUIState.Default
 //            }
-
+//            GameScreenUIState.PlayerInitialized -> {
+//                dataCardWithDetails = viewModel.actualCardWithDetails
+//                viewModel.loadCard()
+//            }
+//            GameScreenUIState.PlayerSaved -> {
+//                dataCardWithDetails = viewModel.actualCardWithDetails
+//                viewModel.initPlayer()
+//            }
             GameScreenUIState.CardLoaded -> {
                 dataCardWithDetails = viewModel.actualCardWithDetails
                 viewModel.uiState.value = GameScreenUIState.Default
             }
-            GameScreenUIState.PlayerInitialized -> {
+
+//            GameScreenUIState.PlayerSaved -> {
+//                dataCardWithDetails = viewModel.actualCardWithDetails
+//                viewModel.uiState.value = GameScreenUIState.Default
+//            }
+            GameScreenUIState.Initialized -> {
                 dataCardWithDetails = viewModel.actualCardWithDetails
-                viewModel.loadCard()
-            }
-            GameScreenUIState.PlayerSaved -> {
-                dataCardWithDetails = viewModel.actualCardWithDetails
-                viewModel.initPlayer()
+                viewModel.uiState.value = GameScreenUIState.Default
             }
         }
     }
@@ -89,7 +98,7 @@ fun GameScreen(
             if (viewModel.firstRun) {
                 OutlinedButton(onClick = {
                     viewModel.alreadyFirstRun()
-                    viewModel.uiState.value = GameScreenUIState.Changed
+//                    viewModel.uiState.value = GameScreenUIState.Changed
                 }) {
                     Text(text = "Moje karty ->")
                 }
@@ -114,7 +123,7 @@ fun GameScreen(
                 IconButton(onClick = {
                     navigation.navigateToMyCardsScreen(
                         gameId = viewModel.loadGameId,
-                        playerId = viewModel.dataSavedGame.playerOnTurnId
+                        playerId = viewModel.playerOnTurn
                     )
                 }
                 ) {
@@ -176,7 +185,8 @@ fun GameScreenContent(
         Text("Aktuální políčko: ${viewModel.actualCardWithDetails.card.name}")
         Text("Popis karty: ${viewModel.actualCardWithDetails}")
         Text("actual field: ${viewModel.actualField}")
-        Text("data player field: ${viewModel.dataPlayer.field}")
+//        Text("data player field: ${viewModel.dataPlayers[(viewModel.playerOnTurn-1).toInt()].field}")
+        Text("data player field: ${viewModel.dataPlayers}")
 
 
         Row(
@@ -184,7 +194,7 @@ fun GameScreenContent(
         ) {
             Button(
                 onClick = {},
-                enabled = viewModel.dataSavedGame.playerOnTurnId == 1L
+                enabled = viewModel.playerOnTurn == 1L
             ) {
                 Text("Hráč 1")// todo extract string
             }
@@ -193,7 +203,7 @@ fun GameScreenContent(
 
             Button(
                 onClick = {},
-                enabled = viewModel.dataSavedGame.playerOnTurnId  == 2L
+                enabled = viewModel.playerOnTurn  == 2L
             ) {
                 Text("Hráč 2")// todo extract string
             }
@@ -202,7 +212,7 @@ fun GameScreenContent(
 
             Button(
                 onClick = {},
-                enabled = viewModel.dataSavedGame.playerOnTurnId  == 3L
+                enabled = viewModel.playerOnTurn  == 3L
             ) {
                 Text("Hráč 3")// todo extract string
             }

@@ -11,28 +11,29 @@ import cz.mendelu.pef.dostihyasazky.model.*
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailUIState
 import cz.mendelu.pef.dostihyasazky.ui.utils.DateUtils
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class GameScreenVM(
-    private val repository: IRacesBetsRepository,
-    private val dsRepository: IDataStoreRepository
+    private val repository: IRacesBetsRepository, private val dsRepository: IDataStoreRepository
 ) : BaseViewModel() {
 
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
     var dataSavedGame: SavedGame = SavedGame("", 1)
     var dataSavedGameToCard: SavedGameToCard = SavedGameToCard(null, 0, null, 0)
 
-    var actualField: Long = 1L
     var actualCardWithDetails: CardWithMoreDetails = CardWithMoreDetails(
-        Card("", 0, 0, 0, 0, null),
-        MoreDetails("", 0, 0, 0)
+        Card("", 0, 0, 0, 0, null), MoreDetails("", 0, 0, 0)
     )
+    var actualField: Long = 1L
 
-    var dataPlayer: Player = Player(dataSavedGame.playerOnTurnId)
+    var loadGameId: Long? = null
+    var playerOnTurn: Long = 1L
 
+    var dataPlayers: ArrayList<Player> = ArrayList(listOf(Player(1), Player(2), Player(3)))
     var playing: Boolean = false
-
-    var loadGameId: Long? = -1L
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
@@ -40,10 +41,8 @@ class GameScreenVM(
     var firstRun: Boolean = false
 
     fun rollTheDice() {
-//        diceNumber = (Math.random() * 6).toInt() + 1
+//        todo diceNumber = (Math.random() * 6).toInt() + 1
         diceNumber = 1
-
-//        println(":) " +actualField + " "+ diceNumber)
         actualField += diceNumber
         if (actualField > 40) {
             actualField -= 40
@@ -52,29 +51,54 @@ class GameScreenVM(
 
         loadCard()
 //        uiState.value = GameScreenUIState.Changed
-//        println(diceNumber)
     }
 
     fun init() {
         initFirstRun()
-        initPlayer()
-        initGame()
-    }
 
-    private fun initGame() {
-        if (loadGameId != -1L) {
+        if (loadGameId == null) {
             launch {
-                dataSavedGame = repository.getSavedGameById(loadGameId!!)
+//                println(":) gameid " + dataSavedGame.id)
+//                println(":) gameid " + loadGameId)
+//                println(":) field " + actualField)
+//                println(":) dataplayers0 " + dataPlayers[0])
+
+                dataPlayers[0] = repository.getPlayerByIdAndNullGameId(1)
+//                println(":) dataplayers0 " + dataPlayers[0])
+                dataPlayers[1] = repository.getPlayerByIdAndNullGameId(2)
+                dataPlayers[2] = repository.getPlayerByIdAndNullGameId(3)
+
+                actualField = dataPlayers[0].field!!
+
                 actualCardWithDetails.card = repository.getCardById(actualField)
-                uiState.value = GameScreenUIState.Changed
+                uiState.value = GameScreenUIState.Initialized
             }
         } else {
             launch {
+
+//                println(":) else gameid " + dataSavedGame.id)
+//                println(":) else game id " + loadGameId)
+//                println(":) else field " + actualField)
+//                println(":) else dataplayers0 " + dataPlayers[0])
+                dataPlayers[0] = repository.getPlayerByIdAndGameId(1, loadGameId!!)
+//                println(":)" + dataPlayers[0])
+                dataPlayers[1] = repository.getPlayerByIdAndGameId(2, loadGameId!!)
+//                println(":)" + dataPlayers[1])
+                dataPlayers[2] = repository.getPlayerByIdAndGameId(3, loadGameId!!)
+//                println(":)" + dataPlayers[2])
+
+                actualField = dataPlayers[0].field!!
+
+                dataSavedGame = repository.getSavedGameById(loadGameId!!)
+                playerOnTurn = dataSavedGame.playerOnTurnId
+//                println(":) " + dataPlayers[(playerOnTurn - 1).toInt()].field)
+                actualField = dataPlayers[(playerOnTurn - 1).toInt()].field!!
                 actualCardWithDetails.card = repository.getCardById(actualField)
-                uiState.value = GameScreenUIState.Changed
+                uiState.value = GameScreenUIState.Initialized
             }
         }
     }
+
 
     private fun initFirstRun() {
         launch {
@@ -82,34 +106,6 @@ class GameScreenVM(
         }
     }
 
-    fun savePlayer() {
-        dataPlayer.playerId = dataSavedGame.playerOnTurnId
-        dataPlayer.field = actualField
-
-        launch {
-            repository.updatePlayer(dataPlayer)
-            uiState.value = GameScreenUIState.PlayerSaved
-        }
-    }
-
-    fun initPlayer() {
-        if (dataSavedGame.id != null) {
-            launch {
-                dataPlayer = repository.getPlayerByIdAndGameId(
-                    dataSavedGame.playerOnTurnId,
-                    dataSavedGame.id!!
-                )
-                actualField = dataPlayer.field!!
-                uiState.value = GameScreenUIState.PlayerInitialized
-            }
-        } else {
-            launch {
-                dataPlayer = repository.getPlayerByIdAndNullGameId(dataSavedGame.playerOnTurnId)
-                actualField = dataPlayer.field!!
-                uiState.value = GameScreenUIState.PlayerInitialized
-            }
-        }
-    }
 
     fun loadCard() {
         launch {
@@ -129,20 +125,30 @@ class GameScreenVM(
 
     fun saveGame() {
         dataSavedGame.date = DateUtils.getToday(true)
-//        println(":)" + data.date)
+        dataSavedGame.playerOnTurnId = playerOnTurn
 
-
-        if (loadGameId == -1L) {
+        if (loadGameId == null) {
             launch {
                 val idSavedGame = repository.insertSavedGame(dataSavedGame)
                 dataSavedGameToCard.savedGameId = idSavedGame
-
                 repository.updateSavedGameToCard(dataSavedGameToCard)
+
+                dataPlayers[0].gameId = idSavedGame
+                dataPlayers[1].gameId = idSavedGame
+                dataPlayers[2].gameId = idSavedGame
+
+                repository.updatePlayer(dataPlayers[0])
+                repository.updatePlayer(dataPlayers[1])
+                repository.updatePlayer(dataPlayers[2])
+
                 uiState.value = GameScreenUIState.Saved
             }
         } else {
             launch {
                 repository.updateSavedGame(dataSavedGame)
+                repository.updatePlayer(dataPlayers[0])
+                repository.updatePlayer(dataPlayers[1])
+                repository.updatePlayer(dataPlayers[2])
                 uiState.value = GameScreenUIState.Updated
             }
         }
@@ -152,26 +158,21 @@ class GameScreenVM(
         playing = false
         diceNumber = 0
 
-        savePlayer()
+//        savePlayer()
+        dataPlayers[(playerOnTurn - 1).toInt()].field = actualField
         nextPlayer()
-
-        initPlayer()
-
-        //
-        actualField = dataPlayer.field!!
+//        initPlayers()
+        actualField = dataPlayers[(playerOnTurn - 1).toInt()].field!!
         loadCard()
-
-        //
 //        uiState.value = GameScreenUIState.Changed
     }
 
 
-
     private fun nextPlayer() {
-        if (dataSavedGame.playerOnTurnId != 3L) {
-            dataSavedGame.playerOnTurnId += 1
+        if (playerOnTurn != 3L) {
+            playerOnTurn += 1
         } else {
-            dataSavedGame.playerOnTurnId = 1
+            playerOnTurn = 1
         }
     }
 
@@ -219,4 +220,66 @@ class GameScreenVM(
 //        boxesArray.add(MyBox(35, 10, 10, "Narcius"))
 //        boxesArray.add(MyBox(36, 10, 10, "Klinika 2"))
 //        boxesArray.add(MyBox(37, 10, 10, "Napoli"))
+//    }
+
+
+//    private fun initPlayers() {
+//        if (loadGameId == null) {
+//            launch {
+//                println(":) gameid " + dataSavedGame.id)
+//                println(":) gameid " + loadGameId)
+//                println(":) field " + actualField)
+//                println(":) dataplayers0 " + dataPlayers[0])
+//
+//                dataPlayers[0] = repository.getPlayerByIdAndNullGameId(1)
+//                println(":) dataplayers0 " + dataPlayers[0])
+//                dataPlayers[1] = repository.getPlayerByIdAndNullGameId(2)
+//                dataPlayers[2] = repository.getPlayerByIdAndNullGameId(3)
+//
+//                actualField = dataPlayers[0].field!!
+//                uiState.value = GameScreenUIState.PlayerInitialized
+//            }
+//        } else {
+//            launch {
+//
+//                println(":) else gameid " + dataSavedGame.id)
+//                println(":) else game id " + loadGameId)
+//                println(":) else field " + actualField)
+//                println(":) else dataplayers0 " + dataPlayers[0])
+//
+//                dataPlayers[0] = repository.getPlayerByIdAndGameId(1, loadGameId!!)
+//                println(":)" + dataPlayers[0])
+//                dataPlayers[1] = repository.getPlayerByIdAndGameId(2, loadGameId!!)
+//                println(":)" + dataPlayers[1])
+//                dataPlayers[2] = repository.getPlayerByIdAndGameId(3, loadGameId!!)
+//                println(":)" + dataPlayers[2])
+//
+//                actualField = dataPlayers[0].field!!
+//                uiState.value = GameScreenUIState.PlayerInitialized
+//            }
+//        }
+//    }
+
+//    fun savePlayer(playerToSave: Player) {
+//        launch {
+//            repository.updatePlayer(playerToSave)
+//            uiState.value = GameScreenUIState.PlayerSaved
+//        }
+//    }
+
+//    private fun initGame() {
+//        if (loadGameId != null) {
+//            launch {
+//                dataSavedGame = repository.getSavedGameById(loadGameId!!)
+//                println(":) " + dataPlayers[(playerOnTurn - 1).toInt()].field)
+//                actualField = dataPlayers[(playerOnTurn - 1).toInt()].field!!
+//                actualCardWithDetails.card = repository.getCardById(actualField)
+//                uiState.value = GameScreenUIState.GameInitialized
+//            }
+//        } else {
+//            launch {
+//                actualCardWithDetails.card = repository.getCardById(actualField)
+//                uiState.value = GameScreenUIState.GameInitialized
+//            }
+//        }
 //    }
