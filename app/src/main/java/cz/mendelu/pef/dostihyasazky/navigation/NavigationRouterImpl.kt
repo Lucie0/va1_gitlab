@@ -17,8 +17,8 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
         navController.navigate(Destination.GameScreen.route + "/"+ id)
     }
 
-    override fun navigateToMyCardsScreen() {
-        navController.navigate(Destination.MyCardsScreen.route)
+    override fun navigateToMyCardsScreen(gameId:Long?) {
+        navController.navigate(Destination.MyCardsScreen.route + "/" + gameId)
     }
 
     override fun navigateToCardDetailScreen(id: Long?) {

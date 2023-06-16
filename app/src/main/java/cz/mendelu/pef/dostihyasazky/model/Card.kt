@@ -30,7 +30,7 @@ data class Card(
 
 ) {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "id_card")
     var id: Long? = null
 
     //    vlastnik

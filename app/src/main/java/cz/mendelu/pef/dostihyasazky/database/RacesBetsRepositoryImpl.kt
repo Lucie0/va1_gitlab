@@ -65,8 +65,28 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.insertSavedGameToCard(item)
     }
 
-    override fun getSavedGameWithSavedGameToCard(gameId: Long): Flow<List<SavedGameWithSavedGameToCard>?> {
-        return dao.getSavedGameWithSavedGameToCard(gameId)
+    override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {
+        return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId)
+    }
+
+    override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerId(ownerId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {
+        return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerId(ownerId)
+    }
+
+    override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(
+        ownerId: Long,
+        gameId: Long?
+    ): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {
+        return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(
+            ownerId,
+            gameId
+        )
+    }
+
+    override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(
+        ownerId: Long
+    ): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {
+        return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(ownerId)
     }
 
 }

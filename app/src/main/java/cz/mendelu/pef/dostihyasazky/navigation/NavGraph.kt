@@ -33,9 +33,21 @@ fun NavGraph(
         composable(route = Destination.MainScreen.route) {
             MainScreen(navigation) // zavolani jine composable fce a jen se zavola
         }
-        composable(route = Destination.MyCardsScreen.route) {
-            MyCardsScreen(navigation) // zavolani jine composable fce a jen se zavola
+        composable(route = Destination.MyCardsScreen.route + "/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ){
+            val id = it.arguments?.getLong("id")
+            MyCardsScreen(
+                navigation = navigation,
+                gameId = if (id != -1L) id else null
+            )
         }
+
         composable(route = Destination.RulesScreen.route) {
             RulesScreen(navigation) // zavolani jine composable fce a jen se zavola
         }

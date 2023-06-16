@@ -6,7 +6,7 @@ interface INavigationRouter {
     fun navigateBack()
 
     fun navigateToGameScreen(id: Long?)
-    fun navigateToMyCardsScreen()
+    fun navigateToMyCardsScreen(gameId:Long?)
     fun navigateToCardDetailScreen(id: Long?)
     fun navigateToRulesScreen()
     fun navigateToSavedGamesScreen()

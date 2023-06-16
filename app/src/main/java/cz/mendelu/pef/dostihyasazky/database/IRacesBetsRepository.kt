@@ -28,5 +28,8 @@ interface IRacesBetsRepository {
     // --------------------------
     suspend fun insertSavedGameToCard(item: SavedGameToCard): Long
 
-    fun getSavedGameWithSavedGameToCard(gameId: Long): Flow<List<SavedGameWithSavedGameToCard>?>
+    fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
+    fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerId(ownerId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
+    fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(ownerId: Long, gameId: Long?): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
+    fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(ownerId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
 }

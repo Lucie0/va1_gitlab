@@ -26,7 +26,7 @@ fun GameScreen(
     viewModel: GameScreenVM = getViewModel()
 ) {
 
-    viewModel.loadGameId = id
+    viewModel.loadGameId = id ?: -1
 
     var data by remember { mutableStateOf(viewModel.data) }
 
@@ -91,7 +91,7 @@ fun GameScreen(
             PlainTooltipBox(
                 tooltip = { Text("Moje karty") }, // todo extract string,
             ) {
-                IconButton(onClick = { navigation.navigateToMyCardsScreen() }) {
+                IconButton(onClick = { navigation.navigateToMyCardsScreen(viewModel.loadGameId) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_my_cards),
                         contentDescription = "Moje karty", // todo extract string

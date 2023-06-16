@@ -26,6 +26,7 @@ import androidx.compose.material3.Card as Card1
 import androidx.compose.runtime.rememberCoroutineScope
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
+import cz.mendelu.pef.dostihyasazky.model.SavedGameToCardWithSavedGameWithCardWMoreDetails
 import cz.mendelu.pef.dostihyasazky.ui.theme.PinkStable
 import cz.mendelu.pef.dostihyasazky.ui.theme.RedStable
 import kotlinx.coroutines.launch
@@ -34,9 +35,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyCardsScreen(
     navigation: INavigationRouter,
-    viewModel: MyCardsVM = getViewModel()
+    viewModel: MyCardsVM = getViewModel(),
+    gameId: Long?
 ) {
-    var cards = remember { mutableStateListOf<CardWithMoreDetails>() }
+    var cards = remember { mutableStateListOf<SavedGameToCardWithSavedGameWithCardWMoreDetails>() }
+
+    viewModel.loadedGameId = gameId
 
 //    cards.add(
 //        Card(
@@ -96,7 +100,7 @@ fun MyCardsScreen(
 @Composable
 fun MyCardsScreenContent(
     paddingValues: PaddingValues,
-    cards: List<CardWithMoreDetails>,
+    cards: List<SavedGameToCardWithSavedGameWithCardWMoreDetails>,
     navigation: INavigationRouter
 ) {
     LazyVerticalGrid(

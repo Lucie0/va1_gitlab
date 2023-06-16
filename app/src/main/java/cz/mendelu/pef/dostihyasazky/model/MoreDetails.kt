@@ -29,7 +29,7 @@ data class MoreDetails(
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "id_more_details")
     var id: Long? = null
 
     //    pocet dostihu

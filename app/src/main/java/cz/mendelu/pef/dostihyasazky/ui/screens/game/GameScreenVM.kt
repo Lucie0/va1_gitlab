@@ -21,7 +21,7 @@ class GameScreenVM(
     var uiState: MutableState<GameScreenUIState> = mutableStateOf(GameScreenUIState.Loading)
     var data: SavedGame = SavedGame("", 0)
 
-    var loadGameId: Long? = null
+    var loadGameId: Long? = -1L
 
     var boxesArray = ArrayList<MyBox>()
     var diceNumber: Int = 0
@@ -78,7 +78,7 @@ class GameScreenVM(
     }
 
     fun initGame() {
-        if (loadGameId != null) {
+        if (loadGameId != -1L) {
             launch {
                 data = repository.getSavedGameById(loadGameId!!)
                 uiState.value = GameScreenUIState.Changed
@@ -107,7 +107,7 @@ class GameScreenVM(
 //        println(":)" + data.date)
         data.playerOnTurnId = 0
 
-        if (loadGameId == null) {
+        if (loadGameId == -1L) {
             launch {
                 repository.insertSavedGame(data)
                 uiState.value = GameScreenUIState.Saved

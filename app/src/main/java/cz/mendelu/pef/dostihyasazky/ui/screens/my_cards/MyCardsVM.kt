@@ -10,10 +10,21 @@ class MyCardsVM(private val repository: IRacesBetsRepository) : BaseViewModel() 
 
     var uiState: MutableState<MyCardsUIState> = mutableStateOf(MyCardsUIState.Default)
 
-    fun loadMyCards(id: Long) {
+    var loadedGameId: Long? = -1L
+
+    fun loadMyCards(ownerId: Long) {
         launch {
-            repository.getCardWithMoreDetailsByOwner(id)
-                .collect() { // poslouchej nad zmenami a sbirej, a kdyz se neco zmeni, vrat to -- v it
+            if (loadedGameId != -1L && loadedGameId != null) {
+                repository.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(
+                    ownerId,
+                    loadedGameId!!
+                )
+            } else {
+                repository.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(
+                    ownerId
+                )
+            }
+                .collect() {
                     uiState.value = MyCardsUIState.Success(it)
                 }
         }
