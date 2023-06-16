@@ -21,5 +21,4 @@ data class SavedGameToCardWithSavedGameWithCardWMoreDetails(
         entityColumn = "id_more_details"
     )
     val moreDetails: MoreDetails
-
 )

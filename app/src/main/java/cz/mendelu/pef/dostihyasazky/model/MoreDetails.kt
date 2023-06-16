@@ -42,4 +42,8 @@ data class MoreDetails(
     @ColumnInfo(name = "longitude")
     var longitude: Double? = null
 
+    override fun toString(): String {
+        return "$stableVisitCost, $stableType"
+    }
+
 }

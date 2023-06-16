@@ -151,8 +151,8 @@ fun GameScreenContent(
         )
 
         // todo stav hry
-        Text("Aktuální políčko:${savedGame.name ?: ""}")
-        Text("Popis karty:${savedGame.id ?: ""}")
+        Text("Aktuální políčko: ${viewModel.actualCardWithDetails.card.name}")
+        Text("Popis karty: ${viewModel.actualCardWithDetails}")
 
 
         Row(

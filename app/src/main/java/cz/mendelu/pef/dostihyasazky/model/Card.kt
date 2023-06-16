@@ -49,6 +49,6 @@ data class Card(
 //    // ---- trener end
 
     override fun toString(): String {
-        return super.toString()
+        return "$historicalCost, $fixFee"
     }
 }
