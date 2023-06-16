@@ -1,9 +1,6 @@
 package cz.mendelu.pef.dostihyasazky.database
 
-import cz.mendelu.pef.dostihyasazky.model.Card
-import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
-import cz.mendelu.pef.dostihyasazky.model.MoreDetails
-import cz.mendelu.pef.dostihyasazky.model.SavedGame
+import cz.mendelu.pef.dostihyasazky.model.*
 import kotlinx.coroutines.flow.Flow
 
 class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsRepository {
@@ -62,6 +59,14 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
 
     override suspend fun getSavedGameById(id: Long): SavedGame {
         return dao.getSavedGameById(id)
+    }
+
+    override suspend fun insertSavedGameToCard(item: SavedGameToCard): Long {
+        return dao.insertSavedGameToCard(item)
+    }
+
+    override fun getSavedGameWithSavedGameToCard(gameId: Long): Flow<List<SavedGameWithSavedGameToCard>?> {
+        return dao.getSavedGameWithSavedGameToCard(gameId)
     }
 
 }

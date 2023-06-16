@@ -1,10 +1,8 @@
 package cz.mendelu.pef.dostihyasazky.database
 
 import androidx.room.*
-import cz.mendelu.pef.dostihyasazky.model.Card
-import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
-import cz.mendelu.pef.dostihyasazky.model.MoreDetails
-import cz.mendelu.pef.dostihyasazky.model.SavedGame
+import androidx.room.Transaction
+import cz.mendelu.pef.dostihyasazky.model.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -54,4 +52,12 @@ interface RacesBetsDao {
 
     @Query("SELECT * FROM games WHERE id = :id")
     suspend fun getSavedGameById(id: Long): SavedGame
+
+    @Insert
+    suspend fun insertSavedGameToCard(item: SavedGameToCard): Long
+
+    @Transaction
+    @Query("SELECT * FROM games WHERE id = :gameId")
+    fun getSavedGameWithSavedGameToCard(gameId: Long): Flow<List<SavedGameWithSavedGameToCard>?>
+
 }

@@ -50,11 +50,20 @@ fun CardDetailScreen(
             CardDetailUIState.Updated -> {
                 viewModel.uiState.value = CardDetailUIState.Changed
             }
+            CardDetailUIState.BoughtRace -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    "Dostih zakoupen", // todo extract string
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.uiState.value = CardDetailUIState.Default
+            }
         }
     }
 
     BackArrowScreen(
-        appBarTitle = data.card.name, // todo jmeno -- PETR -- proc se mi neprokresluje hned, ale musim pockat na nejaky referesh?
+        appBarTitle = "Jmeno:" + data.card.name, // todo jmeno -- PETR -- proc se mi neprokresluje hned, ale musim pockat na nejaky referesh?
         onBackClick = { navigation.navigateBack() }
     ) {
         CardDetailScreenContent(

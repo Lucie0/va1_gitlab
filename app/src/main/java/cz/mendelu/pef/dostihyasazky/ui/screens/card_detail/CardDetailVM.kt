@@ -37,7 +37,7 @@ class CardDetailVM(private val repository: IRacesBetsRepository) : BaseViewModel
             launch {
                 repository.updateCard(data.card)
                 repository.updateMoreDetails(data.moreDetails)
-                uiState.value = CardDetailUIState.Updated
+                uiState.value = CardDetailUIState.BoughtRace
             }
         } else {
             uiState.value = CardDetailUIState.CannotBuyRace

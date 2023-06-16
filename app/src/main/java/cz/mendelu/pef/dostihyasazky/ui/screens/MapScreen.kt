@@ -81,27 +81,26 @@ fun MapScreenContent(
             uiSettings = mapUiSettings, // aby si kamera udrzela stavy
             cameraPositionState = cameraPositionState
         ) {
-            MapEffect { map ->
-                map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
-                    override fun onMarkerDrag(p0: Marker) {
-                        //todo
-
-                    }
-
-                    override fun onMarkerDragEnd(p0: Marker) {
-                        //todo
-                        // ulozeni coords do VM
-//                        actions.onLocationChanged(
-//                            latitude = p0.position.latitude,
-//                            longitude = p0.position.longitude
-//                        )
-                    }
-
-                    override fun onMarkerDragStart(p0: Marker) {
-                        //todo
-                    }
-                })
-            }
+//            MapEffect { map ->
+//                map.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+//                    override fun onMarkerDrag(p0: Marker) {
+//                        //todo
+//                    }
+//
+//                    override fun onMarkerDragEnd(p0: Marker) {
+//                        //todo
+//                        // ulozeni coords do VM
+////                        actions.onLocationChanged(
+////                            latitude = p0.position.latitude,
+////                            longitude = p0.position.longitude
+////                        )
+//                    }
+//
+//                    override fun onMarkerDragStart(p0: Marker) {
+//                        //todo
+//                    }
+//                })
+//            }
             //    state: MarkerState = rememberMarkerState(),
             //    alpha: Float = 1.0f,
             //    anchor: Offset = Offset(0.5f, 1.0f), // ktery bod znaci to dane misto (dolni bod pointu, stred kolecka, ...)

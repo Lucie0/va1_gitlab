@@ -6,4 +6,5 @@ sealed class CardDetailUIState {
     object Changed: CardDetailUIState()
     object Updated: CardDetailUIState()
     object CannotBuyRace: CardDetailUIState()
+    object BoughtRace: CardDetailUIState()
 }

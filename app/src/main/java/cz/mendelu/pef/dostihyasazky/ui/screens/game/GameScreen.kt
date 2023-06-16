@@ -121,11 +121,11 @@ fun GameScreenContent(
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
         Button(
-            onClick = { /*TODO call vm hod kostkou*/
+            onClick = {
                 viewModel.rollTheDice()
             }, enabled = true
         ) {
-            Text("Hod kostkou: ${viewModel.diceNumber}") //todo diceNumber
+            Text("Hod kostkou: ${viewModel.diceNumber}")
         }
         Image(
             painter = painterResource(id = R.drawable.plan_svetly_1b), contentDescription = "planek"

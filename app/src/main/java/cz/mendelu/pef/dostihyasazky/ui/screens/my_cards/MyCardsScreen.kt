@@ -114,7 +114,7 @@ fun MyCardsScreenContent(
                         .padding(4.dp)
                         .fillMaxWidth()
                         .height(128.dp)
-                        .clickable { navigation.navigateToCardDetailScreen(it.card.id) }, // todo it.id, spravne id dle zvoleneho obrazku
+                        .clickable { navigation.navigateToCardDetailScreen(it.card.id) },
                     colors = CardDefaults.cardColors()
                 ) {
 
