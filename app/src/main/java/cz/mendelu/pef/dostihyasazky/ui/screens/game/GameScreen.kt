@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
+import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
@@ -28,17 +29,19 @@ fun GameScreen(
 
     viewModel.loadGameId = savedGameId ?: -1L
 
-    var data by remember { mutableStateOf(viewModel.dataSavedGame) }
+    var dataSavedGame by remember { mutableStateOf(viewModel.dataSavedGame) }
+    var dataCardWithDetails by remember { mutableStateOf(viewModel.actualCardWithDetails) }
 
     viewModel.uiState.value.let {
         when (it) {
             GameScreenUIState.Default -> {}
             GameScreenUIState.Loading -> {
-                viewModel.initGame()
-                viewModel.initFirstRun()
+//                println(":)" + viewModel.dataSavedGame.playerOnTurnId)
+                viewModel.init()
             }
             GameScreenUIState.Changed -> {
-                data = viewModel.dataSavedGame
+                dataSavedGame = viewModel.dataSavedGame
+                dataCardWithDetails = viewModel.actualCardWithDetails
                 viewModel.uiState.value = GameScreenUIState.Default
             }
             GameScreenUIState.Saved -> {
@@ -57,6 +60,23 @@ fun GameScreen(
                     navigation.navigateBack()
                 }
                 viewModel.uiState.value = GameScreenUIState.Saved
+            }
+//            GameScreenUIState.Downloaded -> {
+//                dataCardWithDetails = viewModel.actualCardWithDetails
+//                viewModel.uiState.value = GameScreenUIState.Default
+//            }
+
+            GameScreenUIState.CardLoaded -> {
+                dataCardWithDetails = viewModel.actualCardWithDetails
+                viewModel.uiState.value = GameScreenUIState.Default
+            }
+            GameScreenUIState.PlayerInitialized -> {
+                dataCardWithDetails = viewModel.actualCardWithDetails
+                viewModel.loadCard()
+            }
+            GameScreenUIState.PlayerSaved -> {
+                dataCardWithDetails = viewModel.actualCardWithDetails
+                viewModel.initPlayer()
             }
         }
     }
@@ -109,7 +129,8 @@ fun GameScreen(
         GameScreenContent(
             paddingValues = it,
             navigation = navigation,
-            savedGame = data,
+            savedGame = dataSavedGame,
+            cardWDetails = dataCardWithDetails,
             viewModel = viewModel
         )
     }
@@ -120,6 +141,7 @@ fun GameScreenContent(
     paddingValues: PaddingValues,
     navigation: INavigationRouter,
     savedGame: SavedGame,
+    cardWDetails: CardWithMoreDetails,
     viewModel: GameScreenVM
 ) {
 
@@ -153,13 +175,15 @@ fun GameScreenContent(
         // todo stav hry
         Text("Aktuální políčko: ${viewModel.actualCardWithDetails.card.name}")
         Text("Popis karty: ${viewModel.actualCardWithDetails}")
+        Text("actual field: ${viewModel.actualField}")
+        Text("data player field: ${viewModel.dataPlayer.field}")
 
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
-                onClick = { /*TODO */ },
+                onClick = {},
                 enabled = viewModel.dataSavedGame.playerOnTurnId == 1L
             ) {
                 Text("Hráč 1")// todo extract string
@@ -168,7 +192,7 @@ fun GameScreenContent(
             Spacer(modifier = Modifier.requiredWidth(16.dp))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {},
                 enabled = viewModel.dataSavedGame.playerOnTurnId  == 2L
             ) {
                 Text("Hráč 2")// todo extract string
@@ -177,7 +201,7 @@ fun GameScreenContent(
             Spacer(modifier = Modifier.requiredWidth(16.dp))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {},
                 enabled = viewModel.dataSavedGame.playerOnTurnId  == 3L
             ) {
                 Text("Hráč 3")// todo extract string

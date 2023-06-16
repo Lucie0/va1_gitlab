@@ -79,8 +79,11 @@ interface RacesBetsDao {
     @Query("SELECT * FROM saved_game_to_card WHERE player_id = :ownerId AND saved_game_id IS NULL")
     fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(ownerId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
 
-    @Query("SELECT * FROM players WHERE is_playr = :playerId")
-    suspend fun getPlayerById(playerId: Long)
+    @Query("SELECT * FROM players WHERE player_id = :playerId AND game_id = :gameId")
+    suspend fun getPlayerByIdAndGameId(playerId: Long, gameId: Long): Player
+
+    @Query("SELECT * FROM players WHERE player_id = :playerId AND game_id IS NULL")
+    suspend fun getPlayerByIdAndNullGameId(playerId: Long): Player
 
     @Update
     suspend fun updatePlayer(item: Player)

@@ -14,8 +14,9 @@ import cz.mendelu.pef.dostihyasazky.model.*
         CardType::class,
         PaymentType::class,
         MoreDetails::class,
-        SavedGameToCard::class
-               ],
+        SavedGameToCard::class,
+        Player::class
+    ],
     version = 2,
     exportSchema = true
 )

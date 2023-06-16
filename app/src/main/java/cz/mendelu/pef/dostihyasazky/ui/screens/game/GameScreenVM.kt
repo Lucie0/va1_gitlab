@@ -28,6 +28,8 @@ class GameScreenVM(
         MoreDetails("", 0, 0, 0)
     )
 
+    var dataPlayer: Player = Player(dataSavedGame.playerOnTurnId)
+
     var playing: Boolean = false
 
     var loadGameId: Long? = -1L
@@ -38,7 +40,10 @@ class GameScreenVM(
     var firstRun: Boolean = false
 
     fun rollTheDice() {
-        diceNumber = (Math.random() * 6).toInt() + 1
+//        diceNumber = (Math.random() * 6).toInt() + 1
+        diceNumber = 1
+
+//        println(":) " +actualField + " "+ diceNumber)
         actualField += diceNumber
         if (actualField > 40) {
             actualField -= 40
@@ -50,7 +55,13 @@ class GameScreenVM(
 //        println(diceNumber)
     }
 
-    fun initGame() {
+    fun init() {
+        initFirstRun()
+        initPlayer()
+        initGame()
+    }
+
+    private fun initGame() {
         if (loadGameId != -1L) {
             launch {
                 dataSavedGame = repository.getSavedGameById(loadGameId!!)
@@ -65,16 +76,46 @@ class GameScreenVM(
         }
     }
 
-    fun initFirstRun() {
+    private fun initFirstRun() {
         launch {
             firstRun = dsRepository.getFirstRun()
+        }
+    }
+
+    fun savePlayer() {
+        dataPlayer.playerId = dataSavedGame.playerOnTurnId
+        dataPlayer.field = actualField
+
+        launch {
+            repository.updatePlayer(dataPlayer)
+            uiState.value = GameScreenUIState.PlayerSaved
+        }
+    }
+
+    fun initPlayer() {
+        if (dataSavedGame.id != null) {
+            launch {
+                dataPlayer = repository.getPlayerByIdAndGameId(
+                    dataSavedGame.playerOnTurnId,
+                    dataSavedGame.id!!
+                )
+                actualField = dataPlayer.field!!
+                uiState.value = GameScreenUIState.PlayerInitialized
+            }
+        } else {
+            launch {
+                dataPlayer = repository.getPlayerByIdAndNullGameId(dataSavedGame.playerOnTurnId)
+                actualField = dataPlayer.field!!
+                uiState.value = GameScreenUIState.PlayerInitialized
+            }
         }
     }
 
     fun loadCard() {
         launch {
             actualCardWithDetails.card = repository.getCardById(actualField)
-            uiState.value = GameScreenUIState.Changed
+            println(actualCardWithDetails.card)
+            uiState.value = GameScreenUIState.CardLoaded
         }
     }
 
@@ -110,9 +151,21 @@ class GameScreenVM(
     fun endMove() {
         playing = false
         diceNumber = 0
+
+        savePlayer()
         nextPlayer()
-        uiState.value = GameScreenUIState.Changed
+
+        initPlayer()
+
+        //
+        actualField = dataPlayer.field!!
+        loadCard()
+
+        //
+//        uiState.value = GameScreenUIState.Changed
     }
+
+
 
     private fun nextPlayer() {
         if (dataSavedGame.playerOnTurnId != 3L) {

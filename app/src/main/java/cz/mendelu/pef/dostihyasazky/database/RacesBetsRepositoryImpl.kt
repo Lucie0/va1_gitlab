@@ -93,11 +93,19 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndNullGameId(ownerId)
     }
 
-    override suspend fun getPlayerById(playerId: Long) {
-        TODO("Not yet implemented")
+    override suspend fun getPlayerByIdAndGameId(playerId: Long, gameId: Long): Player {
+        return dao.getPlayerByIdAndGameId(playerId, gameId)
+    }
+
+    override suspend fun getPlayerByIdAndNullGameId(playerId: Long): Player {
+        return dao.getPlayerByIdAndNullGameId(playerId)
     }
 
     override suspend fun updatePlayer(item: Player) {
+        return dao.updatePlayer(item)
+    }
+
+    override suspend fun endMove() {
         TODO("Not yet implemented")
     }
 
