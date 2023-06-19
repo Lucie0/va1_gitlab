@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dostihy&amp;Sázky</string>
+    <string name="CD_buy_race">Koupit dostih</string>
+    <string name="CD_sell_card">Prodat kartu</string>
+    <string name="CD_show_in_map">Zobrazit v mapě</string>
+    <string name="CD_race_profit">Zisk z dostihu</string>
+    <string name="CD_race_cost">Cena za další dostih</string>
+    <string name="CD_race_count">Počet dostihů</string>
+    <string name="CD_stable_visit_cost">Prohlídka stáje</string>
+    <string name="CD_historical_cost">Pořizovací cena</string>
+    <string name="Toast_race_bought">Dostih zakoupen</string>
+    <string name="Toast_max_races_cannot_buy_race">Nelze koupit další dostih, dosaženo maximum 5</string>
+    <string name="M_new_game">Nová hra</string>
+    <string name="M_load_game">Načíst rozehranou</string>
+    <string name="M_info">Info</string>
+    <string name="Toast_saved">Uloženo</string>
+    <string name="G_game_app_bar">Hra</string>
+    <string name="G_info_btn_my_cards"><![CDATA[Moje karty ->]]></string>
+    <string name="G_save_game">Uložit hru</string>
+    <string name="G_my_cards">Moje karty</string>
+    <string name="G_roll_the_dice">Hod kostkou: </string>
+    <string name="G_end_move">Ukončit tah</string>
+    <string name="G_actual_field">Aktuální políčko: </string>
+    <string name="G_card_description">Popis karty: </string>
+    <string name="G_player_1">Hráč 1</string>
+    <string name="G_player_2">Hráč 2</string>
+    <string name="G_player_3">Hráč 3</string>
+    <string name="G_buy_card">Koupit kartu</string>
+    <string name="G_player_account">Konto:</string>
+    <string name="Map_stable_detail">Detail stáje v mapě</string>
+    <string name="MC_app_bar">Moje karty</string>
+</resources>

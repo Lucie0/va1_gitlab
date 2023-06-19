@@ -107,11 +107,13 @@ fun NavGraph(
             )
         ) {
             val parametersString = it.arguments?.getString("parameters")
+            println(":) " + parametersString)
             if (!parametersString.isNullOrEmpty()) {
                 val moshi: Moshi = Moshi.Builder().build()
                 val jsonAdapter: JsonAdapter<ParametersForMyCards> =
                     moshi.adapter(ParametersForMyCards::class.java)
                 val parameters = jsonAdapter.fromJson(parametersString)
+                println(":)" + parameters + parameters!!.playerId + parameters!!.gameId)
 
                 MyCardsScreen(
                     navigation = navigation,

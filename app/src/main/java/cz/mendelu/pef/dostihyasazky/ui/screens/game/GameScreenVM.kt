@@ -68,7 +68,11 @@ class GameScreenVM(
 //                dataPlayers[1] = repository.getPlayerByIdAndNullGameId(2)
 //                dataPlayers[2] = repository.getPlayerByIdAndNullGameId(3)
 
-                actualField = dataPlayers[0].field!!
+                dataPlayers[0].account = 30000
+                dataPlayers[1].account = 30000
+                dataPlayers[2].account = 30000
+
+                actualField = dataPlayers[0].field
 
                 actualCardWithDetails.card = repository.getCardById(actualField)
                 uiState.value = GameScreenUIState.Initialized
@@ -174,6 +178,10 @@ class GameScreenVM(
         } else {
             playerOnTurn = 1
         }
+    }
+
+    fun getAccountOfActualPlayer(): Long? {
+        return dataPlayers[(playerOnTurn - 1).toInt()].account
     }
 
 }

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.architecture.BaseViewModel
@@ -37,7 +38,7 @@ fun MainScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("DOSTIHY A SÁZKY") },// todo extract string
+                title = { Text(stringResource(id = R.string.app_name))}, //"DOSTIHY A SÁZKY") },
             )
         }) {
         MainScreenContent(
@@ -60,7 +61,7 @@ fun MainScreenContent(
     ) {
         Image(
             painter = painterResource(id = R.drawable.plan_svetly_1b_vyrez),
-            contentDescription = "planek",
+            contentDescription = null,
         )
 
         Column(
@@ -71,15 +72,15 @@ fun MainScreenContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(onClick = { navigation.navigateToGameScreen(-1L) }) {
-                Text("Nová hra")// todo extract string
+                Text(stringResource(R.string.M_new_game))
             }
 
             Button(onClick = { navigation.navigateToSavedGamesScreen() }) {
-                Text("Načíst rozehranou")// todo extract string
+                Text(stringResource(R.string.M_load_game))
             }
 
             Button(onClick = { navigation.navigateToSettingsScreen() }) {
-                Text("Info")// todo extract string
+                Text(stringResource(R.string.M_info))
             }
         }
     }

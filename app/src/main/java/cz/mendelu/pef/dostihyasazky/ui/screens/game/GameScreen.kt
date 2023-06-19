@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
@@ -47,7 +48,7 @@ fun GameScreen(
             GameScreenUIState.Saved -> {
                 Toast.makeText(
                     LocalContext.current,
-                    "Uloženo", // todo extract string
+                    stringResource(R.string.Toast_saved),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -90,7 +91,7 @@ fun GameScreen(
         }
     }
 
-    BackArrowScreen(appBarTitle = "Hra", // todo extract string
+    BackArrowScreen(appBarTitle = stringResource(R.string.G_game_app_bar),
         onBackClick = {
             navigation.navigateBack()
 //            ttState.show()
@@ -100,27 +101,29 @@ fun GameScreen(
                     viewModel.alreadyFirstRun()
 //                    viewModel.uiState.value = GameScreenUIState.Changed
                 }) {
-                    Text(text = "Moje karty ->")
+                    Text(text = stringResource(R.string.G_info_btn_my_cards))
                 }
             } else {
                 PlainTooltipBox(
-                    tooltip = { Text("Uložit hru") }, // todo extract string,
+                    tooltip = { Text(stringResource(R.string.G_save_game)) },
                 ) {
                     IconButton(onClick = {
                         viewModel.saveGame()
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.icon_save),
-                            contentDescription = "Uložit hru", // todo extract string
+                            contentDescription = null,
                         )
                     }
                 }
             }
 
             PlainTooltipBox(
-                tooltip = { Text("Moje karty") }, // todo extract string,
+                tooltip = { Text(stringResource(R.string.G_my_cards)) },
             ) {
                 IconButton(onClick = {
+                    println(":)" + viewModel.loadGameId +
+                        "playerId =" + viewModel.playerOnTurn)
                     navigation.navigateToMyCardsScreen(
                         gameId = viewModel.loadGameId,
                         playerId = viewModel.playerOnTurn
@@ -129,7 +132,7 @@ fun GameScreen(
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_my_cards),
-                        contentDescription = "Moje karty", // todo extract string
+                        contentDescription = null,
                     )
                 }
             }
@@ -164,7 +167,7 @@ fun GameScreenContent(
                 },
                 enabled = !viewModel.playing
             ) {
-                Text("Hod kostkou: ${viewModel.diceNumber}")
+                Text(stringResource(R.string.G_roll_the_dice)  + viewModel.diceNumber )
             }
 
             Button(
@@ -173,20 +176,28 @@ fun GameScreenContent(
                 },
                 enabled = viewModel.playing
             ) {
-                Text("Ukončit tah")
+                Text(stringResource(R.string.G_end_move))
             }
         }
 
         Image(
-            painter = painterResource(id = R.drawable.plan_svetly_1b), contentDescription = "planek"
+            painter = painterResource(id = R.drawable.plan_svetly_1b), contentDescription = null
         )
 
         // todo stav hry
-        Text("Aktuální políčko: ${viewModel.actualCardWithDetails.card.name}")
-        Text("Popis karty: ${viewModel.actualCardWithDetails}")
-        Text("actual field: ${viewModel.actualField}")
+        Text(stringResource(R.string.G_actual_field) + viewModel.actualCardWithDetails.card.name)
+        Text(stringResource(R.string.G_card_description) + viewModel.actualCardWithDetails)
+//        Text("actual field: ${viewModel.actualField}")
 //        Text("data player field: ${viewModel.dataPlayers[(viewModel.playerOnTurn-1).toInt()].field}")
-        Text("data player field: ${viewModel.dataPlayers}")
+//        Text("data player field: ${viewModel.dataPlayers}")
+
+        Text(stringResource(R.string.G_player_account) + viewModel.getAccountOfActualPlayer())
+
+        if(viewModel.actualCardWithDetails.card.cardTypeID == 1 && viewModel.playing){
+            OutlinedButton(onClick = { /*TODO vm.buyCard*/ }) {
+                Text(stringResource(R.string.G_buy_card))
+            }
+        }
 
 
         Row(
@@ -196,7 +207,7 @@ fun GameScreenContent(
                 onClick = {},
                 enabled = viewModel.playerOnTurn == 1L
             ) {
-                Text("Hráč 1")// todo extract string
+                Text(stringResource(R.string.G_player_1))
             }
 
             Spacer(modifier = Modifier.requiredWidth(16.dp))
@@ -205,7 +216,7 @@ fun GameScreenContent(
                 onClick = {},
                 enabled = viewModel.playerOnTurn  == 2L
             ) {
-                Text("Hráč 2")// todo extract string
+                Text(stringResource(R.string.G_player_2))
             }
 
             Spacer(modifier = Modifier.requiredWidth(16.dp))
@@ -214,7 +225,7 @@ fun GameScreenContent(
                 onClick = {},
                 enabled = viewModel.playerOnTurn  == 3L
             ) {
-                Text("Hráč 3")// todo extract string
+                Text(stringResource(R.string.G_player_3))
             }
         }
 

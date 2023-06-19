@@ -24,12 +24,12 @@ interface RacesBetsDao {
     @Query("SELECT * FROM cards WHERE id_card = :id")
     suspend fun getCardById(id: Long): Card
 
-    @Query("SELECT * FROM cards WHERE owner = :playerId")
-    fun getCardByPlayerId(playerId: Long): Flow<List<Card>?>
+//    @Query("SELECT * FROM cards WHERE owner = :playerId")
+//    fun getCardByPlayerId(playerId: Long): Flow<List<Card>?>
 
-    @Transaction
-    @Query("SELECT * FROM cards WHERE owner = :ownerId")
-    fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?>
+//    @Transaction
+//    @Query("SELECT * FROM cards WHERE owner = :ownerId")
+//    fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?>
 
     @Transaction
     @Query("SELECT * FROM cards WHERE id_card = :cardId")

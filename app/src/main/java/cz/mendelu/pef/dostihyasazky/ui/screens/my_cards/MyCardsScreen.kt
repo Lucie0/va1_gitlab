@@ -24,6 +24,7 @@ import org.koin.androidx.compose.getViewModel
 import androidx.compose.material3.Card as Card1
 
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.res.stringResource
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
 import cz.mendelu.pef.dostihyasazky.model.SavedGameToCardWithSavedGameWithCardWMoreDetails
@@ -37,7 +38,7 @@ fun MyCardsScreen(
     navigation: INavigationRouter,
     viewModel: MyCardsVM = getViewModel(),
     playerId: Long,
-    gameId: Long?
+    gameId: Long
 ) {
     val cards = remember { mutableStateListOf<SavedGameToCardWithSavedGameWithCardWMoreDetails>() }
 
@@ -84,7 +85,7 @@ fun MyCardsScreen(
     }
 
     BackArrowScreen(
-        appBarTitle = "Moje karty",// todo extract string
+        appBarTitle = stringResource(R.string.MC_app_bar),// todo extract string
         onBackClick = { navigation.navigateBack() },
         drawFullScreenContent = true
     )

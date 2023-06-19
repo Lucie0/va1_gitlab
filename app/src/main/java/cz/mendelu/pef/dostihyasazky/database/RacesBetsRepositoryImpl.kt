@@ -20,17 +20,18 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.deleteCard(item)
     }
 
-    override suspend fun getCardById(id: Long): Card {
-        return dao.getCardById(id)
+    override suspend fun getCardById(cardId: Long): Card {
+        return dao.getCardById(cardId)
     }
 
-    override fun getCardsByPlayerId(playerId: Long): Flow<List<Card>?> {
-        return dao.getCardByPlayerId(playerId)
-    }
 
-    override fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?> {
-        return dao.getCardWithMoreDetailsByOwner(ownerId)
-    }
+//    override fun getCardsByPlayerId(playerId: Long): Flow<List<Card>?> {
+//        return dao.getCardByPlayerId(playerId)
+//    }
+
+//    override fun getCardWithMoreDetailsByOwner(ownerId: Long): Flow<List<CardWithMoreDetails>?> {
+//        return dao.getCardWithMoreDetailsByOwner(ownerId)
+//    }
 
     override suspend fun getCardWithMoreDetailsByCardId(cardId: Long): CardWithMoreDetails? {
         return dao.getCardWithMoreDetailsByCardId(cardId)
@@ -107,10 +108,6 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
 
     override suspend fun insertPlayer(item: Player) {
         return dao.insertPlayer(item)
-    }
-
-    override suspend fun endMove() {
-        TODO("Not yet implemented")
     }
 
 }

@@ -19,7 +19,8 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
     }
 
     override fun navigateToMyCardsScreen(playerId: Long, gameId: Long?) {
-        if (gameId != null) {
+        println(":)" + playerId + gameId)
+//        if (gameId != null) {
             val moshi: Moshi = Moshi.Builder().build()
             // jaka trida se bude prevadet
             val jsonAdapter: JsonAdapter<ParametersForMyCards> =
@@ -27,14 +28,14 @@ class NavigationRouterImpl(private val navController: NavController) : INavigati
 
             val jsonString = jsonAdapter.toJson(
                 ParametersForMyCards(
-                    gameId = gameId,
+                    gameId = gameId ?: -1,
                     playerId = playerId
                 )
             )
             navController.navigate(Destination.MyCardsScreen.route + "/" + jsonString)
-        } else {
-            navController.navigate(Destination.MyCardsScreen.route + "/" + playerId)
-        }
+//        } else {
+//            navController.navigate(Destination.MyCardsScreen.route + "/" + playerId)
+//        }
     }
 
     override fun navigateToCardDetailScreen(id: Long?) {

@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.CardWithMoreDetails
@@ -41,7 +42,7 @@ fun CardDetailScreen(
             CardDetailUIState.CannotBuyRace -> {
                 Toast.makeText(
                     LocalContext.current,
-                    "Nelze koupit další dostih, dosaženo maximum 5", // todo extract string
+                    stringResource(R.string.Toast_max_races_cannot_buy_race),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -53,7 +54,7 @@ fun CardDetailScreen(
             CardDetailUIState.BoughtRace -> {
                 Toast.makeText(
                     LocalContext.current,
-                    "Dostih zakoupen", // todo extract string
+                    stringResource(R.string.Toast_race_bought),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -111,38 +112,27 @@ fun CardDetailScreenContent(
             Column {
                 Divider()
                 ListItem(
-                    headlineText = { Text("Pořizovací cena") },// todo extract string
+                    headlineText = { Text(stringResource(R.string.CD_historical_cost)) },
                     supportingText = { Text(cardWithMoreDetails.card.historicalCost.toString()) }
                 )
                 ListItem(
-                    headlineText = { Text("Prohlídka stáje") },// todo extract string
+                    headlineText = { Text(stringResource(R.string.CD_stable_visit_cost)) },
                     supportingText = { Text(cardWithMoreDetails.moreDetails.stableVisitCost.toString()) }
                 )
                 Divider()
                 ListItem(
-                    headlineText = { Text("Počet dostihů") },// todo extract string
+                    headlineText = { Text(stringResource(R.string.CD_race_count)) },
                     supportingText = { Text(cardWithMoreDetails.moreDetails.raceCount.toString()) }
                 )
                 ListItem(
-                    headlineText = { Text("Cena za další dostih") },// todo extract string
+                    headlineText = { Text(stringResource(R.string.CD_race_cost)) },
                     supportingText = { Text(cardWithMoreDetails.moreDetails.raceCost.toString()) }
                 )
                 ListItem(
-                    headlineText = { Text("Zisk z dostihu") },// todo extract string
-                    supportingText = { Text(cardWithMoreDetails.moreDetails.raceCost.toString()) }
+                    headlineText = { Text(stringResource(R.string.CD_race_profit)) },
+                    supportingText = { Text(cardWithMoreDetails.moreDetails.raceProfit.toString()) }
                 )
                 Divider()
-
-//                Text("Cena: ")
-//                Text("Stáj: ") // todo extract string
-//                Text("Počet dostihů: ") // todo extract string
-//                Text("Cena za další dostih: ") // todo extract string
-//            }
-//            Column() {
-//                Text("1000") //
-//                Text("hneda")
-//                Text("0")
-//                Text("200")
             }
         }
 
@@ -151,18 +141,21 @@ fun CardDetailScreenContent(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(onClick = { viewModel.buyRace() }) {
-                Text("Koupit dostih") // todo extract string
+                Text(stringResource(R.string.CD_buy_race))
             }
             Button(onClick = { /*TODO sell card */ }) {
-                Text("Prodat kartu") // todo extract string
+                Text(stringResource(R.string.CD_sell_card))
             }
-            Button(onClick = {
-                navigation.navigateToMapScreen(
-                    cardWithMoreDetails.moreDetails.latitude!!,
-                    cardWithMoreDetails.moreDetails.longitude!!
-                )
-            }) {
-                Text("Zobrazit v mapě") // todo extract string
+            Button(
+                onClick = {
+                    navigation.navigateToMapScreen(
+                        cardWithMoreDetails.moreDetails.latitude!!,
+                        cardWithMoreDetails.moreDetails.longitude!!
+                    )
+                },
+                enabled = cardWithMoreDetails.moreDetails.latitude != null && cardWithMoreDetails.moreDetails.longitude != null
+            ) {
+                Text(stringResource(R.string.CD_show_in_map))
             }
         }
     }

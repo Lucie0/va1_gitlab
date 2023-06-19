@@ -12,11 +12,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.maps.android.compose.*
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 
@@ -28,7 +30,7 @@ fun MapScreen(
 ) {
 
     BackArrowScreen(
-        appBarTitle = "Detail stáje v mapě",
+        appBarTitle = stringResource(R.string.Map_stable_detail),
         onBackClick = { navigation.navigateBack() },
         drawFullScreenContent = true
     ) {

@@ -33,9 +33,9 @@ data class Card(
     @ColumnInfo(name = "id_card")
     var id: Long? = null
 
-    //    vlastnik
-    @ColumnInfo(name = "owner")
-    var ownerNumber: Int? = null
+//    //    vlastnik
+//    @ColumnInfo(name = "owner")
+//    var ownerNumber: Int? = null
 
     // image resource
     @ColumnInfo(name = "image")
