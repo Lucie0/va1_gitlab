@@ -58,6 +58,10 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.deleteSavedGame(item)
     }
 
+    override suspend fun deleteNullSavedGame() {
+        return dao.deleteNullSavedGame()
+    }
+
     override suspend fun getSavedGameById(id: Long): SavedGame {
         return dao.getSavedGameById(id)
     }
@@ -66,8 +70,24 @@ class RacesBetsRepositoryImpl(private val dao: RacesBetsDao) : IRacesBetsReposit
         return dao.insertSavedGameToCard(item)
     }
 
-    override suspend fun updateSavedGameToCard(item: SavedGameToCard) {
-        return dao.updateSavedGameToCard(item)
+//    override suspend fun updateSavedGameToCard(item: SavedGameToCard) {
+//        return dao.updateSavedGameToCard(item)
+//    }
+//    override suspend fun updateSavedGameToCard(newSavedGameId: Long, cardId: Long, playerId: Long) {
+    override suspend fun updateSavedGameToCard(newSavedGameId: Long) {
+        return dao.updateSavedGameToCard(newSavedGameId)//, cardId, playerId)
+    }
+
+    override suspend fun getSavedGameToCardByCardIdAndNullSGId(cardId: Long): SavedGameToCard? {
+        return dao.getSavedGameToCardByCardIdAndNullSGId(cardId)
+    }
+
+    override suspend fun getSavedGameToCardByCardIdAndSGId(cardId: Long,savedGameId: Long): SavedGameToCard? {
+        return dao.getSavedGameToCardByCardIdAndSGId(cardId, savedGameId)
+    }
+
+    override fun getSavedGameToCardByNullSGId(): Flow<List<SavedGameToCard>?> {
+        return dao.getSavedGameToCardByNullSGId()
     }
 
     override fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> {

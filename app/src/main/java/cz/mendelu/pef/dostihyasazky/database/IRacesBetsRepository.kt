@@ -26,11 +26,20 @@ interface IRacesBetsRepository {
     suspend fun updateSavedGame(item: SavedGame)
     suspend fun deleteSavedGame(item: SavedGame)
 
+    suspend fun deleteNullSavedGame()
+
     suspend fun getSavedGameById(id: Long): SavedGame
 
     // --------------------------
     suspend fun insertSavedGameToCard(item: SavedGameToCard): Long
-    suspend fun updateSavedGameToCard(item: SavedGameToCard)
+
+    //    suspend fun updateSavedGameToCard(item: SavedGameToCard)
+//    suspend fun updateSavedGameToCard(newSavedGameId: Long, cardId: Long, playerId: Long)
+    suspend fun updateSavedGameToCard(newSavedGameId: Long)
+
+    suspend fun getSavedGameToCardByCardIdAndNullSGId(cardId: Long): SavedGameToCard?
+    suspend fun getSavedGameToCardByCardIdAndSGId(cardId: Long, savedGameId: Long): SavedGameToCard?
+    fun getSavedGameToCardByNullSGId(): Flow<List<SavedGameToCard>?>
 
     fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(gameId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
     fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerId(ownerId: Long): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>

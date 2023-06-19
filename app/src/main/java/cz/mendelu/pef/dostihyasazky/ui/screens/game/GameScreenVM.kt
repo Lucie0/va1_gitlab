@@ -11,6 +11,8 @@ import cz.mendelu.pef.dostihyasazky.model.*
 import cz.mendelu.pef.dostihyasazky.ui.elements.MyBox
 import cz.mendelu.pef.dostihyasazky.ui.screens.saved_game_detail.SavedGameDetailUIState
 import cz.mendelu.pef.dostihyasazky.ui.utils.DateUtils
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.*
@@ -41,8 +43,8 @@ class GameScreenVM(
     var firstRun: Boolean = false
 
     fun rollTheDice() {
-//        todo diceNumber = (Math.random() * 6).toInt() + 1
-        diceNumber = 1
+        diceNumber = (Math.random() * 6).toInt() + 1
+//        diceNumber = 1
         actualField += diceNumber
         if (actualField > 40) {
             actualField -= 40
@@ -91,7 +93,7 @@ class GameScreenVM(
                 dataPlayers[2] = repository.getPlayerByIdAndGameId(3, loadGameId!!)
 //                println(":)" + dataPlayers[2])
 
-                actualField = dataPlayers[0].field!!
+                actualField = dataPlayers[0].field
 
                 dataSavedGame = repository.getSavedGameById(loadGameId!!)
                 playerOnTurn = dataSavedGame.playerOnTurnId
@@ -114,7 +116,7 @@ class GameScreenVM(
     fun loadCard() {
         launch {
             actualCardWithDetails.card = repository.getCardById(actualField)
-            println(actualCardWithDetails.card)
+//            println(actualCardWithDetails.card)
             uiState.value = GameScreenUIState.CardLoaded
         }
     }
@@ -134,8 +136,23 @@ class GameScreenVM(
         if (loadGameId == null) {
             launch {
                 val idSavedGame = repository.insertSavedGame(dataSavedGame)
+                println(":)" + idSavedGame)
                 dataSavedGameToCard.savedGameId = idSavedGame
-                repository.updateSavedGameToCard(dataSavedGameToCard)
+                repository.updateSavedGameToCard(
+                    idSavedGame,
+//                    dataSavedGameToCard.cardId,
+//                    dataSavedGameToCard.playerId!!
+                )
+//                repository.insertSavedGameToCard(dataSavedGameToCard)
+                println(":)" + dataSavedGameToCard)
+
+//                repository.getSavedGameToCardByNullSGId()
+//                    .collect { list ->
+//                        list?.forEach {
+//                            it.savedGameId = idSavedGame
+//                            repository.updateSavedGameToCard(idSavedGame, it.cardId, it.playerId!!)
+//                        }
+//                    }
 
                 dataPlayers[0].gameId = idSavedGame
                 dataPlayers[1].gameId = idSavedGame
@@ -145,11 +162,24 @@ class GameScreenVM(
                 repository.insertPlayer(dataPlayers[1])
                 repository.insertPlayer(dataPlayers[2])
 
+//                repository.getSavedGameToCardByNullSGId()
+//                    .collect { list ->
+//                        list?.forEach {
+//                            it.savedGameId = idSavedGame
+                            repository.updateSavedGameToCard(idSavedGame)//, it.cardId, it.playerId!!)
+//                        }
+//                    }
+
                 uiState.value = GameScreenUIState.Saved
             }
         } else {
             launch {
                 repository.updateSavedGame(dataSavedGame)
+                repository.updateSavedGameToCard(
+                    loadGameId!!,
+//                    dataSavedGameToCard.cardId,
+//                    dataSavedGameToCard.playerId!!
+                )
                 repository.updatePlayer(dataPlayers[0])
                 repository.updatePlayer(dataPlayers[1])
                 repository.updatePlayer(dataPlayers[2])
@@ -182,6 +212,33 @@ class GameScreenVM(
 
     fun getAccountOfActualPlayer(): Long? {
         return dataPlayers[(playerOnTurn - 1).toInt()].account
+    }
+
+    fun buyCard() {
+        dataSavedGameToCard.savedGameId = loadGameId
+        dataSavedGameToCard.cardId = actualCardWithDetails.card.id!!
+        dataSavedGameToCard.playerId = playerOnTurn
+        dataSavedGameToCard.moreDetailsId = actualCardWithDetails.card.moreDetailsID!!
+
+        launch {
+            val fetched: SavedGameToCard?
+            if (loadGameId == null) {
+                fetched = repository.getSavedGameToCardByCardIdAndNullSGId(
+                    dataSavedGameToCard.cardId
+                )
+            } else {
+                fetched = repository.getSavedGameToCardByCardIdAndSGId(
+                    dataSavedGameToCard.cardId,
+                    loadGameId ?: 0
+                )
+            }
+            if (fetched == null) {
+                repository.insertSavedGameToCard(dataSavedGameToCard)
+                uiState.value = GameScreenUIState.CardBought
+            } else {
+                uiState.value = GameScreenUIState.CardCannotBeBought
+            }
+        }
     }
 
 }

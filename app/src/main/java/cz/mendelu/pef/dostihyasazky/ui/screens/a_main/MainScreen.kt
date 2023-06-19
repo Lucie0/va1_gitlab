@@ -43,7 +43,8 @@ fun MainScreen(
         }) {
         MainScreenContent(
             paddingValues = it,
-            navigation = navigation
+            navigation = navigation,
+            viewModel = viewModel
         )
     }
 }
@@ -51,7 +52,8 @@ fun MainScreen(
 @Composable
 fun MainScreenContent(
     paddingValues: PaddingValues,
-    navigation: INavigationRouter
+    navigation: INavigationRouter,
+    viewModel: MainScreenVM
 ) {
 
     Column(
@@ -71,7 +73,9 @@ fun MainScreenContent(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = { navigation.navigateToGameScreen(-1L) }) {
+            Button(onClick = {
+                viewModel.deleteNullSavedGameFromDB()
+                navigation.navigateToGameScreen(-1L) }) {
                 Text(stringResource(R.string.M_new_game))
             }
 

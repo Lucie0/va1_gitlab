@@ -3,6 +3,7 @@
     <string name="CD_buy_race">Buy race</string>
     <string name="CD_sell_card">Sell card</string>
     <string name="CD_show_in_map">Show in map</string>
+    <string name="CD_name">Name</string>
     <string name="CD_race_profit">Race profit</string>
     <string name="CD_race_cost">Cost for the next race</string>
     <string name="CD_race_count">Race count</string>
@@ -10,6 +11,8 @@
     <string name="CD_historical_cost">Historical cost</string>
     <string name="Toast_race_bought">Race bought</string>
     <string name="Toast_max_races_cannot_buy_race">Cannot buy another race, maximum 5 reached</string>
+    <string name="Toast_card_bought">Card bought</string>
+    <string name="Toast_card_cannot_be_bought">Card already bought</string>
     <string name="M_new_game">New game</string>
     <string name="M_load_game">Load the playthrough</string>
     <string name="M_info">Info</string>

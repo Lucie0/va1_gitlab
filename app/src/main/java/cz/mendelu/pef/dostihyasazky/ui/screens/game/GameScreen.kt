@@ -88,6 +88,23 @@ fun GameScreen(
                 dataCardWithDetails = viewModel.actualCardWithDetails
                 viewModel.uiState.value = GameScreenUIState.Default
             }
+            GameScreenUIState.CardBought -> {
+                dataCardWithDetails = viewModel.actualCardWithDetails
+                Toast.makeText(
+                    LocalContext.current,
+                    stringResource(R.string.Toast_card_bought),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.uiState.value = GameScreenUIState.Default
+            }
+
+            GameScreenUIState.CardCannotBeBought -> {
+                Toast.makeText(
+                    LocalContext.current,
+                    stringResource(R.string.Toast_card_cannot_be_bought),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -193,8 +210,8 @@ fun GameScreenContent(
 
         Text(stringResource(R.string.G_player_account) + viewModel.getAccountOfActualPlayer())
 
-        if(viewModel.actualCardWithDetails.card.cardTypeID == 1 && viewModel.playing){
-            OutlinedButton(onClick = { /*TODO vm.buyCard*/ }) {
+        if(viewModel.actualCardWithDetails.card.cardTypeID == 1L && viewModel.playing){
+            OutlinedButton(onClick = { viewModel.buyCard() }) {
                 Text(stringResource(R.string.G_buy_card))
             }
         }

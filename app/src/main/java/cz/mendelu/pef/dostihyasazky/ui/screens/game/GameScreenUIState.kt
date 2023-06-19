@@ -9,4 +9,6 @@ sealed class GameScreenUIState {
 //    object PlayerSaved: GameScreenUIState()
     object Initialized: GameScreenUIState()
     object CardLoaded: GameScreenUIState()
+    object CardBought: GameScreenUIState()
+    object CardCannotBeBought: GameScreenUIState()
 }

@@ -15,7 +15,7 @@ class MyCardsVM(private val repository: IRacesBetsRepository) : BaseViewModel() 
 
     fun loadMyCards() {
         launch {
-            if (loadedGameId != -1L && loadedGameId != -1L) {
+            if (loadedGameId != -1L) {
                 repository.getSavedGameToCardWithSavedGameWithCardWMoreDetailsByOwnerAndGameId(
                     playerId,
                     loadedGameId

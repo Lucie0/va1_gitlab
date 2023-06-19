@@ -57,4 +57,10 @@ class MainScreenVM(private val repository: IRacesBetsRepository) : BaseViewModel
         }
     }
 
+    fun deleteNullSavedGameFromDB(){
+        launch {
+            repository.deleteNullSavedGame()
+        }
+    }
+
 }

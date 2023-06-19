@@ -64,7 +64,7 @@ fun CardDetailScreen(
     }
 
     BackArrowScreen(
-        appBarTitle = "Jmeno:" + data.card.name, // todo jmeno -- PETR -- proc se mi neprokresluje hned, ale musim pockat na nejaky referesh?
+        appBarTitle = stringResource(id = R.string.G_my_cards), // todo jmeno -- PETR -- proc se mi neprokresluje hned, ale musim pockat na nejaky referesh?
         onBackClick = { navigation.navigateBack() }
     ) {
         CardDetailScreenContent(
@@ -102,7 +102,7 @@ fun CardDetailScreenContent(
 ) {
     Column(modifier = Modifier.padding(horizontal = 16.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.shagya1),
+            painter = painterResource(id = R.drawable.appaloosa_hneda8),
             contentDescription = null
         )
 
@@ -110,6 +110,11 @@ fun CardDetailScreenContent(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
+                Divider()
+                ListItem(
+                    headlineText = { Text(stringResource(R.string.CD_name)) },
+                    supportingText = { Text(cardWithMoreDetails.card.name) }
+                )
                 Divider()
                 ListItem(
                     headlineText = { Text(stringResource(R.string.CD_historical_cost)) },

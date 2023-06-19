@@ -20,13 +20,13 @@ data class Card(
 
 //    typ platby
     @ColumnInfo(name = "payment_type_id")
-    var paymentTypeID: Int,
+    var paymentTypeID: Long,
 
     @ColumnInfo(name = "card_type_id")
-    var cardTypeID: Int,
+    var cardTypeID: Long,
 
     @ColumnInfo(name = "more_details_id")
-    var moreDetailsID: Int? = null,
+    var moreDetailsID: Long? = null,
 
 ) {
     @PrimaryKey(autoGenerate = true)

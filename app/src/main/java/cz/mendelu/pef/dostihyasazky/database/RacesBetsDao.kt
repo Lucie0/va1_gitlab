@@ -56,14 +56,31 @@ interface RacesBetsDao {
     @Insert
     suspend fun insertSavedGameToCard(item: SavedGameToCard): Long
 
-    @Update
-    suspend fun updateSavedGameToCard(item: SavedGameToCard)
+//    //    @Update
+//    @Query("UPDATE saved_game_to_card SET saved_game_id = :newSavedGameId WHERE saved_game_id IS NULL AND card_id = :cardId AND player_id = :playerId")
+//    suspend fun updateSavedGameToCard(newSavedGameId: Long, cardId: Long, playerId: Long)
+//    //item: SavedGameToCard)
+
+    @Query("UPDATE saved_game_to_card SET saved_game_id = :newSavedGameId WHERE saved_game_id IS NULL")
+    suspend fun updateSavedGameToCard(newSavedGameId: Long)
+
+    @Query("DELETE FROM saved_game_to_card WHERE saved_game_id IS NULL")
+    suspend fun deleteNullSavedGame()
+
+    @Query("SELECT * FROM saved_game_to_card WHERE card_id = :cardId AND saved_game_id IS NULL")
+    suspend fun getSavedGameToCardByCardIdAndNullSGId(cardId: Long): SavedGameToCard?
+
+    @Query("SELECT * FROM saved_game_to_card WHERE card_id = :cardId AND saved_game_id = :savedGameId")
+    suspend fun getSavedGameToCardByCardIdAndSGId(cardId: Long,savedGameId: Long): SavedGameToCard?
+
+    @Query("SELECT * FROM saved_game_to_card WHERE saved_game_id IS NULL")
+    fun getSavedGameToCardByNullSGId(): Flow<List<SavedGameToCard>?>
 
     @Transaction
     @Query("SELECT * FROM saved_game_to_card WHERE saved_game_id = :gameId")
     fun getSavedGameToCardWithSavedGameWithCardWMoreDetailsByGameId(
         gameId: Long
-    ): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?> //
+    ): Flow<List<SavedGameToCardWithSavedGameWithCardWMoreDetails>?>
 
     @Transaction
     @Query("SELECT * FROM saved_game_to_card WHERE player_id = :ownerId")

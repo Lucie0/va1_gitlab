@@ -85,7 +85,7 @@ fun MyCardsScreen(
     }
 
     BackArrowScreen(
-        appBarTitle = stringResource(R.string.MC_app_bar),// todo extract string
+        appBarTitle = stringResource(R.string.MC_app_bar),
         onBackClick = { navigation.navigateBack() },
         drawFullScreenContent = true
     )
