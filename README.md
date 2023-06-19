@@ -2,20 +2,19 @@
 
 
 ## Feature Graphics
-![](../dostihy_img/feature_graphics.png)
+![](screenshots/feature_graphics.png)
 
 ## Short Description
 Zahrajte si oblíbenou hru Dostihy a sázky! Kupujte perspektivní koně, sázejte a vyhrávejte!
 
-## Screenshots 
-![](../dostihy_img/screenshots/Screenshot_20230619_165049_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165104_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165119_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165127_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165135_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165200_Races&Bets.jpg)
-![](../dostihy_img/screenshots/Screenshot_20230619_165208_Races&Bets.jpg)
-
+## Screenshots
+![](screenshots/Screenshot_20230619_165049_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165104_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165119_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165127_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165135_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165200_Races&Bets.jpg)
+![](screenshots/Screenshot_20230619_165208_Races&Bets.jpg)
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
