@@ -8,7 +8,8 @@
 Zahrajte si oblíbenou hru Dostihy a sázky! Kupujte perspektivní koně, sázejte a vyhrávejte!
 
 ## Screenshots
-![](screenshots/Screenshot_20230619_165049_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165104_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165119_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165127_Races&Bets.jpg)
+<img src=screenshots/Screenshot_20230619_165049_Races&Bets.jpg width="60%" height="30%">
+![](screenshots/Screenshot_20230619_165104_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165119_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165127_Races&Bets.jpg)
 ![](screenshots/Screenshot_20230619_165135_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165200_Races&Bets.jpg)![](screenshots/Screenshot_20230619_165208_Races&Bets.jpg)
 
 ## Getting started
