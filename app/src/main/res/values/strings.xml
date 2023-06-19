@@ -46,4 +46,6 @@
     <string name="I_app_bar">Info</string>
     <string name="I_version">Version</string>
     <string name="I_rules">Rules of the game</string>
+    <string name="SGD_deleted">Deleted</string>
+    <string name="SGD_delete_game">Delete game</string>
 </resources>

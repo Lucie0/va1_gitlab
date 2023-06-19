@@ -47,4 +47,6 @@
     <string name="I_app_bar">Info</string>
     <string name="I_version">Verze</string>
     <string name="I_rules">Pravidla hry</string>
+    <string name="SGD_deleted">Smazáno</string>
+    <string name="SGD_delete_game">Smazat hru</string>
 </resources>

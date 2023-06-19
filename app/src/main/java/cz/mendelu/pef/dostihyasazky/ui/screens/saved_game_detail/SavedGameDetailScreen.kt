@@ -42,7 +42,7 @@ fun SavedGameDetailScreen(
             SavedGameDetailUIState.Saved -> {
                 Toast.makeText(
                     LocalContext.current,
-                    "Uloženo", // todo extract string
+                    stringResource(id = R.string.Toast_saved),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -53,7 +53,7 @@ fun SavedGameDetailScreen(
             SavedGameDetailUIState.Deleted -> {
                 Toast.makeText(
                     LocalContext.current,
-                    "Smazáno", // todo extract string
+                    stringResource(R.string.SGD_deleted),
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -68,7 +68,7 @@ fun SavedGameDetailScreen(
         onBackClick = { navigation.navigateBack() },
         actions = {
             PlainTooltipBox(
-                tooltip = { Text("Smazat hru") }, // todo extract string,
+                tooltip = { Text(stringResource(R.string.SGD_delete_game)) },
             ) {
                 IconButton(onClick = {
                     viewModel.deleteGame()

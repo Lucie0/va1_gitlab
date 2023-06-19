@@ -15,7 +15,7 @@ import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 fun RulesScreen(navigation: INavigationRouter) {
 
     BackArrowScreen(
-        appBarTitle = stringResource(R.string.R_app_bar), // todo extract string
+        appBarTitle = stringResource(R.string.R_app_bar),
         onBackClick = { navigation.navigateBack() }
     ) {
         RulesScreenContent()
