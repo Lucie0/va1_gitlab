@@ -107,13 +107,13 @@ fun NavGraph(
             )
         ) {
             val parametersString = it.arguments?.getString("parameters")
-            println(":) " + parametersString)
+//            println(":) " + parametersString)
             if (!parametersString.isNullOrEmpty()) {
                 val moshi: Moshi = Moshi.Builder().build()
                 val jsonAdapter: JsonAdapter<ParametersForMyCards> =
                     moshi.adapter(ParametersForMyCards::class.java)
                 val parameters = jsonAdapter.fromJson(parametersString)
-                println(":)" + parameters + parameters!!.playerId + parameters!!.gameId)
+//                println(":)" + parameters + parameters!!.playerId + parameters!!.gameId)
 
                 MyCardsScreen(
                     navigation = navigation,
@@ -125,31 +125,31 @@ fun NavGraph(
             }
         }
 
-//        composable(Destination.MapScreen.route + "/{location}",
-//            arguments = listOf(
-//                navArgument("location") {
-//                    type = NavType.StringType
-//                    defaultValue = ""
-//                }
-//            )
-//        ) {
-//
-//            val locationString = it.arguments?.getString("location")
-//            if (!locationString.isNullOrEmpty()) {
-//                val moshi: Moshi = Moshi.Builder().build()
-//                val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
-//
-//                val location = jsonAdapter.fromJson(locationString)
-//
-//                MapScreen(
-//                    navigation = navigation,
-//                    latitude = location!!.latitude,
-//                    longitude = location.longitude
-//                )
-//            } else {
-//                println(":) ERROR PRAZDNY JSON !!!!!!")
-//            }
-//        }
+        composable(Destination.MapScreen.route + "/{location}",
+            arguments = listOf(
+                navArgument("location") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) {
+
+            val locationString = it.arguments?.getString("location")
+            if (!locationString.isNullOrEmpty()) {
+                val moshi: Moshi = Moshi.Builder().build()
+                val jsonAdapter: JsonAdapter<Location> = moshi.adapter(Location::class.java)
+
+                val location = jsonAdapter.fromJson(locationString)
+
+                MapScreen(
+                    navigation = navigation,
+                    latitude = location!!.latitude,
+                    longitude = location.longitude
+                )
+            } else {
+                println(":) ERROR PRAZDNY JSON !!!!!!")
+            }
+        }
     }
 }
 

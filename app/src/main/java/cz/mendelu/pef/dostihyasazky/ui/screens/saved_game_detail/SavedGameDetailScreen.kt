@@ -8,7 +8,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
@@ -62,7 +64,7 @@ fun SavedGameDetailScreen(
         }
     }
     BackArrowScreen(
-        appBarTitle = "Detail uložené hry",
+        appBarTitle = stringResource(R.string.SGD_app_bar),
         onBackClick = { navigation.navigateBack() },
         actions = {
             PlainTooltipBox(
@@ -102,14 +104,14 @@ fun SavedGameDetailScreenContent(
     ) {
 
         MyTextField(
-            label = "Název",
+            label = stringResource(R.string.SGD_name),
             value = savedGame.name ?: "",
             enabled = true,
             onValueChange = {
                 viewModel.onNameChange(it)
             })
         MyTextField(
-            label = "Poznámky",
+            label = stringResource(R.string.SGD_notes),
             value = savedGame.notes ?: "",
             enabled = true,
             onValueChange = {
@@ -117,12 +119,12 @@ fun SavedGameDetailScreenContent(
             })
 
         MyTextField(
-            label = "Datum",
+            label = stringResource(R.string.SGD_date),
             value = savedGame.date,
             enabled = false,
             onValueChange = {})
         MyTextField(
-            label = "Hráč na řadě",
+            label = stringResource(R.string.SGD_player_on_turn),
             value = savedGame.playerOnTurnId.toString(),
             enabled = false,
             onValueChange = {}
@@ -130,14 +132,14 @@ fun SavedGameDetailScreenContent(
 
         Row(horizontalArrangement = Arrangement.SpaceBetween) {
             OutlinedButton(onClick = { viewModel.updateGame() }) {
-                Text(text = "Uložit změny")
+                Text(text = stringResource(R.string.SGD_save_changes))
             }
             Spacer(Modifier.requiredWidth(32.dp))
             OutlinedButton(onClick = {
 //                println(":)" + savedGame.id)
                 navigation.navigateToGameScreen(savedGame.id)
             }) {
-                Text(text = "Načíst hru")
+                Text(text = stringResource(R.string.SGD_load_game))
             }
         }
 

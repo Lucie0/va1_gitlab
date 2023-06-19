@@ -29,4 +29,18 @@
     <string name="G_player_account">Account:</string>
     <string name="Map_stable_detail">Detail of stable in map</string>
     <string name="MC_app_bar">My cards</string>
+    <string name="SG_app_bar">List of saved games</string>
+    <string name="SG_player_on_turn">Player on turn:</string>
+    <string name="SGD_app_bar">Saved game\'s detail</string>
+    <string name="SGD_name">Name</string>
+    <string name="SGD_notes">Notes</string>
+    <string name="SGD_date">Date</string>
+    <string name="SGD_player_on_turn">Player on turn</string>
+    <string name="SGD_save_changes">Save changes</string>
+    <string name="SGD_load_game">Load the game</string>
+    <string name="R_rules">The goal of the game is to get the most complete stables and place your horses in as many races as possible, including the main race of the season. \n At the beginning of the game, each player has an initial deposit of 30,000 racing crowns (DK). The player whose turn it is rolls the dice and moves his piece forward the given number of spaces. If the number 6 is rolled, the player rolls one more time. The rolls are added together and the piece advances by the sum of both rolls. After making a move, the player takes the action that results from the space on which they ended their move. If the number 6 is rolled twice in a row, the player moves to the Distance space and does not participate in the race for 2 rounds.</string>
+    <string name="R_app_bar">Rules of the game</string>
+    <string name="I_app_bar">Info</string>
+    <string name="I_version">Version</string>
+    <string name="I_rules">Rules of the game</string>
 </resources>

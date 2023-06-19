@@ -7,7 +7,9 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import cz.mendelu.pef.dostihyasazky.BuildConfig
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
 
@@ -17,7 +19,7 @@ fun SettingsScreen(
 ) {
 
     BackArrowScreen(
-        appBarTitle = "Info",
+        appBarTitle = stringResource(R.string.I_app_bar),
         onBackClick = { navigation.navigateBack() }
     ) {
         SettingsScreenContent(
@@ -34,13 +36,13 @@ fun SettingsScreenContent(
     navigation: INavigationRouter
 ) {
     ListItem(
-        headlineText = {Text("Verze")},
+        headlineText = {Text(stringResource(R.string.I_version))},
         supportingText = { Text(text = BuildConfig.VERSION_NAME )}
     )
     Divider()
 
     ListItem(
-        headlineText = {Text("Pravidla hry")},
+        headlineText = {Text(stringResource(R.string.I_rules))},
         modifier = Modifier.clickable{ navigation.navigateToRulesScreen()}
     )
 

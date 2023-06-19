@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import cz.mendelu.pef.dostihyasazky.R
 import cz.mendelu.pef.dostihyasazky.model.SavedGame
 import cz.mendelu.pef.dostihyasazky.navigation.INavigationRouter
 import cz.mendelu.pef.dostihyasazky.ui.elements.BackArrowScreen
@@ -41,7 +43,7 @@ fun SavedGamesListScreen(
     }
 
     BackArrowScreen(
-        appBarTitle = "Seznam uložených her", // todo extract string
+        appBarTitle = stringResource(R.string.SG_app_bar),
         onBackClick = { navigation.navigateBack() }
     ) {
         SavedGameListScreenContent(
@@ -73,7 +75,7 @@ fun SavedGameListScreenContent(
                     overlineText = { it.name?.let { it1 -> Text(it1) } },
                     headlineText = { Text(it.date) },
                     supportingText = {
-                        Text("Hráč na řadě: " + it.playerOnTurnId.toString())
+                        Text(stringResource(R.string.SG_player_on_turn) + it.playerOnTurnId.toString())
                     }
                 )
                 Divider()
